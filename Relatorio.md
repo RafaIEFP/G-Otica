@@ -61,13 +61,13 @@ Esta seção apresenta a modelagem do domínio da aplicação,
 incluindo o Diagrama Entidade-Relacionamento (DER) e a documentação das entidades identificadas durante a análise do negócio.
 
 #### Diagrama completo:
-- ![G-Otica](./docs/DER/G-Otica.svg)
+- [G-Otica](./docs/DER/G-Otica.svg)
 
 #### Diagramas separados por contexto:
-- ![Gestores](./docs/DER/G-Otica%20(Gestores).svg)
-- ![Compras e Estoque](./docs/DER/G-Otica%20(Compras%20e%20Estoque).svg)
-- ![Catálogo e Produtos](./docs/DER/G-Otica%20(Catálogo%20e%20Produtos).svg)
-- ![Vendas](./docs/DER/G-Otica%20(Vendas).svg)
+- [Gestores](./docs/DER/G-Otica%20(Gestores).png)
+- [Compras e Estoque](./docs/DER/G-Otica%20(Compras%20e%20Estoque).png)
+- [Catálogo e Produtos](./docs/DER/G-Otica%20(Catálogo%20e%20Produtos).png)
+- [Vendas](./docs/DER/G-Otica%20(Vendas).png)
 
 ### Dominio
 Sobre:
