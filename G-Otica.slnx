@@ -1,6 +1,11 @@
 <Solution>
   <Folder Name="/src/" />
-  <Folder Name="/src/Backend/" />
+  <Folder Name="/src/Backend/">
+    <Project Path="src/Backend/GOtica.API/GOtica.API.csproj" Id="a83fa624-51f7-47f3-a6ff-bc3276eee0a3" />
+    <Project Path="src/Backend/GOtica.Application/GOtica.Application.csproj" Id="2d520c7c-d0bd-447d-a35e-0ff249d7d6dc" />
+    <Project Path="src/Backend/GOtica.Domain/GOtica.Domain.csproj" Id="4c30e103-2d66-45db-b728-95458e58ee4d" />
+    <Project Path="src/Backend/GOtica.Infrastructure/GOtica.Infrastructure.csproj" Id="6fada503-a48f-4278-b6bc-ca7e07515566" />
+  </Folder>
   <Folder Name="/src/Frontend/" />
   <Folder Name="/src/Shared/">
     <Project Path="src/Shared/GOtica.Communication/GOtica.Communication.csproj" />
