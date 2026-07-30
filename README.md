@@ -48,11 +48,6 @@ Todas as ferramentas terão compatibilidade com o a versão da **Stack**
 ##### Documentação da API
 - Scalar 
 
-##### Autenticação
-- AspNetCore.Identity
-
-Será criado um serviço externo para a autenticação utilizando o mecanismo do Identity, onde seus endpoints serão consumidos
-
 ---
 
 ## Análise de dados
