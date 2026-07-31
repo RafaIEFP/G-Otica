@@ -1,59 +1,64 @@
+# Separação entre Domínio e Infraestrutura
+
 ## Contexto
-Durante a modelagem do sistema surgiu a necessidade de definir como representar os utilizadores da aplicação.
 
-O ASP.NET Core Identity disponibiliza a entidade `IdentityUser`, responsável pelas informações relacionadas à autenticação.
+Durante a definição da arquitetura surgiu a necessidade de estabelecer quais responsabilidades pertencem ao domínio da aplicação e quais devem permanecer como detalhes de infraestrutura.
 
-Entretanto, essas informações não fazem parte do domínio da ótica.
+A autenticação foi um dos principais pontos dessa discussão.
 
 ---
 
 ## Problema
-Permitir que o domínio permaneça independente da tecnologia utilizada para autenticação.
+
+Evitar que conceitos técnicos contaminem o domínio da aplicação.
+
+O domínio deve representar exclusivamente regras de negócio, enquanto mecanismos técnicos devem permanecer isolados na infraestrutura.
 
 ---
 
 ## Decisão
-Foi adotada a seguinte abordagem:
 
-Utilizar:
-```
-ApplicationUser : IdentityUser
-```
+Foi adotada a seguinte divisão de responsabilidades:
 
-apenas na camada Infrastructure.
+### Domain
 
-Criar uma entidade própria:
-```
-Utilizador
-```
+Responsável pelos conceitos do negócio.
 
-na camada Domain.
+Exemplos:
 
-O domínio representa exclusivamente conceitos do negócio.
+- Utilizador
+- Cliente
+- Produto
+- Venda
+- Compra
 
-A autenticação é tratada como um detalhe de infraestrutura.
+---
+
+### Infrastructure
+
+Responsável pelos detalhes técnicos.
+
+Exemplos:
+
+- Persistência
+- Hash de senhas
+- Geração de JWT
+- Refresh Tokens
+- Criptografia
+
+O domínio não possui conhecimento sobre como a autenticação é implementada.
 
 ---
 
 ## Benefícios
-- Domínio desacoplado do Identity.
-- Melhor aderência à Clean Architecture.
-- Facilidade para substituir a autenticação futuramente.
-- Maior clareza entre negócio e infraestrutura.
 
----
-
-## Consequências
-Durante o cadastro de um utilizador será necessário criar:
-
-- ApplicationUser
-- Utilizador
-
-Ambos compartilharão o mesmo identificador lógico.
-
-Essa pequena complexidade adicional foi considerada aceitável diante dos benefícios obtidos.
+- Domínio independente de tecnologias específicas.
+- Menor acoplamento entre regras de negócio e infraestrutura.
+- Facilidade para evoluir ou substituir a estratégia de autenticação.
+- Melhor aderência à arquitetura em camadas adotada pelo projeto.
 
 ---
 
 ## Conclusão
-O domínio permanece independente de qualquer tecnologia de autenticação, preservando sua responsabilidade exclusivamente voltada às regras de negócio.
+
+A autenticação passa a ser tratada como um serviço de infraestrutura, enquanto o domínio permanece responsável apenas pela representação e pelas regras de negócio dos utilizadores.
