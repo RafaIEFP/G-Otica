@@ -4,10 +4,20 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>30621149-1f60-4f6a-bf70-43b54ab25923</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.10" />
+    <PackageReference Include="Microsoft.OpenApi" Version="2.11.0" />
+    <PackageReference Include="Scalar.AspNetCore" Version="2.16.16" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\GOtica.Communication\GOtica.Communication.csproj" />
+    <ProjectReference Include="..\..\Shared\GOtica.Exceptions\GOtica.Exceptions.csproj" />
+    <ProjectReference Include="..\GOtica.Application\GOtica.Application.csproj" />
+    <ProjectReference Include="..\GOtica.Infrastructure\GOtica.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\GOtica.Communication\GOtica.Communication.csproj" />
+    <ProjectReference Include="..\..\Shared\GOtica.Exceptions\GOtica.Exceptions.csproj" />
+    <ProjectReference Include="..\GOtica.Domain\GOtica.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
