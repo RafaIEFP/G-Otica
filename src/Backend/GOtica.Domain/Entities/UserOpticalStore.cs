@@ -2,7 +2,7 @@
 
 public class UserOpticalStore
 {
-    public DateOnly EntranceDate { get; set; } = DateOnly.FromDateTime(DateTime.UtcNow);
+    public DateOnly EntranceDate { get; set; }
     public string Role { get; set; } = string.Empty;
     public bool IsActive { get; set; }
 
