@@ -2,13 +2,13 @@
 
 namespace GOtica.Infrastructure.Migrations.Versions;
 
-[Migration(1, "Create initial user and optical store schema")]
+[Migration(DatabaseVersions.TABLE_USER_DOMAIN, "Create initial user and optical store schema")]
 public class Version00001 : ForwardOnlyMigration
 {
     public override void Up()
     {
         Create.Table("Users")
-            .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
+            .WithColumn("Id").AsInt64().PrimaryKey().Identity().NotNullable()
             .WithColumn("Name").AsString(255).NotNullable()
             .WithColumn("Email").AsString(255).NotNullable().Unique()
             .WithColumn("Password").AsString(2000).NotNullable()
@@ -17,7 +17,7 @@ public class Version00001 : ForwardOnlyMigration
             .WithColumn("UpdatedAt").AsDateTime().Nullable();
 
         Create.Table("OpticalStores")
-            .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
+            .WithColumn("Id").AsInt64().PrimaryKey().Identity().NotNullable()
             .WithColumn("Name").AsString(255).NotNullable()
             .WithColumn("Email").AsString(255).NotNullable()
             .WithColumn("PhoneNumber").AsString(20).NotNullable()
@@ -28,8 +28,8 @@ public class Version00001 : ForwardOnlyMigration
         // Create the UserOpticalStores table with a composite primary key
 
         Create.Table("UserOpticalStores")
-            .WithColumn("UserId").AsInt32().NotNullable()
-            .WithColumn("OpticalStoreId").AsInt32().NotNullable()
+            .WithColumn("UserId").AsInt64().NotNullable()
+            .WithColumn("OpticalStoreId").AsInt64().NotNullable()
             .WithColumn("EntranceDate").AsDate().NotNullable()
             .WithColumn("Role").AsString(100).NotNullable()
             .WithColumn("IsActive").AsBoolean().NotNullable().WithDefaultValue(true);
