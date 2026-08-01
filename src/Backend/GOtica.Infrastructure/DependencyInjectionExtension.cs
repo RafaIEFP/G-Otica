@@ -1,6 +1,8 @@
 ﻿using FluentMigrator.Runner;
+using GOtica.Domain.Security.Cryptography;
 using GOtica.Infrastructure.DataAccess;
 using GOtica.Infrastructure.Extensions;
+using GOtica.Infrastructure.Security.Cryptography;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +18,7 @@ public static class DependencyInjectionExtension
         {
             AddGOticaDbContext(services, configuration);
             AddFluentMigrator(services, configuration);
+            AddPasswordEncyptor(services);
         }
     }
 
@@ -42,4 +45,6 @@ public static class DependencyInjectionExtension
                 .For.All();
             });
     }
+
+    private static void AddPasswordEncyptor(IServiceCollection services) => services.AddScoped<IPasswordEncryptor, PasswordEncryptor>();
 }
