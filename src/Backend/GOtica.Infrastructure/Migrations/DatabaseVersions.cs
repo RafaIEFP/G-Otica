@@ -1,0 +1,7 @@
+﻿namespace GOtica.Infrastructure.Migrations;
+
+internal sealed class DatabaseVersions
+{
+    internal const long TABLE_USER_DOMAIN = 1;
+    internal const long TABLE_REFESH_TOKEN = 2;
+}

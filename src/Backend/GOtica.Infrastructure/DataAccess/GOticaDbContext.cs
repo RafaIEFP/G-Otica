@@ -8,4 +8,5 @@ internal class GOticaDbContext(DbContextOptions options) : DbContext(options)
     public DbSet<OpticalStore> OpticalStores { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<UserOpticalStore> UserOpticalStores { get; set; }
+    public DbSet<RefreshToken> RefreshTokens { get; set; }
 }
