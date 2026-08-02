@@ -7,7 +7,7 @@ public class RefreshToken
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public Guid AccessTokenId { get; set; }
     public DateTime ExpiresAt { get; set; }
-    public int UserId { get; set; }
+    public long UserId { get; set; }
     public User User { get; set; } = default!;
 
     public bool IsExpired => DateTime.UtcNow >= ExpiresAt;

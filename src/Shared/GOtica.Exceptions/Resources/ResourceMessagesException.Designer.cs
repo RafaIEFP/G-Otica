@@ -61,6 +61,42 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The e-mail is already registered on the platform..
+        /// </summary>
+        public static string EMAIL_ALREADY_REGISTERED {
+            get {
+                return ResourceManager.GetString("EMAIL_ALREADY_REGISTERED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to E-mail cannot be empty..
+        /// </summary>
+        public static string EMAIL_EMPTY {
+            get {
+                return ResourceManager.GetString("EMAIL_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to E-mail entered is not valid..
+        /// </summary>
+        public static string EMAIL_INVALID {
+            get {
+                return ResourceManager.GetString("EMAIL_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid e-mail and/or password..
+        /// </summary>
+        public static string EMAIL_OR_PASSWORD_INVALID {
+            get {
+                return ResourceManager.GetString("EMAIL_OR_PASSWORD_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your session has expired. Log in again to continue..
         /// </summary>
         public static string EXPIRED_SESSION {
@@ -70,11 +106,38 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Password is invalid. It must be at least 6 characters long..
+        /// </summary>
+        public static string INVALID_PASSWORD {
+            get {
+                return ResourceManager.GetString("INVALID_PASSWORD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A valid session could not be found. Log in to access this resource..
         /// </summary>
         public static string INVALID_SESSION {
             get {
                 return ResourceManager.GetString("INVALID_SESSION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name cannot be empty..
+        /// </summary>
+        public static string NAME_EMPTY {
+            get {
+                return ResourceManager.GetString("NAME_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password cannot be empty.
+        /// </summary>
+        public static string PASSWORD_EMPTY {
+            get {
+                return ResourceManager.GetString("PASSWORD_EMPTY", resourceCulture);
             }
         }
         
