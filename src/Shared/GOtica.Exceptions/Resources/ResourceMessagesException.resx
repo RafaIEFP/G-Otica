@@ -123,4 +123,7 @@
   <data name="INVALID_SESSION" xml:space="preserve">
     <value>A valid session could not be found. Log in to access this resource.</value>
   </data>
+  <data name="UNKNOWN_ERROR" xml:space="preserve">
+    <value>Unknown error.</value>
+  </data>
 </root>

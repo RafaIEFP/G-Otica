@@ -1,7 +1,6 @@
 ﻿using FluentMigrator.Runner;
 using GOtica.Domain.Repositories;
 using GOtica.Domain.Repositories.Refresh;
-using GOtica.Domain.Repositories.User;
 using GOtica.Domain.Security.Cryptography;
 using GOtica.Domain.Security.Tokens;
 using GOtica.Infrastructure.DataAccess;

@@ -22,7 +22,7 @@ namespace GOtica.Exceptions.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ResourceMessagesException {
+    public class ResourceMessagesException {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace GOtica.Exceptions.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GOtica.Exceptions.Resources.ResourceMessagesException", typeof(ResourceMessagesException).Assembly);
@@ -51,7 +51,7 @@ namespace GOtica.Exceptions.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace GOtica.Exceptions.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Your session has expired. Log in again to continue..
         /// </summary>
-        internal static string EXPIRED_SESSION {
+        public static string EXPIRED_SESSION {
             get {
                 return ResourceManager.GetString("EXPIRED_SESSION", resourceCulture);
             }
@@ -72,9 +72,18 @@ namespace GOtica.Exceptions.Resources {
         /// <summary>
         ///   Looks up a localized string similar to A valid session could not be found. Log in to access this resource..
         /// </summary>
-        internal static string INVALID_SESSION {
+        public static string INVALID_SESSION {
             get {
                 return ResourceManager.GetString("INVALID_SESSION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown error..
+        /// </summary>
+        public static string UNKNOWN_ERROR {
+            get {
+                return ResourceManager.GetString("UNKNOWN_ERROR", resourceCulture);
             }
         }
     }
