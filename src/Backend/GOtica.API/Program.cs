@@ -1,3 +1,4 @@
+using GOtica.API.Filters;
 using GOtica.Application;
 using GOtica.Infrastructure;
 using GOtica.Infrastructure.Extensions;
@@ -11,6 +12,8 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
+
+builder.Services.AddMvc(options => options.Filters.Add<ExceptionFilter>());
 
 var app = builder.Build();
 
