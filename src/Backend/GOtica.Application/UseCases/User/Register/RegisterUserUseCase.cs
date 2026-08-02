@@ -10,13 +10,11 @@ using GOtica.Domain.Security.Cryptography;
 using GOtica.Exceptions.ExceptionsBase;
 using GOtica.Exceptions.Resources;
 using Mapster;
-using MapsterMapper;
 
 namespace GOtica.Application.UseCases.User.Register;
 
 public class RegisterUserUseCase : IRegisterUserUseCase
 {
-    private readonly IMapper _mapper;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IUserReadOnlyRepository _userReadOnlyRepository;
     private readonly IUserWriteOnlyRepository _userWriteOnlyRepository;
@@ -25,7 +23,6 @@ public class RegisterUserUseCase : IRegisterUserUseCase
     private readonly IRefreshTokenWriteOnlyRepository _refreshTokenRepository;
 
     public RegisterUserUseCase(
-        IMapper mapper,
         IUnitOfWork unitOfWork,
         IUserWriteOnlyRepository userWriteOnlyRepository,
         IUserReadOnlyRepository userReadOnlyRepository,
@@ -34,7 +31,6 @@ public class RegisterUserUseCase : IRegisterUserUseCase
         IRefreshTokenWriteOnlyRepository refreshTokenRepository)
     {
         _unitOfWork = unitOfWork;
-        _mapper = mapper;
         _userReadOnlyRepository = userReadOnlyRepository;
         _userWriteOnlyRepository = userWriteOnlyRepository;
         _passwordEncriptor = passwordEncriptor;
