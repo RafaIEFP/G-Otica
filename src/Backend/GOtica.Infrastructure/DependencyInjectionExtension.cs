@@ -28,14 +28,23 @@ public static class DependencyInjectionExtension
             AddRepositories(services);
             AddTokenHandlers(services, configuration);
         }
+
+        public void AddRepositoriesFromAssembly<T>()
+        {
+            services.Scan(scan => scan
+                .FromAssemblyOf<T>()
+                .AddClasses(classes => classes.InNamespaces("GOtica.Infrastructure.DataAccess.Repositories"))
+                .AsImplementedInterfaces()
+                .WithScopedLifetime());
+        }
     }
 
     private static void AddRepositories(IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-        services.AddScoped<IRefreshTokenReadOnlyRepository, RefreshTokenRepository>();
-        services.AddScoped<IRefreshTokenWriteOnlyRepository, RefreshTokenRepository>();
+        services.AddRepositoriesFromAssembly<RefreshTokenRepository>();
+        services.AddRepositoriesFromAssembly<UserRepository>();
     }
 
     private static void AddGOticaDbContext(IServiceCollection services, IConfiguration configuration)
