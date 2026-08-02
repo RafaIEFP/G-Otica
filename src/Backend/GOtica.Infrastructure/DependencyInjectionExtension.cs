@@ -1,6 +1,7 @@
 ﻿using FluentMigrator.Runner;
 using GOtica.Domain.Repositories;
 using GOtica.Domain.Repositories.Refresh;
+using GOtica.Domain.Repositories.User;
 using GOtica.Domain.Security.Cryptography;
 using GOtica.Domain.Security.Tokens;
 using GOtica.Infrastructure.DataAccess;
@@ -33,7 +34,7 @@ public static class DependencyInjectionExtension
         {
             services.Scan(scan => scan
                 .FromAssemblyOf<T>()
-                .AddClasses(classes => classes.InNamespaces("GOtica.Infrastructure.DataAccess.Repositories"))
+                .AddClasses(classes => classes.InNamespaces("GOtica.Infrastructure.DataAccess.Repositories"), publicOnly: false)
                 .AsImplementedInterfaces()
                 .WithScopedLifetime());
         }
