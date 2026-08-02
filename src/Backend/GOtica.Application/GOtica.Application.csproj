@@ -16,4 +16,8 @@
     <ProjectReference Include="..\GOtica.Domain\GOtica.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="UseCases\" />
+  </ItemGroup>
+
 </Project>
