@@ -1,8 +1,8 @@
 ﻿namespace GOtica.Communication.Response;
 
-public class ResponseError
+public record ResponseError
 {
-    public IList<string> Errors { get; set; } = [];
+    public IList<string> Errors { get; init; } = [];
 
     public ResponseError(IList<string> errors) => Errors = errors;
     public ResponseError(string error) => Errors.Add(error);
