@@ -9,4 +9,24 @@ internal class GOticaDbContext(DbContextOptions options) : DbContext(options)
     public DbSet<User> Users { get; set; }
     public DbSet<UserOpticalStore> UserOpticalStores { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        // Configura a chave composta de UserOpticalStore
+        modelBuilder.Entity<UserOpticalStore>()
+            .HasKey(uos => new { uos.UserId, uos.OpticalStoreId });
+
+        // Configura os relacionamentos
+        modelBuilder.Entity<UserOpticalStore>()
+            .HasOne(uos => uos.User)
+            .WithMany()
+            .HasForeignKey(uos => uos.UserId);
+
+        modelBuilder.Entity<UserOpticalStore>()
+            .HasOne(uos => uos.OpticalStore)
+            .WithMany()
+            .HasForeignKey(uos => uos.OpticalStoreId);
+    }
 }

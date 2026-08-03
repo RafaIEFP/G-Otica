@@ -19,8 +19,8 @@ internal sealed class JwtTokenValidator : IAccessTokenValidator
     public Guid GetAccessTokenIdentifier(string token)
         => Guid.Parse(GetClaimValue(token, JwtRegisteredClaimNames.Jti));
 
-    public long GetUserIdentifier(string token)
-        => long.Parse(GetClaimValue(token, JwtRegisteredClaimNames.NameId));
+    public Guid GetUserIdentifier(string token)
+        => Guid.Parse(GetClaimValue(token, JwtRegisteredClaimNames.NameId));
 
     public void Validate(string token)
     {

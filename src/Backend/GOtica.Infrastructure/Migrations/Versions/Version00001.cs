@@ -8,7 +8,7 @@ public class Version00001 : ForwardOnlyMigration
     public override void Up()
     {
         Create.Table("Users")
-            .WithColumn("Id").AsInt64().PrimaryKey().Identity().NotNullable()
+            .WithColumn("Id").AsGuid().PrimaryKey().NotNullable()
             .WithColumn("Name").AsString(255).NotNullable()
             .WithColumn("Email").AsString(255).NotNullable().Unique()
             .WithColumn("Password").AsString(2000).NotNullable()
@@ -28,7 +28,7 @@ public class Version00001 : ForwardOnlyMigration
         // Create the UserOpticalStores table with a composite primary key
 
         Create.Table("UserOpticalStores")
-            .WithColumn("UserId").AsInt64().NotNullable()
+            .WithColumn("UserId").AsGuid().NotNullable()
             .WithColumn("OpticalStoreId").AsInt64().NotNullable()
             .WithColumn("EntranceDate").AsDate().NotNullable()
             .WithColumn("Role").AsString(100).NotNullable()
