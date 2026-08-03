@@ -1,5 +1,6 @@
 ﻿using GOtica.Application.Sevices.Auth;
 using GOtica.Application.Sevices.Mapping;
+using GOtica.Application.UseCases.Login.DoLogin;
 using GOtica.Application.UseCases.User.Register;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -20,6 +21,7 @@ public static class DependencyInjectionExtension
     private static void AddUseCases(IServiceCollection services)
     {
         services.AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
+        services.AddScoped<IDoLoginUseCase, DoLoginUseCase>();
     }
 
     private static void AddMapperConfigurations() => MapConfigurations.Configure();

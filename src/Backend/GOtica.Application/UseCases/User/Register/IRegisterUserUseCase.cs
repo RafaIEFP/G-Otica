@@ -5,5 +5,5 @@ namespace GOtica.Application.UseCases.User.Register;
 
 public interface IRegisterUserUseCase
 {
-    Task<ResponseRegisterUser> Execute(RequestRegisterUser request);
+    Task<ResponseRegisteredUser> Execute(RequestRegisterUser request);
 }

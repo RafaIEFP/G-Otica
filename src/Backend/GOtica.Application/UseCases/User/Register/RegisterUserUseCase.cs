@@ -38,7 +38,7 @@ public class RegisterUserUseCase : IRegisterUserUseCase
         _refreshTokenRepository = refreshTokenRepository;
     }
 
-    public async Task<ResponseRegisterUser> Execute(RequestRegisterUser request)
+    public async Task<ResponseRegisteredUser> Execute(RequestRegisterUser request)
     {
         await Validate(request);
 
@@ -59,7 +59,7 @@ public class RegisterUserUseCase : IRegisterUserUseCase
 
         await _unitOfWork.Commit();
 
-        return new ResponseRegisterUser
+        return new ResponseRegisteredUser
         {
             Id = user.Id,
             Name = user.Name,
