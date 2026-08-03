@@ -21,7 +21,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
-    [ProducesResponseType(typeof(ResponseRegisteredUser), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ResponseRegisteredUser), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResponseError), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Login([FromServices] IDoLoginUseCase useCase, [FromBody] RequestLogin request)
     {

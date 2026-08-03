@@ -14,10 +14,11 @@ builder.Services.AddOpenApi(options =>
     options.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
 });
 
+
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
 
-builder.Services.AddMvc(options => options.Filters.Add<ExceptionFilter>());
+builder.Services.AddRouting(config => config.LowercaseUrls = true);
 
 var app = builder.Build();
 
