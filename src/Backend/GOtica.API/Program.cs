@@ -1,4 +1,5 @@
 using GOtica.API.Filters;
+using GOtica.API.OpenApi;
 using GOtica.Application;
 using GOtica.Infrastructure;
 using GOtica.Infrastructure.Extensions;
@@ -8,7 +9,10 @@ using Scalar.AspNetCore;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-builder.Services.AddOpenApi();
+builder.Services.AddOpenApi(options =>
+{
+    options.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
+});
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
@@ -20,11 +24,15 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    app.MapScalarApiReference();
+    app.MapScalarApiReference(options => options
+        .WithTitle("G-Otica API")
+        .WithTheme(ScalarTheme.DeepSpace)
+        .AddPreferredSecuritySchemes("Bearer"));
 }
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
