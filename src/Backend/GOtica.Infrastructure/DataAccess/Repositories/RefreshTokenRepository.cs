@@ -20,4 +20,7 @@ internal class RefreshTokenRepository : IRefreshTokenReadOnlyRepository, IRefres
         .AsNoTracking()
         .Include(rt => rt.User)
         .FirstOrDefaultAsync(rt => rt.Token.Equals(token));
+
+    public Task<bool> HasRefresTokenAssociated(Guid userId, Guid accessTokenIdentifier)
+        => _dbContext.RefreshTokens.AnyAsync(rt => rt.UserId == userId && rt.AccessTokenId == accessTokenIdentifier);
 }
