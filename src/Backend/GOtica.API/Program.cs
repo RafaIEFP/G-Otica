@@ -2,7 +2,9 @@ using GOtica.API.Filters;
 using GOtica.API.Handlers;
 using GOtica.API.Handlers.Requirements;
 using GOtica.API.OpenApi;
+using GOtica.API.Token;
 using GOtica.Application;
+using GOtica.Domain.Security.Tokens;
 using GOtica.Infrastructure;
 using GOtica.Infrastructure.Extensions;
 using GOtica.Infrastructure.Migrations;
@@ -25,6 +27,8 @@ builder.Services.AddApplication();
 builder.Services.AddRouting(config => config.LowercaseUrls = true);
 
 builder.Services.AddScoped<IAuthorizationHandler, AuthenticatedUserHandler>();
+builder.Services.AddScoped<ITokenProvider, HttpContextTokenProvider>();
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddAuthentication(op =>
 {

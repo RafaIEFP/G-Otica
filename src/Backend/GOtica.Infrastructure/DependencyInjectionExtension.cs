@@ -4,12 +4,14 @@ using GOtica.Domain.Repositories.Refresh;
 using GOtica.Domain.Repositories.User;
 using GOtica.Domain.Security.Cryptography;
 using GOtica.Domain.Security.Tokens;
+using GOtica.Domain.Services;
 using GOtica.Infrastructure.DataAccess;
 using GOtica.Infrastructure.DataAccess.Repositories;
 using GOtica.Infrastructure.Extensions;
 using GOtica.Infrastructure.Security.Cryptography;
 using GOtica.Infrastructure.Security.Tokens.Access;
 using GOtica.Infrastructure.Security.Tokens.Refresh;
+using GOtica.Infrastructure.Services.LoggedUser;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,6 +45,7 @@ public static class DependencyInjectionExtension
     private static void AddRepositories(IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<ILoggedUser, LoggedUser>();
 
         services.AddRepositoriesFromAssembly<RefreshTokenRepository>();
         services.AddRepositoriesFromAssembly<UserRepository>();
