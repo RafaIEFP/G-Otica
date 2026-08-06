@@ -10,6 +10,7 @@ using GOtica.Domain.Security.Cryptography;
 using GOtica.Exceptions.ExceptionsBase;
 using GOtica.Exceptions.Resources;
 using Mapster;
+using Microsoft.Extensions.Options;
 
 namespace GOtica.Application.UseCases.User.Register;
 
@@ -21,6 +22,7 @@ public class RegisterUserUseCase : IRegisterUserUseCase
     private readonly IPasswordEncryptor _passwordEncriptor;
     private readonly ITokenService _tokenService;
     private readonly IRefreshTokenWriteOnlyRepository _refreshTokenRepository;
+    private readonly TokenSettings _tokenSettings;
 
     public RegisterUserUseCase(
         IUnitOfWork unitOfWork,
@@ -28,7 +30,8 @@ public class RegisterUserUseCase : IRegisterUserUseCase
         IUserReadOnlyRepository userReadOnlyRepository,
         IPasswordEncryptor passwordEncriptor,
         ITokenService tokenService,
-        IRefreshTokenWriteOnlyRepository refreshTokenRepository)
+        IRefreshTokenWriteOnlyRepository refreshTokenRepository,
+        IOptions<TokenSettings> tokenSettings)
     {
         _unitOfWork = unitOfWork;
         _userReadOnlyRepository = userReadOnlyRepository;
@@ -36,6 +39,7 @@ public class RegisterUserUseCase : IRegisterUserUseCase
         _passwordEncriptor = passwordEncriptor;
         _tokenService = tokenService;
         _refreshTokenRepository = refreshTokenRepository;
+        _tokenSettings = tokenSettings.Value;
     }
 
     public async Task<ResponseRegisteredUser> Execute(RequestRegisterUser request)
@@ -54,7 +58,7 @@ public class RegisterUserUseCase : IRegisterUserUseCase
             UserId = user.Id,
             Token = tokens.Refresh,
             AccessTokenId = tokens.AccessTokenId,
-            ExpiresAt = DateTime.UtcNow.AddDays(7)
+            ExpiresAt = DateTime.UtcNow.AddDays(_tokenSettings.RefreshTokenValidityDays)
         });
 
         await _unitOfWork.Commit();
