@@ -1,4 +1,5 @@
 ﻿using GOtica.Application.UseCases.Login.DoLogin;
+using GOtica.Application.UseCases.Token.RefreshToken;
 using GOtica.Application.UseCases.User.Register;
 using GOtica.Communication.Requests;
 using GOtica.Communication.Response;
@@ -22,8 +23,19 @@ public class AuthController : ControllerBase
 
     [HttpPost("login")]
     [ProducesResponseType(typeof(ResponseRegisteredUser), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Login([FromServices] IDoLoginUseCase useCase, [FromBody] RequestLogin request)
+    {
+        var response = await useCase.Execute(request);
+
+        return Ok(response);
+    }
+
+    [HttpPost("refresh")]
+    [ProducesResponseType(typeof(ResponseTokens), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> Refresh([FromServices] IRefreshTokenUseCase useCase, [FromBody] RequestNewToken request)
     {
         var response = await useCase.Execute(request);
 
