@@ -21,7 +21,7 @@ internal sealed class UserRepository : IUserReadOnlyRepository, IUserWriteOnlyRe
          => await _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);
 
     async Task<User> IUserUpdateOnlyRepository.GetUserById(Guid id)
-        => awa
+        => await _dbContext.Users.FirstAsync(u => u.Id == id);
 
     public void Update(User user)
         => _dbContext.Users.Update(user);
