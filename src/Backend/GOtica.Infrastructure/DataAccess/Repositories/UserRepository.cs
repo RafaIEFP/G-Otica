@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GOtica.Infrastructure.DataAccess.Repositories;
 
-internal sealed class UserRepository : IUserReadOnlyRepository, IUserWriteOnlyRepository
+internal sealed class UserRepository : IUserReadOnlyRepository, IUserWriteOnlyRepository, IUserUpdateOnlyRepository
 {
     private readonly GOticaDbContext _dbContext;
     public UserRepository(GOticaDbContext dbContext) => _dbContext = dbContext;
@@ -17,6 +17,12 @@ internal sealed class UserRepository : IUserReadOnlyRepository, IUserWriteOnlyRe
     public async Task<User?> GetUserByEmail(string email) 
         => await _dbContext.Users.FirstOrDefaultAsync(user => user.Email.Equals(email) && user.IsActive);
 
-    public async Task<User?> GetUserById(Guid id)
-        => await _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);
+    async Task<User?> IUserReadOnlyRepository.GetUserById(Guid id)
+         => await _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);
+
+    async Task<User> IUserUpdateOnlyRepository.GetUserById(Guid id)
+        => awa
+
+    public void Update(User user)
+        => _dbContext.Users.Update(user);
 }

@@ -133,6 +133,15 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The password entered does not match the current password..
+        /// </summary>
+        public static string PASSWORD_DIFFERENT_CURRENT_ONE {
+            get {
+                return ResourceManager.GetString("PASSWORD_DIFFERENT_CURRENT_ONE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password cannot be empty.
         /// </summary>
         public static string PASSWORD_EMPTY {
