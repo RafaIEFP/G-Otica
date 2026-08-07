@@ -40,6 +40,9 @@ public class RefreshTokenUseCase : IRefreshTokenUseCase
 
         var accessTokenIdentifier = _accessTokenValidator.GetAccessTokenIdentifier(request.AccessToken);
 
+        if (accessTokenIdentifier != refreshToken.AccessTokenId)
+            throw new RefreshTokenNotFoundException();
+
         var hasTokenAssociated = await _refreshTokenReadOnlyRepository.HasRefresTokenAssociated(refreshToken.UserId, accessTokenIdentifier);
 
         if (hasTokenAssociated == false)
