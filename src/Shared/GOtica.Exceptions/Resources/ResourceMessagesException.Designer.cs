@@ -133,6 +133,15 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New passwords do not match..
+        /// </summary>
+        public static string NEW_PASSWORDS_DO_NOT_MATCH {
+            get {
+                return ResourceManager.GetString("NEW_PASSWORDS_DO_NOT_MATCH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The password entered does not match the current password..
         /// </summary>
         public static string PASSWORD_DIFFERENT_CURRENT_ONE {

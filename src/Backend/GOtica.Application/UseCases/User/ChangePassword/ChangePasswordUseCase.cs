@@ -1,5 +1,4 @@
 ﻿using GOtica.Communication.Requests;
-using GOtica.Domain.Entities;
 using GOtica.Domain.Repositories;
 using GOtica.Domain.Repositories.User;
 using GOtica.Domain.Security.Cryptography;
@@ -33,6 +32,13 @@ public class ChangePasswordUseCase : IChangePasswordUseCase
         var loggedUser = await _loggedUser.Get();
 
         Validate(request, loggedUser);
+
+        var user = await _userUpdateOnlyRepository.GetUserById(loggedUser.Id);
+        user.Password = _passwordEncryptor.Encrypt(request.NewPasswordConfirmed);
+
+        _userUpdateOnlyRepository.Update(user);
+
+        await _unitOfWork.Commit();
     }
 
     private void Validate(RequestChangePassword request, Domain.Entities.User loggedUser)
@@ -43,6 +49,9 @@ public class ChangePasswordUseCase : IChangePasswordUseCase
 
         if (!passwordMatch)
             validator.Errors.Add(new FluentValidation.Results.ValidationFailure(string.Empty, ResourceMessagesException.PASSWORD_DIFFERENT_CURRENT_ONE));
+
+        if (request.NewPassword != request.NewPasswordConfirmed)
+            validator.Errors.Add(new FluentValidation.Results.ValidationFailure(string.Empty, ResourceMessagesException.NEW_PASSWORDS_DO_NOT_MATCH));
 
         if (!validator.IsValid)
             throw new ErrorOnValidationException(validator.Errors.Select(e => e.ErrorMessage).ToList());

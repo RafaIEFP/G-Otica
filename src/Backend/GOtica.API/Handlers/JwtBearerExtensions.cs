@@ -14,6 +14,7 @@ public static class JwtBearerExtensions
 
         authenticationBuilder.AddJwtBearer(op =>
         {
+            op.MapInboundClaims = false;
             op.TokenValidationParameters = new TokenValidationParameters
             {
                 ValidateAudience = true,

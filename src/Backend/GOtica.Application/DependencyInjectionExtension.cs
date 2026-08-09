@@ -2,6 +2,7 @@
 using GOtica.Application.Sevices.Mapping;
 using GOtica.Application.UseCases.Login.DoLogin;
 using GOtica.Application.UseCases.Token.RefreshToken;
+using GOtica.Application.UseCases.User.ChangePassword;
 using GOtica.Application.UseCases.User.Register;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -24,6 +25,8 @@ public static class DependencyInjectionExtension
         services.AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
         services.AddScoped<IDoLoginUseCase, DoLoginUseCase>();
         services.AddScoped<IRefreshTokenUseCase, RefreshTokenUseCase>();
+
+        services.AddScoped<IChangePasswordUseCase, ChangePasswordUseCase>();
     }
 
     private static void AddMapperConfigurations() => MapConfigurations.Configure();

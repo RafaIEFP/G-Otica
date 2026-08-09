@@ -141,6 +141,9 @@
   <data name="NAME_EMPTY" xml:space="preserve">
     <value>The name cannot be empty.</value>
   </data>
+  <data name="NEW_PASSWORDS_DO_NOT_MATCH" xml:space="preserve">
+    <value>New passwords do not match.</value>
+  </data>
   <data name="PASSWORD_DIFFERENT_CURRENT_ONE" xml:space="preserve">
     <value>The password entered does not match the current password.</value>
   </data>
