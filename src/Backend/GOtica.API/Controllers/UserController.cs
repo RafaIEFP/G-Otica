@@ -1,8 +1,8 @@
 ﻿using GOtica.API.Attributes;
 using GOtica.Application.UseCases.User.ChangePassword;
+using GOtica.Application.UseCases.User.Profile;
 using GOtica.Communication.Requests;
 using GOtica.Communication.Response;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GOtica.API.Controllers;
@@ -20,5 +20,14 @@ public class UserController : ControllerBase
         await useCase.Execute(request);
 
         return NoContent();
+    }
+
+    [HttpGet]
+    [ProducesResponseType(typeof(ResponseUserProfile), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetProfile([FromServices] IGetUserProfileUseCase useCase)
+    {
+        var response = await useCase.Execute();
+
+        return Ok(response);
     }
 }
