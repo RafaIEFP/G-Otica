@@ -1,4 +1,5 @@
-﻿using GOtica.Application.UseCases.User.ChangePassword;
+﻿using GOtica.API.Attributes;
+using GOtica.Application.UseCases.User.ChangePassword;
 using GOtica.Communication.Requests;
 using GOtica.Communication.Response;
 using Microsoft.AspNetCore.Authorization;
@@ -8,7 +9,7 @@ namespace GOtica.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize(Policy = "AuthenticatedUser")]
+[AuthenticatedUser]
 public class UserController : ControllerBase
 {
     [HttpPut("change-password")]
