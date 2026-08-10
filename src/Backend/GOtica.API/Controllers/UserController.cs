@@ -1,6 +1,7 @@
 ﻿using GOtica.API.Attributes;
 using GOtica.Application.UseCases.User.ChangePassword;
 using GOtica.Application.UseCases.User.Profile;
+using GOtica.Application.UseCases.User.Update;
 using GOtica.Communication.Requests;
 using GOtica.Communication.Response;
 using Microsoft.AspNetCore.Mvc;
@@ -29,5 +30,15 @@ public class UserController : ControllerBase
         var response = await useCase.Execute();
 
         return Ok(response);
+    }
+
+    [HttpPut]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> UpdateProfile([FromServices] IUpdateUserUseCase useCase, [FromBody] RequestUpdateUser request)
+    {
+        await useCase.Execute(request);
+
+        return NoContent();
     }
 }
