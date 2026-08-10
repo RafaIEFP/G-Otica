@@ -1,4 +1,4 @@
-﻿namespace GOtica.Infrastructure.Migrations;
+﻿namespace GOtica.Infrastructure.Migrations.Services;
 
 internal sealed class DatabaseVersions
 {

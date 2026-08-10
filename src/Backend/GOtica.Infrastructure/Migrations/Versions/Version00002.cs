@@ -1,4 +1,5 @@
 ﻿using FluentMigrator;
+using GOtica.Infrastructure.Migrations.Services;
 
 namespace GOtica.Infrastructure.Migrations.Versions;
 
@@ -10,8 +11,8 @@ public class Version00002 : ForwardOnlyMigration
         Create.Table("RefreshTokens")
             .WithColumn("Id").AsGuid().PrimaryKey().NotNullable()
             .WithColumn("Token").AsString(2000).NotNullable()
-            .WithColumn("CreatedAt").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
-            .WithColumn("ExpiresAt").AsDateTime().NotNullable()
+            .WithColumn("CreatedAt").AsUtcDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
+            .WithColumn("ExpiresAt").AsUtcDateTime().NotNullable()
             .WithColumn("AccessTokenId").AsGuid().NotNullable()
             .WithColumn("UserId").AsGuid().NotNullable().ForeignKey("FK_RefreshTokens_User_Id", "Users", "Id");
     }

@@ -1,4 +1,5 @@
 ﻿using FluentMigrator;
+using GOtica.Infrastructure.Migrations.Services;
 
 namespace GOtica.Infrastructure.Migrations.Versions;
 
@@ -13,8 +14,8 @@ public class Version00001 : ForwardOnlyMigration
             .WithColumn("Email").AsString(255).NotNullable().Unique()
             .WithColumn("Password").AsString(2000).NotNullable()
             .WithColumn("IsActive").AsBoolean().NotNullable().WithDefaultValue(true)
-            .WithColumn("CreatedAt").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
-            .WithColumn("UpdatedAt").AsDateTime().Nullable();
+            .WithColumn("CreatedAt").AsUtcDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
+            .WithColumn("UpdatedAt").AsUtcDateTime().Nullable();
 
         Create.Table("OpticalStores")
             .WithColumn("Id").AsInt64().PrimaryKey().Identity().NotNullable()
