@@ -22,11 +22,6 @@ public class GetUserProfileUseCase : IGetUserProfileUseCase
 
         var userOpticalStores = await _userOpticalStoreReadOnlyRepository.GetUserOpticalStores(loggedUser.Id);
 
-        var response = loggedUser.Adapt<ResponseUserProfile>();
-
-        return response with
-        {
-            OpticalStores = userOpticalStores.Adapt<IReadOnlyCollection<ResponseOpticalStoreProfile>>()
-        };
+        return loggedUser.Adapt<ResponseUserProfile>();
     }
 }
