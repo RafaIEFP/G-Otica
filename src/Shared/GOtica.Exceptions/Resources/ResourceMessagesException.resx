@@ -141,8 +141,14 @@
   <data name="NAME_EMPTY" xml:space="preserve">
     <value>The name cannot be empty.</value>
   </data>
+  <data name="NEW_OWNER_DOES_NOT_BELONG_OPTICAL" xml:space="preserve">
+    <value>The new owner does not belong to this optical store.</value>
+  </data>
   <data name="NEW_PASSWORDS_DO_NOT_MATCH" xml:space="preserve">
     <value>New passwords do not match.</value>
+  </data>
+  <data name="OPTICAL_STORE_NOT_FOUND" xml:space="preserve">
+    <value>Optical store not found.</value>
   </data>
   <data name="PASSWORD_DIFFERENT_CURRENT_ONE" xml:space="preserve">
     <value>The password entered does not match the current password.</value>
@@ -152,5 +158,20 @@
   </data>
   <data name="UNKNOWN_ERROR" xml:space="preserve">
     <value>Unknown error.</value>
+  </data>
+  <data name="USER_ALREADY_OWNER" xml:space="preserve">
+    <value>The user is already owner</value>
+  </data>
+  <data name="USER_DOES_NOT_BELONG_OPTICAL" xml:space="preserve">
+    <value>The user does not belong to this optical store.</value>
+  </data>
+  <data name="USER_IS_NOT_OWNER" xml:space="preserve">
+    <value>Only the owner of the optical store can transfer ownership.</value>
+  </data>
+  <data name="USER_IS_STILL_OWNER" xml:space="preserve">
+    <value>The user cannot deactivate the account while they are an owner of an optical store.</value>
+  </data>
+  <data name="USER_NOT_FOUND" xml:space="preserve">
+    <value>User not found.</value>
   </data>
 </root>

@@ -133,11 +133,29 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The new owner does not belong to this optical store..
+        /// </summary>
+        public static string NEW_OWNER_DOES_NOT_BELONG_OPTICAL {
+            get {
+                return ResourceManager.GetString("NEW_OWNER_DOES_NOT_BELONG_OPTICAL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New passwords do not match..
         /// </summary>
         public static string NEW_PASSWORDS_DO_NOT_MATCH {
             get {
                 return ResourceManager.GetString("NEW_PASSWORDS_DO_NOT_MATCH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Optical store not found..
+        /// </summary>
+        public static string OPTICAL_STORE_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("OPTICAL_STORE_NOT_FOUND", resourceCulture);
             }
         }
         
@@ -165,6 +183,51 @@ namespace GOtica.Exceptions.Resources {
         public static string UNKNOWN_ERROR {
             get {
                 return ResourceManager.GetString("UNKNOWN_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user is already owner.
+        /// </summary>
+        public static string USER_ALREADY_OWNER {
+            get {
+                return ResourceManager.GetString("USER_ALREADY_OWNER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user does not belong to this optical store..
+        /// </summary>
+        public static string USER_DOES_NOT_BELONG_OPTICAL {
+            get {
+                return ResourceManager.GetString("USER_DOES_NOT_BELONG_OPTICAL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only the owner of the optical store can transfer ownership..
+        /// </summary>
+        public static string USER_IS_NOT_OWNER {
+            get {
+                return ResourceManager.GetString("USER_IS_NOT_OWNER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user cannot deactivate the account while they are an owner of an optical store..
+        /// </summary>
+        public static string USER_IS_STILL_OWNER {
+            get {
+                return ResourceManager.GetString("USER_IS_STILL_OWNER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User not found..
+        /// </summary>
+        public static string USER_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("USER_NOT_FOUND", resourceCulture);
             }
         }
     }
