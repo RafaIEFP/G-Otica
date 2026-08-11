@@ -15,6 +15,9 @@ internal class RefreshTokenRepository : IRefreshTokenReadOnlyRepository, IRefres
         await _dbContext.RefreshTokens.AddAsync(refreshToken);
     }
 
+    public async Task DeleteUserRefresh(Guid userId)
+        => await _dbContext.RefreshTokens.Where(rt => rt.UserId == userId).ExecuteDeleteAsync();
+
     public async Task<RefreshToken?> Get(string token)
         => await _dbContext.RefreshTokens
         .AsNoTracking()

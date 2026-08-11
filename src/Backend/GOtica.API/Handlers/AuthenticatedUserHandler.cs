@@ -32,7 +32,7 @@ public class AuthenticatedUserHandler : AuthorizationHandler<AuthenticatedUserRe
 
         var user = await _userReadOnlyRepository.GetUserById(Guid.Parse(userId));
 
-        if (user is null)
+        if (user is null || !user.IsActive)
         {
             context.Fail();
             return;

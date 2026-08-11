@@ -25,4 +25,17 @@ internal sealed class UserRepository : IUserReadOnlyRepository, IUserWriteOnlyRe
 
     public void Update(User user)
         => _dbContext.Users.Update(user);
+
+    public async Task DeleteAccount(Guid userId)
+        => await _dbContext.Users.Where(u => u.Id == userId).ExecuteDeleteAsync();
+
+    public async Task<bool> ExistsActiveUser(Guid id)
+        => await _dbContext.Users.AnyAsync(u => u.Id == id && u.IsActive);
+
+    public async Task DeactivateAccount(Guid userId)
+    => await _dbContext.Users
+        .Where(u => u.Id == userId)
+        .ExecuteUpdateAsync(
+            setter => setter.SetProperty(u => u.IsActive, false)
+        );
 }

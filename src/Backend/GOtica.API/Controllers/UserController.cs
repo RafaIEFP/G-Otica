@@ -1,5 +1,6 @@
 ﻿using GOtica.API.Attributes;
 using GOtica.Application.UseCases.User.ChangePassword;
+using GOtica.Application.UseCases.User.DeleteAccount;
 using GOtica.Application.UseCases.User.Profile;
 using GOtica.Application.UseCases.User.Update;
 using GOtica.Communication.Requests;
@@ -38,6 +39,16 @@ public class UserController : ControllerBase
     public async Task<IActionResult> UpdateProfile([FromServices] IUpdateUserUseCase useCase, [FromBody] RequestUpdateUser request)
     {
         await useCase.Execute(request);
+
+        return NoContent();
+    }
+
+    [HttpDelete]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status409Conflict)]
+    public async Task<IActionResult> DeleteAccount([FromServices] IDeleteAccountUseCase useCase)
+    {
+        await useCase.Execute();
 
         return NoContent();
     }
