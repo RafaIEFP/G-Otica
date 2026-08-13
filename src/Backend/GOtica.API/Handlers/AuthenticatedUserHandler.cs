@@ -7,7 +7,7 @@ using System.Security.Claims;
 
 namespace GOtica.API.Handlers;
 
-public class AuthenticatedUserHandler : AuthorizationHandler<AuthenticatedUserRequirement>
+public sealed class AuthenticatedUserHandler : AuthorizationHandler<AuthenticatedUserRequirement>
 {
     private readonly IUserReadOnlyRepository _userReadOnlyRepository;
     private readonly IRefreshTokenReadOnlyRepository _refreshTokenReadOnlyRepository;
