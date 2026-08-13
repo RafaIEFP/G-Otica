@@ -2,7 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace GOtica.API.Handlers;
+namespace GOtica.API.Handlers.Extensions;
 
 public static class JwtBearerExtensions
 {

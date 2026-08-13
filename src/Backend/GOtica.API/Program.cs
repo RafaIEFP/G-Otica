@@ -1,5 +1,6 @@
 using GOtica.API.Filters;
 using GOtica.API.Handlers;
+using GOtica.API.Handlers.Extensions;
 using GOtica.API.Handlers.Requirements;
 using GOtica.API.OpenApi;
 using GOtica.API.Token;
@@ -27,6 +28,8 @@ builder.Services.AddApplication();
 builder.Services.AddRouting(config => config.LowercaseUrls = true);
 
 builder.Services.AddScoped<IAuthorizationHandler, AuthenticatedUserHandler>();
+builder.Services.AddScoped<IAuthorizationHandler, OwnerHandler>();
+
 builder.Services.AddScoped<ITokenProvider, HttpContextTokenProvider>();
 builder.Services.AddHttpContextAccessor();
 
@@ -39,6 +42,7 @@ builder.Services.AddAuthentication(op =>
 builder.Services.AddAuthorization(op =>
 {
     op.AddPolicy("AuthenticatedUser", policy => policy.Requirements.Add(new AuthenticatedUserRequirement()));
+    op.AddPolicy("OwnerOnly", policy => policy.Requirements.Add(new OwnerRequirement()));
 });
 
 var app = builder.Build();
