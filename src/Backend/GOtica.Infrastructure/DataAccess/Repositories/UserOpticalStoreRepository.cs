@@ -11,6 +11,13 @@ internal sealed class UserOpticalStoreRepository : IUserOpticalStoreReadOnlyRepo
     public UserOpticalStoreRepository(GOticaDbContext dbContext)
         => _dbContext = dbContext;
 
+    public async Task DeactivateUserOpticalStores(Guid userId)
+        => await _dbContext.UserOpticalStores
+            .Where(uos => uos.UserId == userId)
+            .ExecuteUpdateAsync(
+                setter => setter.SetProperty(uos => uos.IsActive, false)
+                );
+
     public async Task<string> GetUserOpticalRole(Guid userId, long opticalId)
         => await _dbContext.UserOpticalStores
             .AsNoTracking()

@@ -13,18 +13,21 @@ public class DeleteAccountUseCase : IDeleteAccountUseCase
     private readonly IUserOpticalStoreReadOnlyRepository _userOpticalStoreReadOnlyRepository;
     private readonly IUserUpdateOnlyRepository _userUpdateOnlyRepository;
     private readonly IRefreshTokenWriteOnlyRepository _refreshTokenWriteOnlyRepository;
+    private readonly IUserOpticalStoreUpdateOnlyRepository _userOpticalStoreUpdateOnlyRepository;
     private readonly IUnitOfWork _unitOfWork;
     public DeleteAccountUseCase(
         ILoggedUser loggedUser,
         IUserOpticalStoreReadOnlyRepository userOpticalStoreReadOnlyRepository,
         IUserUpdateOnlyRepository userUpdateOnlyRepository,
         IRefreshTokenWriteOnlyRepository refreshTokenWriteOnlyRepository,
+        IUserOpticalStoreUpdateOnlyRepository userOpticalStoreUpdateOnlyRepository,
         IUnitOfWork unitOfWork)
     {
         _loggedUser = loggedUser;
         _userOpticalStoreReadOnlyRepository = userOpticalStoreReadOnlyRepository;
         _userUpdateOnlyRepository = userUpdateOnlyRepository;
         _refreshTokenWriteOnlyRepository = refreshTokenWriteOnlyRepository;
+        _userOpticalStoreUpdateOnlyRepository = userOpticalStoreUpdateOnlyRepository;
         _unitOfWork = unitOfWork;
     }
 
@@ -40,6 +43,8 @@ public class DeleteAccountUseCase : IDeleteAccountUseCase
         await _unitOfWork.ExecuteInTransaction(async () =>
         {
             await _userUpdateOnlyRepository.DeactivateAccount(loggedUser.Id);
+
+            await _userOpticalStoreUpdateOnlyRepository.DeactivateUserOpticalStores(loggedUser.Id);
 
             await _refreshTokenWriteOnlyRepository.DeleteUserRefresh(loggedUser.Id);
         });
