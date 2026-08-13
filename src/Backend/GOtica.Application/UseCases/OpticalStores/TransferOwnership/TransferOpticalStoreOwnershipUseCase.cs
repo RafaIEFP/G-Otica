@@ -58,19 +58,13 @@ public class TransferOpticalStoreOwnershipUseCase : ITransferOpticalStoreOwnersh
         if (!opticalStoreExists)
             throw new NotFoundException(ResourceMessagesException.OPTICAL_STORE_NOT_FOUND);
 
-        // 2. Solicitante pertence à ótica ?? (relaçao ativa) 
-        var userBelongsToOpticalStore = await _userOpticalStoreReadOnlyRepository.UserBelongsToOptical(loggedUserId, opticalId);
-
-        if (!userBelongsToOpticalStore)
-            throw new UnauthorizedException(ResourceMessagesException.USER_DOES_NOT_BELONG_OPTICAL);
-
-        // 3. Novo owner deve existir e estar ativo
+        // 2. Novo owner deve existir e estar ativo
         var newOwnerExists = await _userReadOnlyRepository.ExistsActiveUser(newOwnerUserId);
 
         if (!newOwnerExists)
             throw new NotFoundException(ResourceMessagesException.USER_NOT_FOUND);
 
-        // 4. Novo owner deve estar associado à ótica.
+        // 3. Novo owner deve estar associado à ótica.
         var newOwnerBelongsToOpticalStore = await _userOpticalStoreReadOnlyRepository.UserBelongsToOptical(newOwnerUserId, opticalId);
 
         if (!newOwnerBelongsToOpticalStore)
