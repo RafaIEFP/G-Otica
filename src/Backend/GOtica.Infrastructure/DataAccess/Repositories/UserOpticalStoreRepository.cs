@@ -5,11 +5,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GOtica.Infrastructure.DataAccess.Repositories;
 
-internal sealed class UserOpticalStoreRepository : IUserOpticalStoreReadOnlyRepository, IUserOpticalStoreUpdateOnlyRepository
+internal sealed class UserOpticalStoreRepository : IUserOpticalStoreReadOnlyRepository, IUserOpticalStoreUpdateOnlyRepository, IUserOpticalStoreWriteOnlyRepository
 {
     private readonly GOticaDbContext _dbContext;
     public UserOpticalStoreRepository(GOticaDbContext dbContext)
         => _dbContext = dbContext;
+
+    public async Task Add(UserOpticalStore userOpticalStore)
+    {
+        await _dbContext.UserOpticalStores.AddAsync(userOpticalStore);
+    }
 
     public async Task DeactivateUserOpticalStores(Guid userId)
         => await _dbContext.UserOpticalStores
@@ -18,7 +23,7 @@ internal sealed class UserOpticalStoreRepository : IUserOpticalStoreReadOnlyRepo
                 setter => setter.SetProperty(uos => uos.IsActive, false)
                 );
 
-    public async Task<string> GetUserOpticalRole(Guid userId, long opticalId)
+    public async Task<string> GetUserOpticalRole(Guid userId, Guid opticalId)
         => await _dbContext.UserOpticalStores
             .AsNoTracking()
             .Where(uos => uos.UserId == userId && uos.OpticalStoreId == opticalId)
@@ -34,7 +39,7 @@ internal sealed class UserOpticalStoreRepository : IUserOpticalStoreReadOnlyRepo
             .ToListAsync();
     }
 
-    public async Task UpdateUserRoleOpticalStore(Guid userId, long opticalId, string newRole)
+    public async Task UpdateUserRoleOpticalStore(Guid userId, Guid opticalId, string newRole)
     {
         await _dbContext.UserOpticalStores.Where(uos => uos.UserId == userId && uos.OpticalStoreId == opticalId)
            .ExecuteUpdateAsync(
@@ -42,7 +47,7 @@ internal sealed class UserOpticalStoreRepository : IUserOpticalStoreReadOnlyRepo
            );
     }
 
-    public async Task<bool> UserBelongsToOptical(Guid userId, long opticalId)
+    public async Task<bool> UserBelongsToOptical(Guid userId, Guid opticalId)
     {
         return await _dbContext.UserOpticalStores
             .AnyAsync(uos => uos.UserId == userId && uos.OpticalStoreId == opticalId && uos.IsActive);
@@ -52,7 +57,7 @@ internal sealed class UserOpticalStoreRepository : IUserOpticalStoreReadOnlyRepo
         => await _dbContext.UserOpticalStores
             .AnyAsync(uos => uos.UserId == userId && uos.Role == Roles.OWNER);
 
-    public async Task<bool> UserIsOwnerOfOpticalStore(Guid userId, long opticalId)
+    public async Task<bool> UserIsOwnerOfOpticalStore(Guid userId, Guid opticalId)
         => await _dbContext.UserOpticalStores
             .AnyAsync(
                 uos => uos.UserId == userId && 

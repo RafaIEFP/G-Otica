@@ -9,6 +9,6 @@ public class UserOpticalStore
     public Guid UserId { get; set; }
     public User User { get; set; } = default!;
 
-    public long OpticalStoreId { get; set; }
+    public Guid OpticalStoreId { get; set; }
     public OpticalStore OpticalStore { get; set; } = default!;
 }

@@ -18,7 +18,7 @@ public class Version00001 : ForwardOnlyMigration
             .WithColumn("UpdatedAt").AsUtcDateTime().Nullable();
 
         Create.Table("OpticalStores")
-            .WithColumn("Id").AsInt64().PrimaryKey().Identity().NotNullable()
+            .WithColumn("Id").AsGuid().PrimaryKey().NotNullable()
             .WithColumn("Name").AsString(255).NotNullable()
             .WithColumn("Email").AsString(255).NotNullable()
             .WithColumn("PhoneNumber").AsString(20).NotNullable()
@@ -30,7 +30,7 @@ public class Version00001 : ForwardOnlyMigration
 
         Create.Table("UserOpticalStores")
             .WithColumn("UserId").AsGuid().NotNullable()
-            .WithColumn("OpticalStoreId").AsInt64().NotNullable()
+            .WithColumn("OpticalStoreId").AsGuid().NotNullable()
             .WithColumn("EntranceDate").AsDate().NotNullable()
             .WithColumn("Role").AsString(100).NotNullable()
             .WithColumn("IsActive").AsBoolean().NotNullable().WithDefaultValue(true);

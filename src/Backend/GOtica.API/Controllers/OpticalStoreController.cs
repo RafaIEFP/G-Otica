@@ -17,7 +17,7 @@ public class OpticalStoreController : ControllerBase
     [OwnerOnly]
     public async Task<IActionResult> TransferOwnership(
         [FromServices] ITransferOpticalStoreOwnershipUseCase useCase,
-        [FromRoute] long opticalId,
+        [FromRoute] Guid opticalId,
         [FromBody] Guid newOwnerId)
     {
         await useCase.Execute(newOwnerId, opticalId);

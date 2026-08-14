@@ -34,7 +34,7 @@ public class TransferOpticalStoreOwnershipUseCase : ITransferOpticalStoreOwnersh
         _unitOfWork = unitOfWork;
     }
 
-    public async Task Execute(Guid newOwnerUserId, long opticalId)
+    public async Task Execute(Guid newOwnerUserId, Guid opticalId)
     {
         var loggedUser = await _loggedUser.Get();
 
@@ -47,7 +47,7 @@ public class TransferOpticalStoreOwnershipUseCase : ITransferOpticalStoreOwnersh
         });
     }
 
-    private async Task Validate(Guid newOwnerUserId, long opticalId, Guid loggedUserId)
+    private async Task Validate(Guid newOwnerUserId, Guid opticalId, Guid loggedUserId)
     {
         if (loggedUserId == newOwnerUserId)
             throw new ConflictException(ResourceMessagesException.USER_ALREADY_OWNER);

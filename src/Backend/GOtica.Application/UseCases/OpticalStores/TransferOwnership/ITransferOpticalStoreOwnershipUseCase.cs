@@ -2,5 +2,5 @@
 
 public interface ITransferOpticalStoreOwnershipUseCase
 {
-    Task Execute(Guid newOwnerUserId, long opticalId);
+    Task Execute(Guid newOwnerUserId, Guid opticalId);
 }

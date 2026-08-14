@@ -42,7 +42,7 @@ public sealed class OwnerHandler : AuthorizationHandler<OwnerRequirement>
         context.Succeed(requirement);
     }
 
-    private static bool TryGetOpticalIdFromRoute(AuthorizationHandlerContext context, out long opticalId)
+    private static bool TryGetOpticalIdFromRoute(AuthorizationHandlerContext context, out Guid opticalId)
     {
         opticalId = default;
 
@@ -52,6 +52,6 @@ public sealed class OwnerHandler : AuthorizationHandler<OwnerRequirement>
         var value = httpContext.Request.RouteValues["opticalId"];
 
         return value is not null &&
-               long.TryParse(value.ToString(), out opticalId);
+               Guid.TryParse(value.ToString(), out opticalId);
     }
 }

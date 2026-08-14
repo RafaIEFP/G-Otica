@@ -2,5 +2,6 @@
 
 public interface IOpticalStoreReadOnlyRepository
 {
-    Task<bool> ExistsActiveOptical(long opticalId);
+    Task<bool> ExistsActiveOptical(Guid opticalId);
+    Task<bool> ExistOpticalStoreRegistered(string taxNumber);
 }
