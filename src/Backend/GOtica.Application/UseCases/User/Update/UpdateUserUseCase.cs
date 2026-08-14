@@ -50,7 +50,7 @@ public class UpdateUserUseCase : IUpdateUserUseCase
 
         if (!currentEmail.Equals(request.Email))
         {
-            var userExist = await _userReadOnlyRepository.ExistActiveUserWithEmail(request.Email);
+            var userExist = await _userReadOnlyRepository.ExistUserWithEmail(request.Email);
             if (userExist)
                 result.Errors.Add(new ValidationFailure(string.Empty, ResourceMessagesException.EMAIL_ALREADY_REGISTERED));
         }

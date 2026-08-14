@@ -11,7 +11,7 @@ public class RegisterUserValidator : AbstractValidator<RequestRegisterUser>
     {
         RuleFor(request => request.Name).NotEmpty().WithMessage(ResourceMessagesException.NAME_EMPTY);
         RuleFor(request => request.Email).NotEmpty().WithMessage(ResourceMessagesException.EMAIL_EMPTY);
-        RuleFor(request => request.Password).SetValidator(new PasswordValidator<RequestRegisterUser>());
+        RuleFor(request => request.Password).Password();
         When(request => !string.IsNullOrWhiteSpace(request.Email), () =>
         {
             RuleFor(request => request.Email).EmailAddress().WithMessage(ResourceMessagesException.EMAIL_INVALID);

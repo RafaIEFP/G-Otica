@@ -8,6 +8,6 @@ public class ChangePasswordValidator : AbstractValidator<RequestChangePassword>
 {
     public ChangePasswordValidator()
     {
-        RuleFor(r => r.NewPassword).SetValidator(new PasswordValidator<RequestChangePassword>());
+        RuleFor(r => r.NewPassword).Password();
     }
 }
