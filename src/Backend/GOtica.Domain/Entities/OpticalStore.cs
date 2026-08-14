@@ -7,5 +7,5 @@ public class OpticalStore
     public string Email { get; set; } = string.Empty;
     public string PhoneNumber { get; set; } = string.Empty;
     public string TaxNumber { get; set; } = string.Empty;
-    public bool IsActive { get; set; }
+    public bool IsActive { get; set; } = true;
 }
