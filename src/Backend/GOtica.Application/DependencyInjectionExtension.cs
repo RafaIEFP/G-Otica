@@ -1,6 +1,7 @@
 ﻿using GOtica.Application.Sevices.Auth;
 using GOtica.Application.Sevices.Mapping;
 using GOtica.Application.UseCases.Login.DoLogin;
+using GOtica.Application.UseCases.OpticalStores.Register;
 using GOtica.Application.UseCases.OpticalStores.TransferOwnership;
 using GOtica.Application.UseCases.Token.RefreshToken;
 using GOtica.Application.UseCases.User.ChangePassword;
@@ -36,6 +37,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IDeleteAccountUseCase, DeleteAccountUseCase>();
 
         services.AddScoped<ITransferOpticalStoreOwnershipUseCase, TransferOpticalStoreOwnershipUseCase>();
+        services.AddScoped<IRegisterOpticalStoreUseCase, RegisterOpticalStoreUseCase>();
     }
 
     private static void AddMapperConfigurations() => MapConfigurations.Configure();

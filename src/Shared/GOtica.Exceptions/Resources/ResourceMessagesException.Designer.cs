@@ -151,6 +151,15 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This optical store is already registered.
+        /// </summary>
+        public static string OPTICAL_STORE_ALREADY_REGISTERED {
+            get {
+                return ResourceManager.GetString("OPTICAL_STORE_ALREADY_REGISTERED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Optical store not found..
         /// </summary>
         public static string OPTICAL_STORE_NOT_FOUND {
@@ -174,6 +183,33 @@ namespace GOtica.Exceptions.Resources {
         public static string PASSWORD_EMPTY {
             get {
                 return ResourceManager.GetString("PASSWORD_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The phone number cannot be empty..
+        /// </summary>
+        public static string PHONE_NUMBER_EMPTY {
+            get {
+                return ResourceManager.GetString("PHONE_NUMBER_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The phone number must start with +351 and contain exactly 9 digits..
+        /// </summary>
+        public static string PHONE_NUMBER_INVALID {
+            get {
+                return ResourceManager.GetString("PHONE_NUMBER_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tax number cannot be empty.
+        /// </summary>
+        public static string TAX_NUMBER_EMPTY {
+            get {
+                return ResourceManager.GetString("TAX_NUMBER_EMPTY", resourceCulture);
             }
         }
         

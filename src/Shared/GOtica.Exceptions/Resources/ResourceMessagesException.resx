@@ -147,6 +147,9 @@
   <data name="NEW_PASSWORDS_DO_NOT_MATCH" xml:space="preserve">
     <value>New passwords do not match.</value>
   </data>
+  <data name="OPTICAL_STORE_ALREADY_REGISTERED" xml:space="preserve">
+    <value>This optical store is already registered</value>
+  </data>
   <data name="OPTICAL_STORE_NOT_FOUND" xml:space="preserve">
     <value>Optical store not found.</value>
   </data>
@@ -155,6 +158,15 @@
   </data>
   <data name="PASSWORD_EMPTY" xml:space="preserve">
     <value>Password cannot be empty</value>
+  </data>
+  <data name="PHONE_NUMBER_EMPTY" xml:space="preserve">
+    <value>The phone number cannot be empty.</value>
+  </data>
+  <data name="PHONE_NUMBER_INVALID" xml:space="preserve">
+    <value>The phone number must start with +351 and contain exactly 9 digits.</value>
+  </data>
+  <data name="TAX_NUMBER_EMPTY" xml:space="preserve">
+    <value>Tax number cannot be empty</value>
   </data>
   <data name="UNKNOWN_ERROR" xml:space="preserve">
     <value>Unknown error.</value>
