@@ -42,8 +42,8 @@ public class TransferOpticalStoreOwnershipUseCase : ITransferOpticalStoreOwnersh
 
         await _unitOfWork.ExecuteInTransaction(async() =>
         {
-            await _userOpticalStoreUpdateOnlyRepository.UpdateUserRoleOpticalStore(loggedUser.Id, opticalId, Roles.MANAGER);
-            await _userOpticalStoreUpdateOnlyRepository.UpdateUserRoleOpticalStore(newOwnerUserId, opticalId, Roles.OWNER);
+            await _userOpticalStoreUpdateOnlyRepository.UpdateUserRoleOpticalStoreAssociation(loggedUser.Id, opticalId, Roles.MANAGER);
+            await _userOpticalStoreUpdateOnlyRepository.UpdateUserRoleOpticalStoreAssociation(newOwnerUserId, opticalId, Roles.OWNER);
         });
     }
 

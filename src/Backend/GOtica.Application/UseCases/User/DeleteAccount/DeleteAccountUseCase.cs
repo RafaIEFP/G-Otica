@@ -44,7 +44,7 @@ public class DeleteAccountUseCase : IDeleteAccountUseCase
         {
             await _userUpdateOnlyRepository.DeactivateAccount(loggedUser.Id);
 
-            await _userOpticalStoreUpdateOnlyRepository.DeactivateUserOpticalStores(loggedUser.Id);
+            await _userOpticalStoreUpdateOnlyRepository.DeactivateByUser(loggedUser.Id);
 
             await _refreshTokenWriteOnlyRepository.DeleteUserRefresh(loggedUser.Id);
         });

@@ -16,9 +16,18 @@ internal sealed class UserOpticalStoreRepository : IUserOpticalStoreReadOnlyRepo
         await _dbContext.UserOpticalStores.AddAsync(userOpticalStore);
     }
 
-    public async Task DeactivateUserOpticalStores(Guid userId)
+    public async Task DeactivateByOpticalStore(Guid opticalStoreId)
+    {
+        await _dbContext.UserOpticalStores
+            .Where(uos => uos.OpticalStoreId == opticalStoreId && uos.IsActive)
+            .ExecuteUpdateAsync(
+                setter => setter.SetProperty(uos => uos.IsActive, false)
+                );
+    }
+
+    public async Task DeactivateByUser(Guid userId)
         => await _dbContext.UserOpticalStores
-            .Where(uos => uos.UserId == userId)
+            .Where(uos => uos.UserId == userId && uos.IsActive)
             .ExecuteUpdateAsync(
                 setter => setter.SetProperty(uos => uos.IsActive, false)
                 );
@@ -30,7 +39,7 @@ internal sealed class UserOpticalStoreRepository : IUserOpticalStoreReadOnlyRepo
             .Select(uos => uos.Role)
             .FirstAsync();
 
-    public async Task<IReadOnlyCollection<UserOpticalStore>> GetUserOpticalStores(Guid userId)
+    public async Task<IReadOnlyCollection<UserOpticalStore>> GetUserOpticalStore(Guid userId)
     {
         return await _dbContext.UserOpticalStores
             .AsNoTracking()
@@ -39,7 +48,7 @@ internal sealed class UserOpticalStoreRepository : IUserOpticalStoreReadOnlyRepo
             .ToListAsync();
     }
 
-    public async Task UpdateUserRoleOpticalStore(Guid userId, Guid opticalId, string newRole)
+    public async Task UpdateUserRoleOpticalStoreAssociation(Guid userId, Guid opticalId, string newRole)
     {
         await _dbContext.UserOpticalStores.Where(uos => uos.UserId == userId && uos.OpticalStoreId == opticalId)
            .ExecuteUpdateAsync(
@@ -62,6 +71,7 @@ internal sealed class UserOpticalStoreRepository : IUserOpticalStoreReadOnlyRepo
             .AnyAsync(
                 uos => uos.UserId == userId && 
                 uos.OpticalStoreId == opticalId && 
-                uos.Role ==  Roles.OWNER
+                uos.Role ==  Roles.OWNER &&
+                uos.IsActive
             );
 }

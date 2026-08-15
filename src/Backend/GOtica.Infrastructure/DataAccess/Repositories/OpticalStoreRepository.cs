@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GOtica.Infrastructure.DataAccess.Repositories;
 
-internal sealed class OpticalStoreRepository : IOpticalStoreReadOnlyRepository, IOpticalStoreWriteOnlyRepository
+internal sealed class OpticalStoreRepository : IOpticalStoreReadOnlyRepository, IOpticalStoreWriteOnlyRepository, IOpticalStoreUpdateOnlyRepository
 {
     private readonly GOticaDbContext _dbContext;
     public OpticalStoreRepository(GOticaDbContext dbContext) => _dbContext = dbContext;
@@ -12,6 +12,15 @@ internal sealed class OpticalStoreRepository : IOpticalStoreReadOnlyRepository, 
     public async Task Add(OpticalStore opticalStore)
     {
         await _dbContext.OpticalStores.AddAsync(opticalStore);
+    }
+
+    public async Task DeactivateOpticalStore(Guid opticalStoreId)
+    {
+        await _dbContext.OpticalStores
+            .Where(o => o.Id == opticalStoreId && o.IsActive)
+            .ExecuteUpdateAsync(
+                setter => setter.SetProperty(o => o.IsActive, false)
+                );
     }
 
     public async Task<bool> ExistOpticalStoreRegistered(string taxNumber)

@@ -2,6 +2,7 @@
 
 public interface IUserOpticalStoreUpdateOnlyRepository
 {
-    Task UpdateUserRoleOpticalStore(Guid userId, Guid opticalId, string newRole);
-    Task DeactivateUserOpticalStores(Guid userId);
+    Task UpdateUserRoleOpticalStoreAssociation(Guid userId, Guid opticalId, string newRole);
+    Task DeactivateByUser(Guid userId);
+    Task DeactivateByOpticalStore(Guid opticalStoreId);
 }

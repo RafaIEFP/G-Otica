@@ -1,4 +1,5 @@
 ﻿using GOtica.API.Attributes;
+using GOtica.Application.UseCases.OpticalStores.Deactivate;
 using GOtica.Application.UseCases.OpticalStores.Register;
 using GOtica.Application.UseCases.OpticalStores.TransferOwnership;
 using GOtica.Communication.Requests;
@@ -13,16 +14,16 @@ namespace GOtica.API.Controllers;
 public class OpticalStoreController : ControllerBase
 {
     [HttpPut]
-    [Route("{opticalId}")]
+    [Route("{opticalStoreId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ResponseError), StatusCodes.Status400BadRequest)]
     [OwnerOnly]
     public async Task<IActionResult> TransferOwnership(
         [FromServices] ITransferOpticalStoreOwnershipUseCase useCase,
-        [FromRoute] Guid opticalId,
+        [FromRoute] Guid opticalStoreId,
         [FromBody] Guid newOwnerId)
     {
-        await useCase.Execute(newOwnerId, opticalId);
+        await useCase.Execute(newOwnerId, opticalStoreId);
 
         return NoContent();
     }
@@ -31,12 +32,25 @@ public class OpticalStoreController : ControllerBase
     [ProducesResponseType(typeof(ResponseRegisterOpticalStore), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ResponseError), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ResponseError), StatusCodes.Status409Conflict)]
-    public async Task<IActionResult> TransferOwnership(
+    public async Task<IActionResult> Register(
         [FromServices] IRegisterOpticalStoreUseCase useCase, 
         [FromBody] RequestRegisterOpticalStore request)
     {
         var response = await useCase.Execute(request);
 
         return Created(string.Empty, response);
+    }
+
+    [HttpDelete]
+    [Route("{opticalStoreId}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [OwnerOnly]
+    public async Task<IActionResult> Deactivate(
+        [FromServices] IDeactivateOpticalStoreUseCase useCase,
+        [FromRoute] Guid opticalStoreId)
+    {
+        await useCase.Execute(opticalStoreId);
+
+        return NoContent();
     }
 }
