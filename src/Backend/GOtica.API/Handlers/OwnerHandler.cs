@@ -25,13 +25,13 @@ public sealed class OwnerHandler : AuthorizationHandler<OwnerRequirement>
             return;
         }
 
-        if (!TryGetOpticalIdFromRoute(context, out var opticalId))
+        if (!TryGetOpticalIdFromRoute(context, out var opticalStoreId))
         {
             context.Fail();
             return;
         }
 
-        var userIsOwner = await _userOpticalStoreReadOnlyRepository.UserIsOwnerOfOpticalStore(Guid.Parse(userId), opticalId);
+        var userIsOwner = await _userOpticalStoreReadOnlyRepository.UserIsOwnerOfOpticalStore(Guid.Parse(userId), opticalStoreId);
 
         if (!userIsOwner)
         {
@@ -42,16 +42,16 @@ public sealed class OwnerHandler : AuthorizationHandler<OwnerRequirement>
         context.Succeed(requirement);
     }
 
-    private static bool TryGetOpticalIdFromRoute(AuthorizationHandlerContext context, out Guid opticalId)
+    private static bool TryGetOpticalIdFromRoute(AuthorizationHandlerContext context, out Guid opticalStoreId)
     {
-        opticalId = default;
+        opticalStoreId = default;
 
         if (context.Resource is not HttpContext httpContext)
             return false;
 
-        var value = httpContext.Request.RouteValues["opticalId"];
+        var value = httpContext.Request.RouteValues["opticalStoreId"];
 
         return value is not null &&
-               Guid.TryParse(value.ToString(), out opticalId);
+               Guid.TryParse(value.ToString(), out opticalStoreId);
     }
 }
