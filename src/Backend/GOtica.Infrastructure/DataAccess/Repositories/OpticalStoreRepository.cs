@@ -30,4 +30,14 @@ internal sealed class OpticalStoreRepository : IOpticalStoreReadOnlyRepository, 
 
     public Task<bool> ExistsActiveOptical(Guid opticalId)
         => _dbContext.OpticalStores.AnyAsync(op => op.Id == opticalId && op.IsActive);
+
+    public async Task<OpticalStore> GetById(Guid opticalStoreId)
+    {
+        return await _dbContext.OpticalStores.SingleAsync(o => o.Id == opticalStoreId);
+    }
+
+    public void Update(OpticalStore opticalStore)
+    {
+        _dbContext.OpticalStores.Update(opticalStore);
+    }
 }

@@ -2,6 +2,7 @@
 using GOtica.Application.UseCases.OpticalStores.Deactivate;
 using GOtica.Application.UseCases.OpticalStores.Register;
 using GOtica.Application.UseCases.OpticalStores.TransferOwnership;
+using GOtica.Application.UseCases.OpticalStores.Update;
 using GOtica.Communication.Requests;
 using GOtica.Communication.Response;
 using Microsoft.AspNetCore.Mvc;
@@ -50,6 +51,22 @@ public class OpticalStoreController : ControllerBase
         [FromRoute] Guid opticalStoreId)
     {
         await useCase.Execute(opticalStoreId);
+
+        return NoContent();
+    }
+
+    [HttpPut]
+    [Route("Update/{opticalStoreId}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status409Conflict)]
+    [OwnerOnly]
+    public async Task<IActionResult> Update(
+        [FromServices] IUpdateOpticalStoreUseCase useCase,
+        [FromRoute] Guid opticalStoreId,
+        [FromBody] RequestOpticalStore request)
+    {
+        await useCase.Execute(opticalStoreId, request);
 
         return NoContent();
     }
