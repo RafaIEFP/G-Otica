@@ -1,6 +1,7 @@
 ﻿using GOtica.Application.Sevices.Auth;
 using GOtica.Communication.Requests;
 using GOtica.Communication.Response;
+using GOtica.Communication.Response.User;
 using GOtica.Domain.Repositories;
 using GOtica.Domain.Repositories.Refresh;
 using GOtica.Domain.Repositories.User;

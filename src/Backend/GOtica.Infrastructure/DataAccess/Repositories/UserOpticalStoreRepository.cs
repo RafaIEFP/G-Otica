@@ -1,4 +1,5 @@
 ﻿using GOtica.Domain;
+using GOtica.Domain.Dtos;
 using GOtica.Domain.Entities;
 using GOtica.Domain.Repositories.UserOpticalStore;
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +32,46 @@ internal sealed class UserOpticalStoreRepository : IUserOpticalStoreReadOnlyRepo
             .ExecuteUpdateAsync(
                 setter => setter.SetProperty(uos => uos.IsActive, false)
                 );
+
+    public async Task<IReadOnlyCollection<AllOpticalStoresWithRole>> GetAllOpticalStoresWithRole(Guid userId)
+    {
+        return await _dbContext.UserOpticalStores
+            .AsNoTracking()
+            .Where(uos =>
+                uos.UserId == userId &&
+                uos.IsActive)
+            .Select(uos => new AllOpticalStoresWithRole
+            {
+                Id = uos.OpticalStoreId,
+                Name = uos.OpticalStore.Name,
+                Role = uos.Role,
+                EntranceDate = uos.EntranceDate,
+                IsActive = uos.OpticalStore.IsActive
+            })
+            .ToListAsync();
+    }
+
+    public async Task<OpticalStoreWithRoleDTO?> GetOpticalStoreWithRole(Guid userId, Guid opticalId)
+    {
+        return await _dbContext.UserOpticalStores
+            .AsNoTracking()
+            .Where(uos =>
+                uos.UserId == userId &&
+                uos.OpticalStoreId == opticalId &&
+                uos.IsActive)
+            .Select(uos => new OpticalStoreWithRoleDTO
+            {
+                Id = uos.OpticalStore.Id,
+                Name = uos.OpticalStore.Name,
+                Email = uos.OpticalStore.Email,
+                PhoneNumber = uos.OpticalStore.PhoneNumber,
+                TaxNumber = uos.OpticalStore.TaxNumber,
+                EntranceDate = uos.EntranceDate,
+                IsActive = uos.OpticalStore.IsActive,
+                Role = uos.Role
+            })
+            .FirstOrDefaultAsync();
+    }
 
     public async Task<string> GetUserOpticalRole(Guid userId, Guid opticalId)
         => await _dbContext.UserOpticalStores

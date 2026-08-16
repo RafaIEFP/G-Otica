@@ -1,5 +1,5 @@
 ﻿using GOtica.Communication.Requests;
-using GOtica.Communication.Response;
+using GOtica.Communication.Response.OpticalStore;
 using GOtica.Domain;
 using GOtica.Domain.Entities;
 using GOtica.Domain.Repositories;

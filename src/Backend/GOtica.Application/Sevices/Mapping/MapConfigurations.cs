@@ -1,5 +1,5 @@
 ﻿using GOtica.Communication.Requests;
-using GOtica.Communication.Response;
+using GOtica.Communication.Response.OpticalStore;
 using GOtica.Domain.Entities;
 using Mapster;
 
@@ -12,10 +12,5 @@ public static class MapConfigurations
         TypeAdapterConfig<RequestRegisterUser, User>
             .NewConfig()
             .Ignore(dest => dest.Password);
-
-        TypeAdapterConfig<UserOpticalStore, ResponseOpticalStoreProfile>
-            .NewConfig()
-            .Map(dest => dest.Id, src => src.OpticalStoreId)
-            .Map(dest => dest.Name, src => src.OpticalStore.Name);
     }
 }

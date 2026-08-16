@@ -5,6 +5,7 @@ using GOtica.Application.UseCases.User.Profile;
 using GOtica.Application.UseCases.User.Update;
 using GOtica.Communication.Requests;
 using GOtica.Communication.Response;
+using GOtica.Communication.Response.User;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GOtica.API.Controllers;

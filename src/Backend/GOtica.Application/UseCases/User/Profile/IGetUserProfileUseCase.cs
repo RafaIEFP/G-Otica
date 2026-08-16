@@ -1,4 +1,4 @@
-﻿using GOtica.Communication.Response;
+﻿using GOtica.Communication.Response.User;
 
 namespace GOtica.Application.UseCases.User.Profile;
 

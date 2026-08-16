@@ -3,6 +3,7 @@ using GOtica.Application.UseCases.Token.RefreshToken;
 using GOtica.Application.UseCases.User.Register;
 using GOtica.Communication.Requests;
 using GOtica.Communication.Response;
+using GOtica.Communication.Response.User;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GOtica.API.Controllers;

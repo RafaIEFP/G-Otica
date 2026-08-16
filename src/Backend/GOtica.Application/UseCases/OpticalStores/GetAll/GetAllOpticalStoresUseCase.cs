@@ -1,27 +1,28 @@
-﻿using GOtica.Communication.Response.User;
+﻿using GOtica.Communication.Response.OpticalStore;
 using GOtica.Domain.Repositories.UserOpticalStore;
 using GOtica.Domain.Services;
 using Mapster;
 
-namespace GOtica.Application.UseCases.User.Profile;
+namespace GOtica.Application.UseCases.OpticalStores.GetAll;
 
-public class GetUserProfileUseCase : IGetUserProfileUseCase
+public class GetAllOpticalStoresUseCase : IGetAllOpticalStoresUseCase
 {
     private readonly ILoggedUser _loggedUser;
     private readonly IUserOpticalStoreReadOnlyRepository _userOpticalStoreReadOnlyRepository;
-    public GetUserProfileUseCase(
+    public GetAllOpticalStoresUseCase(
         ILoggedUser loggedUser,
         IUserOpticalStoreReadOnlyRepository userOpticalStoreReadOnlyRepository)
     {
         _loggedUser = loggedUser;
         _userOpticalStoreReadOnlyRepository = userOpticalStoreReadOnlyRepository;
     }
-    public async Task<ResponseUserProfile> Execute()
+
+    public async Task<IReadOnlyCollection<ResponseGetAllOpticalStores>> Execute()
     {
         var loggedUser = await _loggedUser.Get();
 
-        var userOpticalStores = await _userOpticalStoreReadOnlyRepository.GetUserOpticalStore(loggedUser.Id);
+        var opticalStores = await _userOpticalStoreReadOnlyRepository.GetAllOpticalStoresWithRole(loggedUser.Id);
 
-        return loggedUser.Adapt<ResponseUserProfile>();
+        return opticalStores.Adapt<IReadOnlyCollection<ResponseGetAllOpticalStores>>();
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace GOtica.Communication.Response;
+﻿namespace GOtica.Communication.Response.User;
 
 public record ResponseRegisteredUser
 {
