@@ -34,7 +34,7 @@ public class OpticalStoreController : ControllerBase
     [ProducesResponseType(typeof(ResponseError), StatusCodes.Status409Conflict)]
     public async Task<IActionResult> Register(
         [FromServices] IRegisterOpticalStoreUseCase useCase, 
-        [FromBody] RequestRegisterOpticalStore request)
+        [FromBody] RequestOpticalStore request)
     {
         var response = await useCase.Execute(request);
 

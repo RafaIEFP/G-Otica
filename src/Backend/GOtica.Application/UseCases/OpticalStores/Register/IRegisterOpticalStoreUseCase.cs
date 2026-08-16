@@ -5,5 +5,5 @@ namespace GOtica.Application.UseCases.OpticalStores.Register;
 
 public interface IRegisterOpticalStoreUseCase
 {
-    Task<ResponseRegisterOpticalStore> Execute(RequestRegisterOpticalStore request);
+    Task<ResponseRegisterOpticalStore> Execute(RequestOpticalStore request);
 }

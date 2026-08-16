@@ -34,7 +34,7 @@ public class RegisterOpticalStoreUseCase : IRegisterOpticalStoreUseCase
         _userOpticalStoreWriteOnlyRepository = userOpticalStoreWriteOnlyRepository;
     }
 
-    public async Task<ResponseRegisterOpticalStore> Execute(RequestRegisterOpticalStore request)
+    public async Task<ResponseRegisterOpticalStore> Execute(RequestOpticalStore request)
     {
         var loggedUser = await _loggedUser.Get();
 
@@ -62,7 +62,7 @@ public class RegisterOpticalStoreUseCase : IRegisterOpticalStoreUseCase
         return opticalStore.Adapt<ResponseRegisterOpticalStore>();
     }
 
-    private static void Vaidate(RequestRegisterOpticalStore request)
+    private static void Vaidate(RequestOpticalStore request)
     {
         var result = new RegisterOpticalStoreValidator().Validate(request);
 

@@ -5,7 +5,7 @@ using GOtica.Exceptions.Resources;
 
 namespace GOtica.Application.UseCases.OpticalStores.Register;
 
-public class RegisterOpticalStoreValidator : AbstractValidator<RequestRegisterOpticalStore>
+public class RegisterOpticalStoreValidator : AbstractValidator<RequestOpticalStore>
 {
     public RegisterOpticalStoreValidator()
     {
