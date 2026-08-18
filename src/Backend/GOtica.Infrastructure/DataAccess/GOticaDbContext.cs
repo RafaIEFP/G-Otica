@@ -9,6 +9,7 @@ internal class GOticaDbContext(DbContextOptions options) : DbContext(options)
     public DbSet<User> Users { get; set; }
     public DbSet<UserOpticalStore> UserOpticalStores { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
+    public DbSet<Invite> Invites { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
