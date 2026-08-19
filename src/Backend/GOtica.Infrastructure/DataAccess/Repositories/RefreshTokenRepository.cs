@@ -4,26 +4,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GOtica.Infrastructure.DataAccess.Repositories;
 
-internal class RefreshTokenRepository : IRefreshTokenReadOnlyRepository, IRefreshTokenWriteOnlyRepository
+internal class RefreshTokenRepository(GOticaDbContext dbContext) : IRefreshTokenReadOnlyRepository, IRefreshTokenWriteOnlyRepository
 {
-    private readonly GOticaDbContext _dbContext;
-    public RefreshTokenRepository(GOticaDbContext dbContext) => _dbContext = dbContext;
-
     public async Task Add(RefreshToken refreshToken)
     {
-        await _dbContext.RefreshTokens.Where(rt => rt.UserId == refreshToken.UserId).ExecuteDeleteAsync();
-        await _dbContext.RefreshTokens.AddAsync(refreshToken);
+        await dbContext.RefreshTokens.Where(rt => rt.UserId == refreshToken.UserId).ExecuteDeleteAsync();
+        await dbContext.RefreshTokens.AddAsync(refreshToken);
     }
 
     public async Task DeleteUserRefresh(Guid userId)
-        => await _dbContext.RefreshTokens.Where(rt => rt.UserId == userId).ExecuteDeleteAsync();
+        => await dbContext.RefreshTokens.Where(rt => rt.UserId == userId).ExecuteDeleteAsync();
 
     public async Task<RefreshToken?> Get(string token)
-        => await _dbContext.RefreshTokens
+        => await dbContext.RefreshTokens
         .AsNoTracking()
         .Include(rt => rt.User)
         .FirstOrDefaultAsync(rt => rt.Token.Equals(token));
 
     public Task<bool> HasRefresTokenAssociated(Guid userId, Guid accessTokenIdentifier)
-        => _dbContext.RefreshTokens.AnyAsync(rt => rt.UserId == userId && rt.AccessTokenId == accessTokenIdentifier);
+        => dbContext.RefreshTokens.AnyAsync(rt => rt.UserId == userId && rt.AccessTokenId == accessTokenIdentifier);
 }

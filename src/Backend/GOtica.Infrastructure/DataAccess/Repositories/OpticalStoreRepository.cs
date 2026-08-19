@@ -4,19 +4,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GOtica.Infrastructure.DataAccess.Repositories;
 
-internal sealed class OpticalStoreRepository : IOpticalStoreReadOnlyRepository, IOpticalStoreWriteOnlyRepository, IOpticalStoreUpdateOnlyRepository
+internal sealed class OpticalStoreRepository(GOticaDbContext dbContext) : IOpticalStoreReadOnlyRepository, IOpticalStoreWriteOnlyRepository, IOpticalStoreUpdateOnlyRepository
 {
-    private readonly GOticaDbContext _dbContext;
-    public OpticalStoreRepository(GOticaDbContext dbContext) => _dbContext = dbContext;
-
     public async Task Add(OpticalStore opticalStore)
     {
-        await _dbContext.OpticalStores.AddAsync(opticalStore);
+        await dbContext.OpticalStores.AddAsync(opticalStore);
     }
 
     public async Task DeactivateOpticalStore(Guid opticalStoreId)
     {
-        await _dbContext.OpticalStores
+        await dbContext.OpticalStores
             .Where(o => o.Id == opticalStoreId && o.IsActive)
             .ExecuteUpdateAsync(
                 setter => setter.SetProperty(o => o.IsActive, false)
@@ -25,19 +22,19 @@ internal sealed class OpticalStoreRepository : IOpticalStoreReadOnlyRepository, 
 
     public async Task<bool> ExistOpticalStoreRegistered(string taxNumber)
     {
-        return await _dbContext.OpticalStores.AnyAsync(o => o.TaxNumber.Equals(taxNumber));
+        return await dbContext.OpticalStores.AnyAsync(o => o.TaxNumber.Equals(taxNumber));
     }
 
     public Task<bool> ExistsActiveOptical(Guid opticalId)
-        => _dbContext.OpticalStores.AnyAsync(op => op.Id == opticalId && op.IsActive);
+        => dbContext.OpticalStores.AnyAsync(op => op.Id == opticalId && op.IsActive);
 
     public async Task<OpticalStore> GetById(Guid opticalStoreId)
     {
-        return await _dbContext.OpticalStores.SingleAsync(o => o.Id == opticalStoreId);
+        return await dbContext.OpticalStores.SingleAsync(o => o.Id == opticalStoreId);
     }
 
     public void Update(OpticalStore opticalStore)
     {
-        _dbContext.OpticalStores.Update(opticalStore);
+        dbContext.OpticalStores.Update(opticalStore);
     }
 }
