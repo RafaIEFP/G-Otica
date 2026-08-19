@@ -159,17 +159,26 @@
   <data name="PASSWORD_EMPTY" xml:space="preserve">
     <value>Password cannot be empty</value>
   </data>
+  <data name="PENDING_INVITE_ALREADY_EXISTS" xml:space="preserve">
+    <value>The user already has a pending invitation for this optical store.</value>
+  </data>
   <data name="PHONE_NUMBER_EMPTY" xml:space="preserve">
     <value>The phone number cannot be empty.</value>
   </data>
   <data name="PHONE_NUMBER_INVALID" xml:space="preserve">
     <value>The phone number must start with +351 and contain exactly 9 digits.</value>
   </data>
+  <data name="ROLE_INVALID" xml:space="preserve">
+    <value>The role must be 'manager' or 'salesperson'.</value>
+  </data>
   <data name="TAX_NUMBER_EMPTY" xml:space="preserve">
     <value>Tax number cannot be empty</value>
   </data>
   <data name="UNKNOWN_ERROR" xml:space="preserve">
     <value>Unknown error.</value>
+  </data>
+  <data name="USER_ALREADY_MEMBER_OF_OS" xml:space="preserve">
+    <value>This user is already a member of the optical store.</value>
   </data>
   <data name="USER_ALREADY_OWNER" xml:space="preserve">
     <value>The user is already owner</value>

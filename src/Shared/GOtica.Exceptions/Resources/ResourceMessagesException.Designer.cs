@@ -187,6 +187,15 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The user already has a pending invitation for this optical store..
+        /// </summary>
+        public static string PENDING_INVITE_ALREADY_EXISTS {
+            get {
+                return ResourceManager.GetString("PENDING_INVITE_ALREADY_EXISTS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The phone number cannot be empty..
         /// </summary>
         public static string PHONE_NUMBER_EMPTY {
@@ -205,6 +214,15 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The role must be &apos;manager&apos; or &apos;salesperson&apos;..
+        /// </summary>
+        public static string ROLE_INVALID {
+            get {
+                return ResourceManager.GetString("ROLE_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tax number cannot be empty.
         /// </summary>
         public static string TAX_NUMBER_EMPTY {
@@ -219,6 +237,15 @@ namespace GOtica.Exceptions.Resources {
         public static string UNKNOWN_ERROR {
             get {
                 return ResourceManager.GetString("UNKNOWN_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This user is already a member of the optical store..
+        /// </summary>
+        public static string USER_ALREADY_MEMBER_OF_OS {
+            get {
+                return ResourceManager.GetString("USER_ALREADY_MEMBER_OF_OS", resourceCulture);
             }
         }
         
