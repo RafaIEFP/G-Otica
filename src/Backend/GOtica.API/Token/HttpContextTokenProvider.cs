@@ -1,4 +1,4 @@
-﻿using GOtica.Domain.Security.Tokens;
+﻿using GOtica.Domain.Security.Tokens.Access;
 
 namespace GOtica.API.Token;
 

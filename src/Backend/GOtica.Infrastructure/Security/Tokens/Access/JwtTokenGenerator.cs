@@ -1,5 +1,5 @@
 ﻿using GOtica.Domain.Entities;
-using GOtica.Domain.Security.Tokens;
+using GOtica.Domain.Security.Tokens.Access;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;

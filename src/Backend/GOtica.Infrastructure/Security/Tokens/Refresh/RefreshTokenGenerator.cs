@@ -1,4 +1,5 @@
-﻿using GOtica.Domain.Security.Tokens;
+﻿using GOtica.Domain.Security.Tokens.Refresh;
+using Microsoft.AspNetCore.WebUtilities;
 using System.Security.Cryptography;
 
 namespace GOtica.Infrastructure.Security.Tokens.Refresh;
@@ -6,5 +7,5 @@ namespace GOtica.Infrastructure.Security.Tokens.Refresh;
 internal sealed class RefreshTokenGenerator : IRefreshTokenGenerator
 {
     public string Generate()
-        => Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
+        => WebEncoders.Base64UrlEncode(RandomNumberGenerator.GetBytes(32));
 }

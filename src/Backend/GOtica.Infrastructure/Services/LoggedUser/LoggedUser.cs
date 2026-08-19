@@ -1,5 +1,5 @@
 ﻿using GOtica.Domain.Entities;
-using GOtica.Domain.Security.Tokens;
+using GOtica.Domain.Security.Tokens.Access;
 using GOtica.Domain.Services;
 using GOtica.Infrastructure.DataAccess;
 using Microsoft.EntityFrameworkCore;

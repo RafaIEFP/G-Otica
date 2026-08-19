@@ -3,7 +3,7 @@ using GOtica.Communication.Requests;
 using GOtica.Communication.Response.User;
 using GOtica.Domain.Repositories;
 using GOtica.Domain.Repositories.Refresh;
-using GOtica.Domain.Security.Tokens;
+using GOtica.Domain.Security.Tokens.Access;
 using GOtica.Exceptions.ExceptionsBase;
 using Microsoft.Extensions.Options;
 

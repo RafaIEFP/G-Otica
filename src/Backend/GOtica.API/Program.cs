@@ -5,7 +5,7 @@ using GOtica.API.Handlers.Requirements;
 using GOtica.API.OpenApi;
 using GOtica.API.Token;
 using GOtica.Application;
-using GOtica.Domain.Security.Tokens;
+using GOtica.Domain.Security.Tokens.Access;
 using GOtica.Infrastructure;
 using GOtica.Infrastructure.Extensions;
 using GOtica.Infrastructure.Migrations;

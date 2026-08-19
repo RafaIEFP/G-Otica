@@ -1,6 +1,7 @@
 ﻿using GOtica.Domain.Dtos;
 using GOtica.Domain.Entities;
-using GOtica.Domain.Security.Tokens;
+using GOtica.Domain.Security.Tokens.Access;
+using GOtica.Domain.Security.Tokens.Refresh;
 
 namespace GOtica.Application.Sevices.Auth;
 
