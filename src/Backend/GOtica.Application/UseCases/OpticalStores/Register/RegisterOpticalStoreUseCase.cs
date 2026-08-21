@@ -49,7 +49,7 @@ public class RegisterOpticalStoreUseCase : IRegisterOpticalStoreUseCase
 
         await _opticalStoreWriteOnlyRepository.Add(opticalStore);
 
-        await _userOpticalStoreWriteOnlyRepository.Add(new UserOpticalStore
+        await _userOpticalStoreWriteOnlyRepository.Add(new Domain.Entities.UserOpticalStore
         {
             EntranceDate = DateOnly.FromDateTime(DateTime.UtcNow),
             Role = Roles.OWNER,

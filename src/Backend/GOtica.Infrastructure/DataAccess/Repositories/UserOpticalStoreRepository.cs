@@ -99,6 +99,12 @@ internal sealed class UserOpticalStoreRepository(GOticaDbContext dbContext) : IU
             .AnyAsync(uos => uos.UserId == userId && uos.OpticalStoreId == opticalId && uos.IsActive);
     }
 
+    public async Task<bool> UserBelongsToOpticalByEmail(string email, Guid opticalId)
+    {
+        return await dbContext.UserOpticalStores
+            .AnyAsync(uos => uos.User.Email == email && uos.OpticalStoreId == opticalId && uos.IsActive);
+    }
+
     public async Task<bool> UserIsOwner(Guid userId)
         => await dbContext.UserOpticalStores
             .AnyAsync(uos => uos.UserId == userId && uos.Role == Roles.OWNER);

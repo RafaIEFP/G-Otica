@@ -1,4 +1,5 @@
 ﻿using GOtica.Application.Sevices.Auth;
+using GOtica.Application.Sevices.Invite;
 using GOtica.Application.Sevices.Mapping;
 using GOtica.Application.UseCases.Login.DoLogin;
 using GOtica.Application.UseCases.OpticalStores.Deactivate;
@@ -13,6 +14,7 @@ using GOtica.Application.UseCases.User.DeleteAccount;
 using GOtica.Application.UseCases.User.Profile;
 using GOtica.Application.UseCases.User.Register;
 using GOtica.Application.UseCases.User.Update;
+using GOtica.Application.UseCases.UserOpticalStore.Invite;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace GOtica.Application;
@@ -26,6 +28,7 @@ public static class DependencyInjectionExtension
             AddUseCases(services);
             AddMapperConfigurations();
             AddTokenService(services);
+            AddInviteTokenService(services);
         }
     }
 
@@ -46,6 +49,8 @@ public static class DependencyInjectionExtension
         services.AddScoped<IUpdateOpticalStoreUseCase, UpdateOpticalStoreUseCase>();
         services.AddScoped<IGetOpticalStoreUseCase, GetOpticalStoreUseCase>();
         services.AddScoped<IGetAllOpticalStoresUseCase, GetAllOpticalStoresUseCase>();
+
+        services.AddScoped<ICreateInviteUseCase, CreateInviteUseCase>();
     }
 
     private static void AddMapperConfigurations() => MapConfigurations.Configure();
@@ -54,5 +59,11 @@ public static class DependencyInjectionExtension
     {
         services.AddOptions<TokenSettings>().BindConfiguration("Settings:RefreshToken");
         services.AddScoped<ITokenService, TokenService>();
+    }
+
+    private static void AddInviteTokenService(IServiceCollection services)
+    {
+        services.AddOptions<InviteTokenSettings>().BindConfiguration("Settings:InviteToken");
+        services.AddScoped<IInviteTokenService, InviteTokenService>();
     }
 }
