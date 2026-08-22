@@ -1,7 +1,5 @@
-﻿using GOtica.Application.Sevices.Auth;
-using GOtica.Application.Sevices.Invite;
+﻿using GOtica.Application.Sevices.Invite;
 using GOtica.Communication.Requests;
-using GOtica.Domain.Entities;
 using GOtica.Domain.Repositories;
 using GOtica.Domain.Repositories.Invite;
 using GOtica.Domain.Repositories.UserOpticalStore;
@@ -22,6 +20,7 @@ public class CreateInviteUseCase : ICreateInviteUseCase
     private readonly InviteTokenSettings _inviteTokenSettings;
     private readonly IUserOpticalStoreReadOnlyRepository _userOpticalStoreReadOnlyRepository;
     private readonly IEmailSender _emailSender;
+    private readonly IValidateInviteUrlProvider _validateInviteUrlProvider;
     public CreateInviteUseCase(
         ILoggedUser loggedUser,
         IUnitOfWork unitOfWork,
@@ -30,7 +29,8 @@ public class CreateInviteUseCase : ICreateInviteUseCase
         IInviteTokenService inviteTokenService,
         IOptions<InviteTokenSettings> inviteTokenSettings,
         IUserOpticalStoreReadOnlyRepository userOpticalStoreReadOnlyRepository,
-        IEmailSender emailSender)
+        IEmailSender emailSender,
+        IValidateInviteUrlProvider validateInviteUrlProvider)
     {
         _loggedUser = loggedUser;
         _unitOfWork = unitOfWork;
@@ -40,6 +40,7 @@ public class CreateInviteUseCase : ICreateInviteUseCase
         _inviteTokenSettings = inviteTokenSettings.Value;
         _userOpticalStoreReadOnlyRepository = userOpticalStoreReadOnlyRepository;
         _emailSender = emailSender;
+        _validateInviteUrlProvider = validateInviteUrlProvider;
     }
 
     public async Task Execute(Guid opticalStoreId, RequestInvite request)
@@ -75,7 +76,7 @@ public class CreateInviteUseCase : ICreateInviteUseCase
 
         await _unitOfWork.Commit();
 
-        await _emailSender.Send(inviter.Name, request.GuestEmail, "link");
+        await _emailSender.Send(inviter.Name, request.GuestEmail, _validateInviteUrlProvider.GenerateLink(tokens.Token));
     }
 
     private void Validate(RequestInvite request)

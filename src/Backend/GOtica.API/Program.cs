@@ -3,9 +3,11 @@ using GOtica.API.Handlers;
 using GOtica.API.Handlers.Extensions;
 using GOtica.API.Handlers.Requirements;
 using GOtica.API.OpenApi;
-using GOtica.API.Token;
+using GOtica.API.Providers.Token;
+using GOtica.API.Providers.Url;
 using GOtica.Application;
 using GOtica.Domain.Security.Tokens.Access;
+using GOtica.Domain.Services;
 using GOtica.Infrastructure;
 using GOtica.Infrastructure.Extensions;
 using GOtica.Infrastructure.Migrations;
@@ -31,6 +33,7 @@ builder.Services.AddScoped<IAuthorizationHandler, AuthenticatedUserHandler>();
 builder.Services.AddScoped<IAuthorizationHandler, OwnerHandler>();
 
 builder.Services.AddScoped<ITokenProvider, HttpContextTokenProvider>();
+builder.Services.AddScoped<IValidateInviteUrlProvider, ValidateInviteUrlProvider>();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddAuthentication(op =>

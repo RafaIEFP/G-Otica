@@ -1,6 +1,6 @@
 ﻿using GOtica.Domain.Security.Tokens.Access;
 
-namespace GOtica.API.Token;
+namespace GOtica.API.Providers.Token;
 
 public class HttpContextTokenProvider : ITokenProvider
 {

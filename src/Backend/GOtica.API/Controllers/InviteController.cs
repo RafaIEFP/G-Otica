@@ -9,7 +9,7 @@ namespace GOtica.API.Controllers;
 [ApiController]
 public class InviteController : ControllerBase
 {
-    [HttpGet("validate")]
+    [HttpGet("validate", Name = "ValidateInvite")]
     [ProducesResponseType(typeof(ResponseValidateInvite), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Validate(
