@@ -10,12 +10,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GOtica.API.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/users/me")]
 [ApiController]
 [AuthenticatedUser]
 public class UserController : ControllerBase
 {
-    [HttpPut("change-password")]
+    [HttpPut("password")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ResponseError), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> ChangePasswod([FromServices] IChangePasswordUseCase useCase, [FromBody] RequestChangePassword request)

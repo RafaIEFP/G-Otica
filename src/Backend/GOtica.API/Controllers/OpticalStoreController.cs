@@ -5,6 +5,7 @@ using GOtica.Application.UseCases.OpticalStores.GetAll;
 using GOtica.Application.UseCases.OpticalStores.Register;
 using GOtica.Application.UseCases.OpticalStores.TransferOwnership;
 using GOtica.Application.UseCases.OpticalStores.Update;
+using GOtica.Application.UseCases.UserOpticalStore.Invite.Create;
 using GOtica.Communication.Requests;
 using GOtica.Communication.Response;
 using GOtica.Communication.Response.OpticalStore;
@@ -12,13 +13,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GOtica.API.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/optical-stores")]
 [ApiController]
 [AuthenticatedUser]
 public class OpticalStoreController : ControllerBase
 {
-    [HttpPut]
-    [Route("{opticalStoreId}")]
+    [HttpPut("{opticalStoreId:guid}/ownership")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ResponseError), StatusCodes.Status400BadRequest)]
     [OwnerOnly]
@@ -45,8 +45,7 @@ public class OpticalStoreController : ControllerBase
         return Created(string.Empty, response);
     }
 
-    [HttpDelete]
-    [Route("{opticalStoreId}")]
+    [HttpDelete("{opticalStoreId:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [OwnerOnly]
     public async Task<IActionResult> Deactivate(
@@ -58,8 +57,7 @@ public class OpticalStoreController : ControllerBase
         return NoContent();
     }
 
-    [HttpPut]
-    [Route("Update/{opticalStoreId}")]
+    [HttpPut("{opticalStoreId:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ResponseError), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ResponseError), StatusCodes.Status409Conflict)]
@@ -74,8 +72,7 @@ public class OpticalStoreController : ControllerBase
         return NoContent();
     }
 
-    [HttpGet]
-    [Route("{opticalStoreId}")]
+    [HttpGet("{opticalStoreId:guid}")]
     [ProducesResponseType(typeof(ResponseGetOpticalStore), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Get(
@@ -99,5 +96,20 @@ public class OpticalStoreController : ControllerBase
             return Ok(response);
 
         return NoContent();
+    }
+
+    [HttpPost("{opticalStoreId:guid}/invites")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status409Conflict)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status400BadRequest)]
+    [OwnerOnly]
+    public async Task<IActionResult> Invite(
+        [FromRoute] Guid opticalStoreId,
+        [FromBody] RequestInvite request,
+        [FromServices] ICreateInviteUseCase useCase)
+    {
+        await useCase.Execute(opticalStoreId, request);
+
+        return Ok();
     }
 }
