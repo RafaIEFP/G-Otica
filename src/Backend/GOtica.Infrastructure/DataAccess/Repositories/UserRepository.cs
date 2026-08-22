@@ -12,7 +12,7 @@ internal sealed class UserRepository(GOticaDbContext dbContext) : IUserReadOnlyR
         => await dbContext.Users.AnyAsync(user => user.Email.Equals(email));
 
     public async Task<User?> GetUserByEmail(string email) 
-        => await dbContext.Users.FirstOrDefaultAsync(user => user.Email.Equals(email) && user.IsActive);
+        => await dbContext.Users.AsNoTracking().FirstOrDefaultAsync(user => user.Email.Equals(email) && user.IsActive);
 
     async Task<User?> IUserReadOnlyRepository.GetUserById(Guid id)
          => await dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);

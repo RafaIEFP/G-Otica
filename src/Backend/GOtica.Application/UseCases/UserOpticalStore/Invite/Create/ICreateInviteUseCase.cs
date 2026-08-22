@@ -1,6 +1,6 @@
 ﻿using GOtica.Communication.Requests;
 
-namespace GOtica.Application.UseCases.UserOpticalStore.Invite;
+namespace GOtica.Application.UseCases.UserOpticalStore.Invite.Create;
 
 public interface ICreateInviteUseCase
 {

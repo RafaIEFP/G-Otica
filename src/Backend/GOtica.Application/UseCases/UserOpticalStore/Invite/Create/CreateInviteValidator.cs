@@ -3,7 +3,7 @@ using GOtica.Communication.Requests;
 using GOtica.Domain;
 using GOtica.Exceptions.Resources;
 
-namespace GOtica.Application.UseCases.UserOpticalStore.Invite;
+namespace GOtica.Application.UseCases.UserOpticalStore.Invite.Create;
 
 internal class CreateInviteValidator : AbstractValidator<RequestInvite>
 {

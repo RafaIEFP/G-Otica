@@ -293,5 +293,14 @@ namespace GOtica.Exceptions.Resources {
                 return ResourceManager.GetString("USER_NOT_FOUND", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A valid invite was not found..
+        /// </summary>
+        public static string VALID_INVITE_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("VALID_INVITE_NOT_FOUND", resourceCulture);
+            }
+        }
     }
 }

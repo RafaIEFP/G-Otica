@@ -17,4 +17,13 @@ internal sealed class InviteTokenGenerator : IInviteTokenGenerator
 
         return (token, tokenHash);
     }
+
+    public string GenerateHash(string token)
+    {
+        var bytes = Encoding.UTF8.GetBytes(token);
+
+        var tokenHash = Convert.ToHexString(SHA256.HashData(bytes));
+
+        return tokenHash;
+    }
 }

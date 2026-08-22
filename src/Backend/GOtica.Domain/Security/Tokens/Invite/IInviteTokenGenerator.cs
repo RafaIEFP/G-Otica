@@ -3,4 +3,5 @@
 public interface IInviteTokenGenerator
 {
     (string token, string tokenHash) Generate();
+    string GenerateHash(string token);
 }

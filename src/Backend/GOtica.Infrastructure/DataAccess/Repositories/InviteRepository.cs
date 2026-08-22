@@ -21,4 +21,12 @@ internal sealed class InviteRepository(GOticaDbContext dbContext) : IInviteReadO
             i.ExpiresAt > DateTime.UtcNow
         );
     }
+
+    public async Task<Invite?> GetValidInviteByTokenHash(string tokenHash)
+    {
+        return await dbContext.Invites.AsNoTracking().FirstOrDefaultAsync(i => 
+            i.TokenHash == tokenHash && 
+            i.ExpiresAt > DateTime.UtcNow && 
+            i.Status == InviteStatus.Pending);
+    }
 }

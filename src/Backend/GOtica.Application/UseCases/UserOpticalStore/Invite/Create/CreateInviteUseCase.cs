@@ -10,7 +10,7 @@ using GOtica.Exceptions.ExceptionsBase;
 using GOtica.Exceptions.Resources;
 using Microsoft.Extensions.Options;
 
-namespace GOtica.Application.UseCases.UserOpticalStore.Invite;
+namespace GOtica.Application.UseCases.UserOpticalStore.Invite.Create;
 
 public class CreateInviteUseCase : ICreateInviteUseCase
 {

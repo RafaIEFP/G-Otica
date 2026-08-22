@@ -15,4 +15,7 @@ public class InviteTokenService(IInviteTokenGenerator inviteTokenGenerator) : II
             TokenHash = tokenHash
         };
     }
+
+    public string GenerateHash(string token)
+        => inviteTokenGenerator.GenerateHash(token);
 }
