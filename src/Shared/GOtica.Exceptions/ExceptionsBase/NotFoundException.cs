@@ -2,7 +2,7 @@
 
 namespace GOtica.Exceptions.ExceptionsBase;
 
-public class NotFoundException(string mensagem) : GOticaException(mensagem)
+public class NotFoundException(string message) : GOticaException(message)
 {
     public override IList<string> GetErrorMessages() => [Message];
 

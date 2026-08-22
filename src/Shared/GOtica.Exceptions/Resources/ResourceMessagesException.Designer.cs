@@ -124,6 +124,15 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This invite does not belong to the user..
+        /// </summary>
+        public static string INVITE_DOES_NOT_BELONGS_USER {
+            get {
+                return ResourceManager.GetString("INVITE_DOES_NOT_BELONGS_USER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The name cannot be empty..
         /// </summary>
         public static string NAME_EMPTY {
