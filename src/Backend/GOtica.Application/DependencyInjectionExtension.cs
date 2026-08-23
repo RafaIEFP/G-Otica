@@ -17,6 +17,7 @@ using GOtica.Application.UseCases.User.Register;
 using GOtica.Application.UseCases.User.Update;
 using GOtica.Application.UseCases.UserOpticalStore.Invite.Create;
 using GOtica.Application.UseCases.UserOpticalStore.Invite.Validade;
+using GOtica.Application.UseCases.UserOpticalStores.GetAll;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace GOtica.Application;
@@ -55,6 +56,8 @@ public static class DependencyInjectionExtension
         services.AddScoped<ICreateInviteUseCase, CreateInviteUseCase>();
         services.AddScoped<IValidateInviteUseCase, ValidateInviteUseCase>();
         services.AddScoped<IAcceptInviteUseCase, AcceptInviteUseCase>();
+
+        services.AddScoped<IGetAllOpticalStoreUsersUseCase, GetAllOpticalStoreUsersUseCase>();
     }
 
     private static void AddMapperConfigurations() => MapConfigurations.Configure();

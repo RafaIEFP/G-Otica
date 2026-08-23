@@ -20,7 +20,7 @@ public class GetUserProfileUseCase : IGetUserProfileUseCase
     {
         var loggedUser = await _loggedUser.Get();
 
-        var userOpticalStores = await _userOpticalStoreReadOnlyRepository.GetUserOpticalStore(loggedUser.Id);
+        var userOpticalStores = await _userOpticalStoreReadOnlyRepository.GetAllUserOpticalStore(loggedUser.Id);
 
         return loggedUser.Adapt<ResponseUserProfile>();
     }

@@ -1,4 +1,4 @@
-﻿using GOtica.Communication.Response.UserOpticalStore;
+﻿using GOtica.Communication.Response.Invite;
 
 namespace GOtica.Application.UseCases.UserOpticalStore.Invite.Validade;
 

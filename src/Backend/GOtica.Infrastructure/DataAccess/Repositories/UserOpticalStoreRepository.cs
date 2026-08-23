@@ -76,7 +76,7 @@ internal sealed class UserOpticalStoreRepository(GOticaDbContext dbContext) : IU
             .Select(uos => uos.Role)
             .FirstAsync();
 
-    public async Task<IReadOnlyCollection<UserOpticalStore>> GetUserOpticalStore(Guid userId)
+    public async Task<IReadOnlyCollection<UserOpticalStore>> GetAllUserOpticalStore(Guid userId)
     {
         return await dbContext.UserOpticalStores
             .AsNoTracking()
@@ -117,4 +117,22 @@ internal sealed class UserOpticalStoreRepository(GOticaDbContext dbContext) : IU
                 uos.Role ==  Roles.OWNER &&
                 uos.IsActive
             );
+
+    public async Task<IReadOnlyCollection<OpticalStoreUsersDto>> GetAllOpticalStoreUsers(Guid opticalId)
+    {
+        return await dbContext.UserOpticalStores
+            .AsNoTracking()
+            .Where(uos => uos.OpticalStoreId == opticalId)
+            .Select(uos => new OpticalStoreUsersDto
+            {
+                UserId = uos.UserId,
+                Email = uos.User.Email,
+                EntranceDate = uos.EntranceDate,
+                IsActive = uos.IsActive,
+                Name = uos.User.Name,
+                Role = uos.Role
+            })
+            .ToListAsync();
+            
+    }
 }

@@ -1,4 +1,4 @@
-﻿namespace GOtica.Communication.Response.UserOpticalStore;
+﻿namespace GOtica.Communication.Response.Invite;
 
 public record ResponseValidateInvite
 {
