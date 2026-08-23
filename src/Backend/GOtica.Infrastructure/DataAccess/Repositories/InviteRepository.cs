@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GOtica.Infrastructure.DataAccess.Repositories;
 
-internal sealed class InviteRepository(GOticaDbContext dbContext) : IInviteReadOnlyRepository, IInviteWriteOnlyRepository
+internal sealed class InviteRepository(GOticaDbContext dbContext) : IInviteReadOnlyRepository, IInviteWriteOnlyRepository, IInviteUpdateOnlyRepository
 {
     public async Task Add(Invite invite)
     {
@@ -28,5 +28,12 @@ internal sealed class InviteRepository(GOticaDbContext dbContext) : IInviteReadO
             i.TokenHash == tokenHash && 
             i.ExpiresAt > DateTime.UtcNow && 
             i.Status == InviteStatus.Pending);
+    }
+
+    public async Task UpdateStatusToAccepted(Guid inviteId)
+    {
+        await dbContext.Invites
+            .Where(i => i.Id == inviteId)
+            .ExecuteUpdateAsync(setter => setter.SetProperty(i => i.Status, InviteStatus.Accepted));
     }
 }
