@@ -17,6 +17,7 @@ using GOtica.Application.UseCases.User.Register;
 using GOtica.Application.UseCases.User.Update;
 using GOtica.Application.UseCases.UserOpticalStore.Invite.Create;
 using GOtica.Application.UseCases.UserOpticalStore.Invite.Validade;
+using GOtica.Application.UseCases.UserOpticalStores.ChangeRole;
 using GOtica.Application.UseCases.UserOpticalStores.GetAll;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -58,6 +59,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IAcceptInviteUseCase, AcceptInviteUseCase>();
 
         services.AddScoped<IGetAllOpticalStoreUsersUseCase, GetAllOpticalStoreUsersUseCase>();
+        services.AddScoped<IChangeRoleUseCase, ChangeRoleUseCase>();
     }
 
     private static void AddMapperConfigurations() => MapConfigurations.Configure();

@@ -178,6 +178,15 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The owner role cannot be changed.
+        /// </summary>
+        public static string OWNER_ROLE_CANNOT_BE_CHANGED {
+            get {
+                return ResourceManager.GetString("OWNER_ROLE_CANNOT_BE_CHANGED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The password entered does not match the current password..
         /// </summary>
         public static string PASSWORD_DIFFERENT_CURRENT_ONE {

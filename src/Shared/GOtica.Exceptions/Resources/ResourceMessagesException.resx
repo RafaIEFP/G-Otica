@@ -201,4 +201,7 @@
   <data name="INVITE_DOES_NOT_BELONGS_USER" xml:space="preserve">
     <value>This invite does not belong to the user.</value>
   </data>
+  <data name="OWNER_ROLE_CANNOT_BE_CHANGED" xml:space="preserve">
+    <value>The owner role cannot be changed</value>
+  </data>
 </root>

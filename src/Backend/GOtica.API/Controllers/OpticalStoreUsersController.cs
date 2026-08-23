@@ -1,5 +1,8 @@
 ﻿using GOtica.API.Attributes;
+using GOtica.Application.UseCases.UserOpticalStores.ChangeRole;
 using GOtica.Application.UseCases.UserOpticalStores.GetAll;
+using GOtica.Communication.Requests;
+using GOtica.Communication.Response;
 using GOtica.Communication.Response.UserOpticalStore;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,7 +13,7 @@ namespace GOtica.API.Controllers;
 [AuthenticatedUser]
 public class OpticalStoreUsersController : ControllerBase
 {
-    [HttpGet()]
+    [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyCollection<ResponseGetAllOpticalStoreUser>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [OpticalStoreMember]
@@ -22,6 +25,22 @@ public class OpticalStoreUsersController : ControllerBase
 
         if (response.Count != 0)
             return Ok(response);
+
+        return NoContent();
+    }
+
+    [HttpPut("{userId:guid}/role")]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status409Conflict)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [OwnerOnly]
+    public async Task<IActionResult> ChangeRole(
+        [FromRoute] Guid opticalStoreId,
+        [FromRoute] Guid userId,
+        [FromBody] RequestChangeRole request,
+        [FromServices] IChangeRoleUseCase useCase)
+    {
+        await useCase.Execute(opticalStoreId, userId, request);
 
         return NoContent();
     }
