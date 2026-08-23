@@ -2,6 +2,7 @@
 using GOtica.Application.UseCases.UserOpticalStores.ChangeRole;
 using GOtica.Application.UseCases.UserOpticalStores.Deactivate;
 using GOtica.Application.UseCases.UserOpticalStores.GetAll;
+using GOtica.Application.UseCases.UserOpticalStores.Reactivate;
 using GOtica.Communication.Requests;
 using GOtica.Communication.Response;
 using GOtica.Communication.Response.UserOpticalStore;
@@ -56,6 +57,21 @@ public class OpticalStoreUsersController : ControllerBase
     [FromRoute] Guid opticalStoreId,
     [FromRoute] Guid userId,
     [FromServices] IDeactivateUserOpticalStoreUseCase useCase)
+    {
+        await useCase.Execute(opticalStoreId, userId);
+
+        return NoContent();
+    }
+
+    [HttpPut("{userId:guid}/activate")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status409Conflict)]
+    [OwnerOnly]
+    public async Task<IActionResult> Reactivate(
+    [FromRoute] Guid opticalStoreId,
+    [FromRoute] Guid userId,
+    [FromServices] IReactivateUserOpticalStoreUseCase useCase)
     {
         await useCase.Execute(opticalStoreId, userId);
 

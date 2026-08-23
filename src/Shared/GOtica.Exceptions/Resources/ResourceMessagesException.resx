@@ -210,4 +210,7 @@
   <data name="OWNER_CANNOT_BE_DEACTIVATED" xml:space="preserve">
     <value>Owner cannot be deactivate</value>
   </data>
+  <data name="USER_ACCOUNT_IS_INACTIVE" xml:space="preserve">
+    <value>User account is inactive</value>
+  </data>
 </root>

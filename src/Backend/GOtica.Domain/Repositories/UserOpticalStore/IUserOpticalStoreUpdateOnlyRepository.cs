@@ -6,4 +6,5 @@ public interface IUserOpticalStoreUpdateOnlyRepository
     Task DeactivateByUser(Guid userId);
     Task DeactivateByUserAndOpticalStore(Guid userId, Guid opticalStoreId);
     Task DeactivateByOpticalStore(Guid opticalStoreId);
+    Task Reactivate(Guid userId, Guid opticalStoreId);
 }

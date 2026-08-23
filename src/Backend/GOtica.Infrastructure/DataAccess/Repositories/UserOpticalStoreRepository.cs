@@ -150,4 +150,22 @@ internal sealed class UserOpticalStoreRepository(GOticaDbContext dbContext) : IU
         .ExecuteUpdateAsync(setter =>
             setter.SetProperty(uos => uos.IsActive, false));
     }
+
+    public async Task<UserOpticalStore?> GetInactiveUserOpticalStore(Guid userId, Guid opticalId)
+    {
+        return await dbContext.UserOpticalStores
+        .AsNoTracking()
+        .Include(uos => uos.User)
+        .FirstOrDefaultAsync(uos =>
+            uos.UserId == userId &&
+            uos.OpticalStoreId == opticalId &&
+            !uos.IsActive);
+    }
+
+    public async Task Reactivate(Guid userId, Guid opticalStoreId)
+    {
+        await dbContext.UserOpticalStores
+            .Where(uos => uos.UserId == userId && uos.OpticalStoreId == opticalStoreId && !uos.IsActive)
+            .ExecuteUpdateAsync(setter => setter.SetProperty(uos => uos.IsActive, true));
+    }
 }

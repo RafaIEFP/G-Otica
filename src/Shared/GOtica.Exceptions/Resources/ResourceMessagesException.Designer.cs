@@ -277,6 +277,15 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User account is inactive.
+        /// </summary>
+        public static string USER_ACCOUNT_IS_INACTIVE {
+            get {
+                return ResourceManager.GetString("USER_ACCOUNT_IS_INACTIVE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This user is already a member of the optical store..
         /// </summary>
         public static string USER_ALREADY_MEMBER_OF_OS {
