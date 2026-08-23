@@ -1,5 +1,6 @@
 ﻿using GOtica.API.Attributes;
 using GOtica.Application.UseCases.UserOpticalStores.ChangeRole;
+using GOtica.Application.UseCases.UserOpticalStores.Deactivate;
 using GOtica.Application.UseCases.UserOpticalStores.GetAll;
 using GOtica.Communication.Requests;
 using GOtica.Communication.Response;
@@ -42,6 +43,21 @@ public class OpticalStoreUsersController : ControllerBase
         [FromServices] IChangeRoleUseCase useCase)
     {
         await useCase.Execute(opticalStoreId, userId, request);
+
+        return NoContent();
+    }
+
+    [HttpDelete("{userId:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status409Conflict)]
+    [OwnerOnly]
+    public async Task<IActionResult> Deactivate(
+    [FromRoute] Guid opticalStoreId,
+    [FromRoute] Guid userId,
+    [FromServices] IDeactivateUserOpticalStoreUseCase useCase)
+    {
+        await useCase.Execute(opticalStoreId, userId);
 
         return NoContent();
     }

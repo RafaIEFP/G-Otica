@@ -204,4 +204,10 @@
   <data name="OWNER_ROLE_CANNOT_BE_CHANGED" xml:space="preserve">
     <value>The owner role cannot be changed</value>
   </data>
+  <data name="OPTICAL_STORE_MEMBER_NOT_FOUND" xml:space="preserve">
+    <value>Optical store member not found.</value>
+  </data>
+  <data name="OWNER_CANNOT_BE_DEACTIVATED" xml:space="preserve">
+    <value>Owner cannot be deactivate</value>
+  </data>
 </root>

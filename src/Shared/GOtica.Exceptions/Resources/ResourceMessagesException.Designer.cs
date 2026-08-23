@@ -169,11 +169,29 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Optical store member not found..
+        /// </summary>
+        public static string OPTICAL_STORE_MEMBER_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("OPTICAL_STORE_MEMBER_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Optical store not found..
         /// </summary>
         public static string OPTICAL_STORE_NOT_FOUND {
             get {
                 return ResourceManager.GetString("OPTICAL_STORE_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Owner cannot be deactivate.
+        /// </summary>
+        public static string OWNER_CANNOT_BE_DEACTIVATED {
+            get {
+                return ResourceManager.GetString("OWNER_CANNOT_BE_DEACTIVATED", resourceCulture);
             }
         }
         
