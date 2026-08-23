@@ -31,6 +31,7 @@ builder.Services.AddRouting(config => config.LowercaseUrls = true);
 
 builder.Services.AddScoped<IAuthorizationHandler, AuthenticatedUserHandler>();
 builder.Services.AddScoped<IAuthorizationHandler, OwnerHandler>();
+builder.Services.AddScoped<IAuthorizationHandler, OpticalStoreMemberHandler>();
 
 builder.Services.AddScoped<ITokenProvider, HttpContextTokenProvider>();
 builder.Services.AddScoped<IValidateInviteUrlProvider, ValidateInviteUrlProvider>();
@@ -46,6 +47,7 @@ builder.Services.AddAuthorization(op =>
 {
     op.AddPolicy("AuthenticatedUser", policy => policy.Requirements.Add(new AuthenticatedUserRequirement()));
     op.AddPolicy("OwnerOnly", policy => policy.Requirements.Add(new OwnerRequirement()));
+    op.AddPolicy("OpticalStoreMember", policy => policy.Requirements.Add(new OpticalStoreMemberRequirement()));
 });
 
 var app = builder.Build();
