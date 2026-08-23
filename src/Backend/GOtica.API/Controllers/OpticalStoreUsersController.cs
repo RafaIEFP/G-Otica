@@ -32,6 +32,7 @@ public class OpticalStoreUsersController : ControllerBase
     [HttpPut("{userId:guid}/role")]
     [ProducesResponseType(typeof(ResponseError), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ResponseError), StatusCodes.Status409Conflict)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [OwnerOnly]
     public async Task<IActionResult> ChangeRole(

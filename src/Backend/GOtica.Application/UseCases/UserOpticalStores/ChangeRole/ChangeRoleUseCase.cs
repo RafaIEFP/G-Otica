@@ -22,17 +22,13 @@ public class ChangeRoleUseCase : IChangeRoleUseCase
     {
         Validate(request);
 
-        var userBelongsToOpticalStore = await _userOpticalStoreReadOnlyRepository.UserBelongsToOptical(userId, opticalStoreId);
+        var userOpticalStore = await _userOpticalStoreReadOnlyRepository.GetUserOpticalStore(userId, opticalStoreId)
+            ?? throw new NotFoundException(ResourceMessagesException.USER_NOT_FOUND);
 
-        if (!userBelongsToOpticalStore)
-            throw new NotFoundException(ResourceMessagesException.USER_NOT_FOUND);
-
-        var userRole = await _userOpticalStoreReadOnlyRepository.GetUserOpticalRole(userId, opticalStoreId);
-
-        if (userRole == Roles.OWNER)
+        if (userOpticalStore.Role == Roles.OWNER)
             throw new ConflictException(ResourceMessagesException.OWNER_ROLE_CANNOT_BE_CHANGED);
 
-        if (userRole == request.Role) 
+        if (userOpticalStore.Role == request.Role) 
             return;
 
         await _userOpticalStoreUpdateOnlyRepository.UpdateUserRoleOpticalStoreAssociation(userId, opticalStoreId, request.Role);
