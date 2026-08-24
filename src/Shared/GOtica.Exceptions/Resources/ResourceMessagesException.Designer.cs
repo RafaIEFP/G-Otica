@@ -277,6 +277,15 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The user&apos;s account is already activated..
+        /// </summary>
+        public static string USER_ACCOUNT_ALREADY_ACTIVE {
+            get {
+                return ResourceManager.GetString("USER_ACCOUNT_ALREADY_ACTIVE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User account is inactive.
         /// </summary>
         public static string USER_ACCOUNT_IS_INACTIVE {

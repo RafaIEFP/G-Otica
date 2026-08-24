@@ -33,7 +33,7 @@ public class ValidateInviteUseCase : IValidateInviteUseCase
         var invite = await _inviteReadOnlyRepository.GetValidInviteByTokenHash(tokenHash)
             ?? throw new NotFoundException(ResourceMessagesException.VALID_INVITE_NOT_FOUND);
 
-        var user = await _userReadOnlyRepository.GetUserByEmail(invite.GuestEmail);
+        var user = await _userReadOnlyRepository.GetActiveUserByEmail(invite.GuestEmail);
 
         return new ResponseValidateInvite
         {

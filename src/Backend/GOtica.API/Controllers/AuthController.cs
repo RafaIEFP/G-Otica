@@ -2,6 +2,7 @@
 using GOtica.Application.UseCases.Login.DoLogin;
 using GOtica.Application.UseCases.Login.DoLogout;
 using GOtica.Application.UseCases.Token.RefreshToken;
+using GOtica.Application.UseCases.User.Reactivate;
 using GOtica.Application.UseCases.User.Register;
 using GOtica.Communication.Requests;
 using GOtica.Communication.Response;
@@ -54,5 +55,18 @@ public class AuthController : ControllerBase
         await useCase.Execute();
 
         return NoContent();
+    }
+
+    [HttpPost("reactivate")]
+    [ProducesResponseType(typeof(ResponseTokens), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> Reactivate(
+    [FromBody] RequestReactivateUser request,
+    [FromServices] IReactivateUserUseCase useCase)
+    {
+        var response = await useCase.Execute(request);
+
+        return Ok(response);
     }
 }

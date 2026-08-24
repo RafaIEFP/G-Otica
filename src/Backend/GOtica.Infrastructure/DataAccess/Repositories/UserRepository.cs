@@ -11,7 +11,7 @@ internal sealed class UserRepository(GOticaDbContext dbContext) : IUserReadOnlyR
     public async Task<bool> ExistUserWithEmail(string email) 
         => await dbContext.Users.AnyAsync(user => user.Email.Equals(email));
 
-    public async Task<User?> GetUserByEmail(string email) 
+    public async Task<User?> GetActiveUserByEmail(string email) 
         => await dbContext.Users.AsNoTracking().FirstOrDefaultAsync(user => user.Email.Equals(email) && user.IsActive);
 
     async Task<User?> IUserReadOnlyRepository.GetUserById(Guid id)
@@ -26,7 +26,7 @@ internal sealed class UserRepository(GOticaDbContext dbContext) : IUserReadOnlyR
     public async Task DeleteAccount(Guid userId)
         => await dbContext.Users.Where(u => u.Id == userId).ExecuteDeleteAsync();
 
-    public async Task<bool> ExistsActiveUser(Guid id)
+    public async Task<bool> ExistsActivatedUser(Guid id)
         => await dbContext.Users.AnyAsync(u => u.Id == id && u.IsActive);
 
     public async Task DeactivateAccount(Guid userId)
@@ -35,4 +35,16 @@ internal sealed class UserRepository(GOticaDbContext dbContext) : IUserReadOnlyR
         .ExecuteUpdateAsync(
             setter => setter.SetProperty(u => u.IsActive, false)
         );
+
+    public async Task ReactivateAccount(Guid userId)
+    {
+        await dbContext.Users
+            .Where(u => u.Id == userId)
+            .ExecuteUpdateAsync(
+                setter => setter.SetProperty(u => u.IsActive, true)
+            );
+    }
+
+    public async Task<User?> GetUserByEmail(string email)
+        => await dbContext.Users.AsNoTracking().FirstOrDefaultAsync(user => user.Email.Equals(email));
 }

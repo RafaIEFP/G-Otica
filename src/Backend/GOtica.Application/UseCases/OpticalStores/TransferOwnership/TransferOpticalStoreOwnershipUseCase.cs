@@ -59,7 +59,7 @@ public class TransferOpticalStoreOwnershipUseCase : ITransferOpticalStoreOwnersh
             throw new NotFoundException(ResourceMessagesException.OPTICAL_STORE_NOT_FOUND);
 
         // 2. Novo owner deve existir e estar ativo
-        var newOwnerExists = await _userReadOnlyRepository.ExistsActiveUser(newOwnerUserId);
+        var newOwnerExists = await _userReadOnlyRepository.ExistsActivatedUser(newOwnerUserId);
 
         if (!newOwnerExists)
             throw new NotFoundException(ResourceMessagesException.USER_NOT_FOUND);

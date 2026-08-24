@@ -14,6 +14,7 @@ using GOtica.Application.UseCases.Token.RefreshToken;
 using GOtica.Application.UseCases.User.ChangePassword;
 using GOtica.Application.UseCases.User.DeleteAccount;
 using GOtica.Application.UseCases.User.Profile;
+using GOtica.Application.UseCases.User.Reactivate;
 using GOtica.Application.UseCases.User.Register;
 using GOtica.Application.UseCases.User.Update;
 using GOtica.Application.UseCases.UserOpticalStore.Invite.Create;
@@ -50,6 +51,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IGetUserProfileUseCase, GetUserProfileUseCase>();
         services.AddScoped<IUpdateUserUseCase, UpdateUserUseCase>();
         services.AddScoped<IDeleteAccountUseCase, DeleteAccountUseCase>();
+        services.AddScoped<IReactivateUserUseCase, ReactivateUserUseCase>();
 
         services.AddScoped<ITransferOpticalStoreOwnershipUseCase, TransferOpticalStoreOwnershipUseCase>();
         services.AddScoped<IRegisterOpticalStoreUseCase, RegisterOpticalStoreUseCase>();

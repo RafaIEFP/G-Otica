@@ -213,4 +213,7 @@
   <data name="USER_ACCOUNT_IS_INACTIVE" xml:space="preserve">
     <value>User account is inactive</value>
   </data>
+  <data name="USER_ACCOUNT_ALREADY_ACTIVE" xml:space="preserve">
+    <value>The user's account is already activated.</value>
+  </data>
 </root>
