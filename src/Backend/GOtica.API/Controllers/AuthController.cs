@@ -1,4 +1,6 @@
-﻿using GOtica.Application.UseCases.Login.DoLogin;
+﻿using GOtica.API.Attributes;
+using GOtica.Application.UseCases.Login.DoLogin;
+using GOtica.Application.UseCases.Login.DoLogout;
 using GOtica.Application.UseCases.Token.RefreshToken;
 using GOtica.Application.UseCases.User.Register;
 using GOtica.Communication.Requests;
@@ -41,5 +43,16 @@ public class AuthController : ControllerBase
         var response = await useCase.Execute(request);
 
         return Ok(response);
+    }
+
+    [HttpPost("logout")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [AuthenticatedUser]
+    public async Task<IActionResult> Logout(
+    [FromServices] IDoLogoutUseCase useCase)
+    {
+        await useCase.Execute();
+
+        return NoContent();
     }
 }
