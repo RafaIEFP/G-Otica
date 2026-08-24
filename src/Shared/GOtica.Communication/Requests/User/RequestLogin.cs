@@ -1,6 +1,6 @@
-﻿namespace GOtica.Communication.Requests;
+﻿namespace GOtica.Communication.Requests.User;
 
-public record RequestReactivateUser
+public record RequestLogin
 {
     public string Email { get; init; } = string.Empty;
     public string Password { get; init; } = string.Empty;

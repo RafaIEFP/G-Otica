@@ -1,4 +1,4 @@
-﻿using GOtica.Communication.Requests;
+﻿using GOtica.Communication.Requests.User;
 
 namespace GOtica.Application.UseCases.User.Update;
 

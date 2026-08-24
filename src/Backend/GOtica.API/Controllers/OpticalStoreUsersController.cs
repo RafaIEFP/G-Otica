@@ -3,7 +3,7 @@ using GOtica.Application.UseCases.UserOpticalStores.ChangeRole;
 using GOtica.Application.UseCases.UserOpticalStores.Deactivate;
 using GOtica.Application.UseCases.UserOpticalStores.GetAll;
 using GOtica.Application.UseCases.UserOpticalStores.Reactivate;
-using GOtica.Communication.Requests;
+using GOtica.Communication.Requests.UserOpticalStore;
 using GOtica.Communication.Response;
 using GOtica.Communication.Response.UserOpticalStore;
 using Microsoft.AspNetCore.Mvc;

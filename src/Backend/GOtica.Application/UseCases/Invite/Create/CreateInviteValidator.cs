@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using GOtica.Communication.Requests;
+using GOtica.Communication.Requests.Invite;
 using GOtica.Domain;
 using GOtica.Exceptions.Resources;
 

@@ -1,4 +1,4 @@
-﻿namespace GOtica.Communication.Requests;
+﻿namespace GOtica.Communication.Requests.UserOpticalStore;
 
 public record RequestNewToken
 {

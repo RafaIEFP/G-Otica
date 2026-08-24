@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using GOtica.Application.SharedValidators;
-using GOtica.Communication.Requests;
+using GOtica.Communication.Requests.User;
 
 namespace GOtica.Application.UseCases.User.ChangePassword;
 

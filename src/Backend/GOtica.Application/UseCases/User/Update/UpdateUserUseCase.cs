@@ -1,5 +1,5 @@
 ﻿using FluentValidation.Results;
-using GOtica.Communication.Requests;
+using GOtica.Communication.Requests.User;
 using GOtica.Domain.Repositories;
 using GOtica.Domain.Repositories.User;
 using GOtica.Domain.Services;

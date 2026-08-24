@@ -1,4 +1,4 @@
-﻿using GOtica.Communication.Requests;
+﻿using GOtica.Communication.Requests.UserOpticalStore;
 using GOtica.Communication.Response.User;
 
 namespace GOtica.Application.UseCases.Token.RefreshToken;

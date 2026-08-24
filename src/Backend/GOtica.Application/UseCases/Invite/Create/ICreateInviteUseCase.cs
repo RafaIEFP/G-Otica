@@ -1,4 +1,4 @@
-﻿using GOtica.Communication.Requests;
+﻿using GOtica.Communication.Requests.Invite;
 
 namespace GOtica.Application.UseCases.UserOpticalStore.Invite.Create;
 

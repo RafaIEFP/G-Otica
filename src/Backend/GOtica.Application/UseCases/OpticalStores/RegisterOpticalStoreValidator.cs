@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using GOtica.Application.SharedValidators;
-using GOtica.Communication.Requests;
+using GOtica.Communication.Requests.OpticalStore;
 using GOtica.Exceptions.Resources;
 
 namespace GOtica.Application.UseCases.OpticalStores.Register;

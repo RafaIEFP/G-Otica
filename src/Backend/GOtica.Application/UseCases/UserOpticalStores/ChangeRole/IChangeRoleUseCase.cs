@@ -1,4 +1,4 @@
-﻿using GOtica.Communication.Requests;
+﻿using GOtica.Communication.Requests.UserOpticalStore;
 
 namespace GOtica.Application.UseCases.UserOpticalStores.ChangeRole;
 

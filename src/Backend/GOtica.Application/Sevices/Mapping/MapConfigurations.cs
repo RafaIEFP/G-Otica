@@ -1,4 +1,4 @@
-﻿using GOtica.Communication.Requests;
+﻿using GOtica.Communication.Requests.User;
 using GOtica.Communication.Response.OpticalStore;
 using GOtica.Domain.Entities;
 using Mapster;

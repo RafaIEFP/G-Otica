@@ -1,4 +1,4 @@
-﻿using GOtica.Communication.Requests;
+﻿using GOtica.Communication.Requests.OpticalStore;
 
 namespace GOtica.Application.UseCases.OpticalStores.Update;
 

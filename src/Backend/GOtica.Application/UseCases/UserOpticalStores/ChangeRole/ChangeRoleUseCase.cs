@@ -1,4 +1,4 @@
-﻿using GOtica.Communication.Requests;
+﻿using GOtica.Communication.Requests.UserOpticalStore;
 using GOtica.Domain;
 using GOtica.Domain.Repositories.UserOpticalStore;
 using GOtica.Exceptions.ExceptionsBase;

@@ -1,4 +1,4 @@
-﻿namespace GOtica.Communication.Requests;
+﻿namespace GOtica.Communication.Requests.User;
 
 public record RequestUpdateUser
 {

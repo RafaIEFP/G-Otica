@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using GOtica.Application.SharedValidators;
-using GOtica.Communication.Requests;
+using GOtica.Communication.Requests.User;
 using GOtica.Exceptions.Resources;
 
 namespace GOtica.Application.UseCases.User.Reactivate;

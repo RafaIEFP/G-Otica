@@ -1,5 +1,5 @@
 ﻿using GOtica.Application.UseCases.OpticalStores.Register;
-using GOtica.Communication.Requests;
+using GOtica.Communication.Requests.OpticalStore;
 using GOtica.Domain.Repositories;
 using GOtica.Domain.Repositories.OpticalStore;
 using GOtica.Exceptions.ExceptionsBase;

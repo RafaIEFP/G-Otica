@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using GOtica.Communication.Requests;
+using GOtica.Communication.Requests.User;
 using GOtica.Exceptions.Resources;
 
 namespace GOtica.Application.UseCases.User.Update;

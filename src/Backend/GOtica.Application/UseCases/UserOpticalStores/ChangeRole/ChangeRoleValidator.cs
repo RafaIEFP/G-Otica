@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using GOtica.Communication.Requests;
+using GOtica.Communication.Requests.UserOpticalStore;
 using GOtica.Domain;
 using GOtica.Exceptions.Resources;
 

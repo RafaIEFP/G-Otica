@@ -3,7 +3,7 @@ using GOtica.Application.UseCases.User.ChangePassword;
 using GOtica.Application.UseCases.User.DeleteAccount;
 using GOtica.Application.UseCases.User.Profile;
 using GOtica.Application.UseCases.User.Update;
-using GOtica.Communication.Requests;
+using GOtica.Communication.Requests.User;
 using GOtica.Communication.Response;
 using GOtica.Communication.Response.User;
 using Microsoft.AspNetCore.Mvc;

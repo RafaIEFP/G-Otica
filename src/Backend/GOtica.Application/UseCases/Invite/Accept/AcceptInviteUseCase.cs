@@ -1,5 +1,5 @@
 ﻿using GOtica.Application.Sevices.Invite;
-using GOtica.Communication.Requests;
+using GOtica.Communication.Requests.Invite;
 using GOtica.Domain.Repositories;
 using GOtica.Domain.Repositories.Invite;
 using GOtica.Domain.Repositories.User;

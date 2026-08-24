@@ -1,5 +1,5 @@
 ﻿using GOtica.Application.Sevices.Auth;
-using GOtica.Communication.Requests;
+using GOtica.Communication.Requests.User;
 using GOtica.Communication.Response.User;
 using GOtica.Domain.Entities;
 using GOtica.Domain.Repositories;
