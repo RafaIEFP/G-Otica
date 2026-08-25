@@ -55,6 +55,7 @@ public static class DependencyInjectionExtension
         services.AddRepositoriesFromAssembly<UserOpticalStoreRepository>();
         services.AddRepositoriesFromAssembly<OpticalStoreRepository>();
         services.AddRepositoriesFromAssembly<InviteRepository>();
+        services.AddRepositoriesFromAssembly<ClientRepository>();
     }
 
     private static void AddGOticaDbContext(IServiceCollection services, IConfiguration configuration)

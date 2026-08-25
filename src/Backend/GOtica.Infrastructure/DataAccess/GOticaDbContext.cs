@@ -10,6 +10,7 @@ internal class GOticaDbContext(DbContextOptions options) : DbContext(options)
     public DbSet<UserOpticalStore> UserOpticalStores { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
     public DbSet<Invite> Invites { get; set; }
+    public DbSet<Client> Clients { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

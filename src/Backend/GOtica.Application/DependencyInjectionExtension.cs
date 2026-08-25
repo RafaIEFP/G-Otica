@@ -1,6 +1,7 @@
 ﻿using GOtica.Application.Sevices.Auth;
 using GOtica.Application.Sevices.Invite;
 using GOtica.Application.Sevices.Mapping;
+using GOtica.Application.UseCases.Client.Register;
 using GOtica.Application.UseCases.Invite.Accept;
 using GOtica.Application.UseCases.Login.DoLogin;
 using GOtica.Application.UseCases.Login.DoLogout;
@@ -68,6 +69,8 @@ public static class DependencyInjectionExtension
         services.AddScoped<IChangeRoleUseCase, ChangeRoleUseCase>();
         services.AddScoped<IDeactivateUserOpticalStoreUseCase, DeactivateUserOpticalStoreUseCase>();
         services.AddScoped<IReactivateUserOpticalStoreUseCase, ReactivateUserOpticalStoreUseCase>();
+
+        services.AddScoped<IRegisterClientUseCase, RegisterClientUseCase>();
     }
 
     private static void AddMapperConfigurations() => MapConfigurations.Configure();

@@ -61,6 +61,15 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date of birth cannot be in the future..
+        /// </summary>
+        public static string DATE_OF_BIRTH_IN_THE_FUTURE {
+            get {
+                return ResourceManager.GetString("DATE_OF_BIRTH_IN_THE_FUTURE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The e-mail is already registered on the platform..
         /// </summary>
         public static string EMAIL_ALREADY_REGISTERED {
