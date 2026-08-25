@@ -1,7 +1,7 @@
 ﻿using GOtica.API.Attributes;
 using GOtica.Application.UseCases.Invite.Accept;
 using GOtica.Application.UseCases.UserOpticalStore.Invite.Validade;
-using GOtica.Communication.Requests;
+using GOtica.Communication.Requests.Invite;
 using GOtica.Communication.Response;
 using GOtica.Communication.Response.Invite;
 using Microsoft.AspNetCore.Authorization;
