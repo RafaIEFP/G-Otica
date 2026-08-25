@@ -219,4 +219,7 @@
   <data name="DATE_OF_BIRTH_IN_THE_FUTURE" xml:space="preserve">
     <value>Date of birth cannot be in the future.</value>
   </data>
+  <data name="CLIENT_NOT_FOUND" xml:space="preserve">
+    <value>Client not found</value>
+  </data>
 </root>

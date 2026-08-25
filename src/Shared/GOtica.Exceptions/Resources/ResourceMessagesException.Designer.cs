@@ -61,6 +61,15 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Client not found.
+        /// </summary>
+        public static string CLIENT_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("CLIENT_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date of birth cannot be in the future..
         /// </summary>
         public static string DATE_OF_BIRTH_IN_THE_FUTURE {

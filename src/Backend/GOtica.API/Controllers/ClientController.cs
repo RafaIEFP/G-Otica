@@ -1,4 +1,5 @@
 ﻿using GOtica.API.Attributes;
+using GOtica.Application.UseCases.Client.Get;
 using GOtica.Application.UseCases.Client.Register;
 using GOtica.Communication.Requests.Client;
 using GOtica.Communication.Response;
@@ -24,5 +25,19 @@ public class ClientController : ControllerBase
         var response = await useCase.Execute(opticalStoreId, request);
 
         return Created(string.Empty, response);
+    }
+
+    [HttpGet("{clientId:guid}")]
+    [ProducesResponseType(typeof(ResponseGetClient), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
+    [OpticalStoreMember]
+    public async Task<IActionResult> Get(
+        [FromRoute] Guid opticalStoreId,
+        [FromRoute] Guid clientId,
+        [FromServices] IGetClientUseCase useCase)
+    {
+        var response = await useCase.Execute(opticalStoreId, clientId);
+
+        return Ok(response);
     }
 }
