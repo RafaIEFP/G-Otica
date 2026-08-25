@@ -20,5 +20,9 @@ public class Version00004 : ForwardOnlyMigration
                     "FK_Clients_OpticalStores_OpticalStoreId",
                     "OpticalStores",
                     "Id");
+
+        Create.Index("IX_Clients_OpticalStoreId")
+            .OnTable("Clients")
+            .OnColumn("OpticalStoreId").Ascending();
     }
 }
