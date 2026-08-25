@@ -1,5 +1,6 @@
 ﻿using GOtica.API.Attributes;
 using GOtica.Application.UseCases.Client.Get;
+using GOtica.Application.UseCases.Client.GetAll;
 using GOtica.Application.UseCases.Client.Register;
 using GOtica.Communication.Requests.Client;
 using GOtica.Communication.Response;
@@ -37,6 +38,20 @@ public class ClientController : ControllerBase
         [FromServices] IGetClientUseCase useCase)
     {
         var response = await useCase.Execute(opticalStoreId, clientId);
+
+        return Ok(response);
+    }
+
+    [HttpGet]
+    [ProducesResponseType(typeof(ResponseGetAllClients), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status400BadRequest)]
+    [OpticalStoreMember]
+    public async Task<IActionResult> GetAll(
+        [FromRoute] Guid opticalStoreId,
+        [FromQuery] RequestGetAllClients request,
+        [FromServices] IGetAllClientsUseCase useCase)
+    {
+        var response = await useCase.Execute(opticalStoreId, request);
 
         return Ok(response);
     }

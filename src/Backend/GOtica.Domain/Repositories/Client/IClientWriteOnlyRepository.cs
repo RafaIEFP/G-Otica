@@ -1,4 +1,6 @@
-﻿namespace GOtica.Domain.Repositories.Client;
+﻿using GOtica.Domain.Dtos;
+
+namespace GOtica.Domain.Repositories.Client;
 
 public interface IClientWriteOnlyRepository
 {
