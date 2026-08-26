@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GOtica.Infrastructure.DataAccess.Repositories;
 
-internal sealed class ClientRepository(GOticaDbContext dbContext) : IClientWriteOnlyRepository, IClientReadOnlyRepository
+internal sealed class ClientRepository(GOticaDbContext dbContext) : IClientWriteOnlyRepository, IClientReadOnlyRepository, IClientUpdateOnlyRepository
 {
     public async Task Add(Client client)
     {
@@ -55,5 +55,11 @@ internal sealed class ClientRepository(GOticaDbContext dbContext) : IClientWrite
             PageSize = pageSize,
             TotalCount = totalCount
         };
+    }
+
+    public async Task<Client?> GetActiveInOpticalStore(Guid clientId, Guid opticalStoreId)
+    {
+        return await dbContext.Clients
+            .FirstOrDefaultAsync(c => c.Id == clientId && c.OpticalStoreId == opticalStoreId && c.IsActive);
     }
 }

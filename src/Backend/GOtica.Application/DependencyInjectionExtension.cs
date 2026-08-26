@@ -4,6 +4,7 @@ using GOtica.Application.Sevices.Mapping;
 using GOtica.Application.UseCases.Client.Get;
 using GOtica.Application.UseCases.Client.GetAll;
 using GOtica.Application.UseCases.Client.Register;
+using GOtica.Application.UseCases.Client.Update;
 using GOtica.Application.UseCases.Invite.Accept;
 using GOtica.Application.UseCases.Login.DoLogin;
 using GOtica.Application.UseCases.Login.DoLogout;
@@ -26,6 +27,7 @@ using GOtica.Application.UseCases.UserOpticalStores.ChangeRole;
 using GOtica.Application.UseCases.UserOpticalStores.Deactivate;
 using GOtica.Application.UseCases.UserOpticalStores.GetAll;
 using GOtica.Application.UseCases.UserOpticalStores.Reactivate;
+using GOtica.Communication.Requests.Client;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace GOtica.Application;
@@ -75,6 +77,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IRegisterClientUseCase, RegisterClientUseCase>();
         services.AddScoped<IGetClientUseCase, GetClientUseCase>();
         services.AddScoped<IGetAllClientsUseCase, GetAllClientsUseCase>();
+        services.AddScoped<IUpdateClientUseCase, UpdateClientUseCase>();
     }
 
     private static void AddMapperConfigurations() => MapConfigurations.Configure();

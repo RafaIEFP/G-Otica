@@ -2,6 +2,7 @@
 using GOtica.Application.UseCases.Client.Get;
 using GOtica.Application.UseCases.Client.GetAll;
 using GOtica.Application.UseCases.Client.Register;
+using GOtica.Application.UseCases.Client.Update;
 using GOtica.Communication.Requests.Client;
 using GOtica.Communication.Response;
 using GOtica.Communication.Response.Client;
@@ -54,5 +55,21 @@ public class ClientController : ControllerBase
         var response = await useCase.Execute(opticalStoreId, request);
 
         return Ok(response);
+    }
+
+    [HttpPut("{clientId:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
+    [OpticalStoreMember]
+    public async Task<IActionResult> Update(
+        [FromRoute] Guid opticalStoreId,
+        [FromRoute] Guid clientId,
+        [FromBody] RequestUpdateClient request,
+        [FromServices] IUpdateClientUseCase useCase)
+    {
+        await useCase.Execute(opticalStoreId, clientId, request);
+
+        return NoContent();
     }
 }
