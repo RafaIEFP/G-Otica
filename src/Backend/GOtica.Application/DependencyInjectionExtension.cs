@@ -78,6 +78,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IGetClientUseCase, GetClientUseCase>();
         services.AddScoped<IGetAllClientsUseCase, GetAllClientsUseCase>();
         services.AddScoped<IUpdateClientUseCase, UpdateClientUseCase>();
+        services.AddScoped<IDeactivateClientUseCase, DeactivateClientUseCase>();
     }
 
     private static void AddMapperConfigurations() => MapConfigurations.Configure();

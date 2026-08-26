@@ -1,4 +1,5 @@
 ﻿using GOtica.API.Attributes;
+using GOtica.Application.UseCases.Client.Deactivate;
 using GOtica.Application.UseCases.Client.Get;
 using GOtica.Application.UseCases.Client.GetAll;
 using GOtica.Application.UseCases.Client.Register;
@@ -69,6 +70,20 @@ public class ClientController : ControllerBase
         [FromServices] IUpdateClientUseCase useCase)
     {
         await useCase.Execute(opticalStoreId, clientId, request);
+
+        return NoContent();
+    }
+
+    [HttpDelete("{clientId:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
+    [OpticalStoreMember]
+    public async Task<IActionResult> Deactivate(
+        [FromRoute] Guid opticalStoreId,
+        [FromRoute] Guid clientId,
+        [FromServices] IDeactivateClientUseCase useCase)
+    {
+        await useCase.Execute(opticalStoreId, clientId);
 
         return NoContent();
     }
