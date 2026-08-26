@@ -2,6 +2,7 @@
 using GOtica.Application.UseCases.Client.Deactivate;
 using GOtica.Application.UseCases.Client.Get;
 using GOtica.Application.UseCases.Client.GetAll;
+using GOtica.Application.UseCases.Client.Reactivate;
 using GOtica.Application.UseCases.Client.Register;
 using GOtica.Application.UseCases.Client.Update;
 using GOtica.Communication.Requests.Client;
@@ -82,6 +83,20 @@ public class ClientController : ControllerBase
         [FromRoute] Guid opticalStoreId,
         [FromRoute] Guid clientId,
         [FromServices] IDeactivateClientUseCase useCase)
+    {
+        await useCase.Execute(opticalStoreId, clientId);
+
+        return NoContent();
+    }
+
+    [HttpPut("{clientId:guid}/activate")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
+    [OpticalStoreMember]
+    public async Task<IActionResult> Reactivate(
+        [FromRoute] Guid opticalStoreId,
+        [FromRoute] Guid clientId,
+        [FromServices] IReactivateClientUseCase useCase)
     {
         await useCase.Execute(opticalStoreId, clientId);
 

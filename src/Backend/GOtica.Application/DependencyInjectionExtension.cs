@@ -1,8 +1,10 @@
 ﻿using GOtica.Application.Sevices.Auth;
 using GOtica.Application.Sevices.Invite;
 using GOtica.Application.Sevices.Mapping;
+using GOtica.Application.UseCases.Client.Deactivate;
 using GOtica.Application.UseCases.Client.Get;
 using GOtica.Application.UseCases.Client.GetAll;
+using GOtica.Application.UseCases.Client.Reactivate;
 using GOtica.Application.UseCases.Client.Register;
 using GOtica.Application.UseCases.Client.Update;
 using GOtica.Application.UseCases.Invite.Accept;
@@ -79,6 +81,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IGetAllClientsUseCase, GetAllClientsUseCase>();
         services.AddScoped<IUpdateClientUseCase, UpdateClientUseCase>();
         services.AddScoped<IDeactivateClientUseCase, DeactivateClientUseCase>();
+        services.AddScoped<IReactivateClientUseCase, ReactivateClientUseCase>();
     }
 
     private static void AddMapperConfigurations() => MapConfigurations.Configure();

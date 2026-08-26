@@ -73,4 +73,19 @@ internal sealed class ClientRepository(GOticaDbContext dbContext) : IClientWrite
 
         return affectedRows > 0;
     }
+
+    public async Task<bool> Reactivate(Guid clientId, Guid opticalStoreId)
+    {
+        var affectedRows = await dbContext.Clients
+            .Where(client =>
+                client.Id == clientId &&
+                client.OpticalStoreId == opticalStoreId &&
+                !client.IsActive)
+            .ExecuteUpdateAsync(setter =>
+                setter.SetProperty(
+                    client => client.IsActive,
+                    true));
+
+        return affectedRows > 0;
+    }
 }
