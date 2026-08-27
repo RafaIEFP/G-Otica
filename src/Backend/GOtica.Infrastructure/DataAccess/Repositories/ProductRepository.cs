@@ -11,6 +11,11 @@ internal sealed class ProductRepository(GOticaDbContext dbContext) : IProductUpd
         await dbContext.Products.AddAsync(product);
     }
 
+    public async Task<Product?> GetById(Guid productId, Guid opticalStoreId)
+    {
+        return await dbContext.Products.AsNoTracking().FirstOrDefaultAsync(p => p.Id == productId && p.OpticalStoreId == opticalStoreId);
+    }
+
     public async Task<bool> ProductAlreadyAtOpticalStore(string productCode, Guid opticalStoreId)
     {
         return await dbContext.Products.AnyAsync(

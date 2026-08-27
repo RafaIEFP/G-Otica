@@ -237,4 +237,7 @@
   <data name="PRODUCT_ALREADY_REGISTERED" xml:space="preserve">
     <value>This product is already registered at this optical shop</value>
   </data>
+  <data name="PRODUCT_NOT_FOUND" xml:space="preserve">
+    <value>Product not found.</value>
+  </data>
 </root>
