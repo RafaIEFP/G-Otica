@@ -1,4 +1,5 @@
 ﻿using GOtica.API.Attributes;
+using GOtica.Application.UseCases.Product.Deactivate;
 using GOtica.Application.UseCases.Product.Get;
 using GOtica.Application.UseCases.Product.GetAll;
 using GOtica.Application.UseCases.Product.Register;
@@ -74,6 +75,20 @@ public class ProductController : ControllerBase
             opticalStoreId,
             productId,
             request);
+
+        return NoContent();
+    }
+
+    [HttpDelete("{productId:guid}")]
+    [OpticalStoreMember]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Deactivate(
+        [FromRoute] Guid opticalStoreId,
+        [FromRoute] Guid productId,
+        [FromServices] IDeactivateProductUseCase useCase)
+    {
+        await useCase.Execute(opticalStoreId, productId);
 
         return NoContent();
     }
