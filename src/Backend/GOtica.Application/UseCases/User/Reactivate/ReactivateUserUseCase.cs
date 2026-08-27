@@ -1,4 +1,5 @@
 ﻿using GOtica.Application.Sevices.Auth;
+using GOtica.Communication.Requests;
 using GOtica.Communication.Requests.User;
 using GOtica.Communication.Response.User;
 using GOtica.Domain.Entities;
@@ -42,6 +43,8 @@ public class ReactivateUserUseCase : IReactivateUserUseCase
 
     public async Task<ResponseRegisteredUser> Execute(RequestReactivateUser request)
     {
+        request = request.Normalize();
+
         Validate(request);
 
         var user = await _userReadOnlyRepository.GetUserByEmail(request.Email)

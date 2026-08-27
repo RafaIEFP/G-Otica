@@ -1,4 +1,5 @@
 ﻿using FluentValidation.Results;
+using GOtica.Communication.Requests;
 using GOtica.Communication.Requests.User;
 using GOtica.Domain.Repositories;
 using GOtica.Domain.Repositories.User;
@@ -30,6 +31,8 @@ public class UpdateUserUseCase : IUpdateUserUseCase
     public async Task Execute(RequestUpdateUser request)
     {
         var loggedUser = await _loggedUser.Get();
+
+        request = request.Normalize();
 
         await Validate(request, loggedUser.Email);
 

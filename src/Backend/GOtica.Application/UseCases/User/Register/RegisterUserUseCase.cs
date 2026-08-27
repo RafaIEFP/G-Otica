@@ -1,5 +1,6 @@
 ﻿using FluentValidation.Results;
 using GOtica.Application.Sevices.Auth;
+using GOtica.Communication.Requests;
 using GOtica.Communication.Requests.User;
 using GOtica.Communication.Response;
 using GOtica.Communication.Response.User;
@@ -45,6 +46,8 @@ public class RegisterUserUseCase : IRegisterUserUseCase
 
     public async Task<ResponseRegisteredUser> Execute(RequestRegisterUser request)
     {
+        request = request.Normalize();
+
         await Validate(request);
 
         var user = request.Adapt<Domain.Entities.User>();

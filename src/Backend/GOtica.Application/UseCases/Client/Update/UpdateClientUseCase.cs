@@ -1,4 +1,5 @@
-﻿using GOtica.Communication.Requests.Client;
+﻿using GOtica.Communication.Requests;
+using GOtica.Communication.Requests.Client;
 using GOtica.Domain.Repositories;
 using GOtica.Domain.Repositories.Client;
 using GOtica.Exceptions.ExceptionsBase;
@@ -19,6 +20,8 @@ public class UpdateClientUseCase : IUpdateClientUseCase
 
     public async Task Execute(Guid opticalStoreId, Guid clientId, RequestUpdateClient request)
     {
+        request = request.Normalize();
+
         Validate(request);
 
         var client = await _clientUpdateOnlyRepository.GetActiveInOpticalStore(clientId, opticalStoreId)

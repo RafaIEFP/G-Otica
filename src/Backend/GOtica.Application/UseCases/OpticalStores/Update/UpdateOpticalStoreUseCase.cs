@@ -1,4 +1,5 @@
 ﻿using GOtica.Application.UseCases.OpticalStores.Register;
+using GOtica.Communication.Requests;
 using GOtica.Communication.Requests.OpticalStore;
 using GOtica.Domain.Repositories;
 using GOtica.Domain.Repositories.OpticalStore;
@@ -25,6 +26,8 @@ public class UpdateOpticalStoreUseCase : IUpdateOpticalStoreUseCase
 
     public async Task Execute(Guid opticalStoreId, RequestOpticalStore request)
     {
+        request = request.Normalize();
+
         Validate(request);
 
         var opticalStore = await _opticalStoreUpdateOnlyRepository.GetById(opticalStoreId);

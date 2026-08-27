@@ -1,4 +1,5 @@
 ﻿using GOtica.Application.Sevices.Auth;
+using GOtica.Communication.Requests;
 using GOtica.Communication.Requests.User;
 using GOtica.Communication.Response;
 using GOtica.Communication.Response.User;
@@ -38,6 +39,8 @@ public class DoLoginUseCase : IDoLoginUseCase
 
     public async Task<ResponseRegisteredUser> Execute(RequestLogin request)
     {
+        request = request.Normalize();
+
         var user = await _userReadOnlyRepository.GetActiveUserByEmail(request.Email) 
             ?? throw new InvalidLoginException();
 

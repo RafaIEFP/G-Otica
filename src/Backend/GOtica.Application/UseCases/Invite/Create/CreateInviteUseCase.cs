@@ -1,4 +1,5 @@
 ﻿using GOtica.Application.Sevices.Invite;
+using GOtica.Communication.Requests;
 using GOtica.Communication.Requests.Invite;
 using GOtica.Domain.Repositories;
 using GOtica.Domain.Repositories.Invite;
@@ -46,6 +47,8 @@ public class CreateInviteUseCase : ICreateInviteUseCase
     public async Task Execute(Guid opticalStoreId, RequestInvite request)
     {
         var inviter = await _loggedUser.Get();
+
+        request = request.Normalize();
 
         Validate(request);
 

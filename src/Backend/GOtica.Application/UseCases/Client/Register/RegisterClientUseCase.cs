@@ -1,4 +1,5 @@
-﻿using GOtica.Communication.Requests.Client;
+﻿using GOtica.Communication.Requests;
+using GOtica.Communication.Requests.Client;
 using GOtica.Communication.Response.Client;
 using GOtica.Domain.Repositories;
 using GOtica.Domain.Repositories.Client;
@@ -21,6 +22,8 @@ public class RegisterClientUseCase : IRegisterClientUseCase
 
     public async Task<ResponseRegisterClient> Execute(Guid opticalStoreId, RequestRegisterClient request)
     {
+        request = request.Normalize();
+
         Validate(request);
 
         var client = request.Adapt<Domain.Entities.Client>();

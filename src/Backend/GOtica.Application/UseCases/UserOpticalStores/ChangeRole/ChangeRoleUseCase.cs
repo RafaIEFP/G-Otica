@@ -1,4 +1,5 @@
-﻿using GOtica.Communication.Requests.UserOpticalStore;
+﻿using GOtica.Communication.Requests;
+using GOtica.Communication.Requests.UserOpticalStore;
 using GOtica.Domain;
 using GOtica.Domain.Repositories.UserOpticalStore;
 using GOtica.Exceptions.ExceptionsBase;
@@ -20,6 +21,8 @@ public class ChangeRoleUseCase : IChangeRoleUseCase
 
     public async Task Execute(Guid opticalStoreId, Guid userId, RequestChangeRole request)
     {
+        request = request.Normalize();
+
         Validate(request);
 
         var userOpticalStore = await _userOpticalStoreReadOnlyRepository.GetUserOpticalStore(userId, opticalStoreId)
