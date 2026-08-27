@@ -1,4 +1,6 @@
-﻿using GOtica.Domain.Entities;
+﻿using GOtica.Domain.Dtos;
+using GOtica.Domain.Entities;
+using GOtica.Domain.Repositories;
 using GOtica.Domain.Repositories.Product;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +11,45 @@ internal sealed class ProductRepository(GOticaDbContext dbContext) : IProductUpd
     public async Task Add(Product product)
     {
         await dbContext.Products.AddAsync(product);
+    }
+
+    public async Task<PagedResult<ProductDto>> GetAll(Guid opticalStoreId, int page, int pageSize, bool? isActive)
+    {
+        var query = dbContext.Products
+            .AsNoTracking()
+            .Where(product =>product.OpticalStoreId == opticalStoreId);
+
+        if (isActive.HasValue)
+        {
+            query = query.Where(product =>
+                product.IsActive == isActive.Value);
+        }
+
+        var totalCount = await query.CountAsync();
+
+        var products = await query
+            .OrderBy(product => product.Name)
+            .ThenBy(product => product.Id)
+            .Paged(page, pageSize)
+            .Select(product => new ProductDto
+            {
+                Id = product.Id,
+                Name = product.Name,
+                ProductType = product.ProductType,
+                ProductCode = product.ProductCode,
+                BasePrice = product.BasePrice,
+                StockQuantity = product.StockQuantity,
+                IsActive = product.IsActive
+            })
+            .ToListAsync();
+
+        return new PagedResult<ProductDto>
+        {
+            Items = products,
+            Page = page,
+            PageSize = pageSize,
+            TotalCount = totalCount
+        };
     }
 
     public async Task<Product?> GetById(Guid productId, Guid opticalStoreId)
