@@ -61,6 +61,15 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The base price must be greater than zero.
+        /// </summary>
+        public static string BASE_PRICE_INVALID {
+            get {
+                return ResourceManager.GetString("BASE_PRICE_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Client not found.
         /// </summary>
         public static string CLIENT_NOT_FOUND {
@@ -268,11 +277,47 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This product is already registered at this optical shop.
+        /// </summary>
+        public static string PRODUCT_ALREADY_REGISTERED {
+            get {
+                return ResourceManager.GetString("PRODUCT_ALREADY_REGISTERED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The product code cannot be empty.
+        /// </summary>
+        public static string PRODUCT_CODE_EMPTY {
+            get {
+                return ResourceManager.GetString("PRODUCT_CODE_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid product type..
+        /// </summary>
+        public static string PRODUCT_TYPE_INVALID {
+            get {
+                return ResourceManager.GetString("PRODUCT_TYPE_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The role must be &apos;manager&apos; or &apos;salesperson&apos;..
         /// </summary>
         public static string ROLE_INVALID {
             get {
                 return ResourceManager.GetString("ROLE_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The stock cannot be less than zero..
+        /// </summary>
+        public static string STOCK_INVALID {
+            get {
+                return ResourceManager.GetString("STOCK_INVALID", resourceCulture);
             }
         }
         

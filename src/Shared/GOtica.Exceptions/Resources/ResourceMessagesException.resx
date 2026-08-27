@@ -222,4 +222,19 @@
   <data name="CLIENT_NOT_FOUND" xml:space="preserve">
     <value>Client not found</value>
   </data>
+  <data name="PRODUCT_TYPE_INVALID" xml:space="preserve">
+    <value>Invalid product type.</value>
+  </data>
+  <data name="PRODUCT_CODE_EMPTY" xml:space="preserve">
+    <value>The product code cannot be empty</value>
+  </data>
+  <data name="BASE_PRICE_INVALID" xml:space="preserve">
+    <value>The base price must be greater than zero</value>
+  </data>
+  <data name="STOCK_INVALID" xml:space="preserve">
+    <value>The stock cannot be less than zero.</value>
+  </data>
+  <data name="PRODUCT_ALREADY_REGISTERED" xml:space="preserve">
+    <value>This product is already registered at this optical shop</value>
+  </data>
 </root>

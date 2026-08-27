@@ -1,6 +1,7 @@
 ﻿using GOtica.Communication.Requests.Client;
 using GOtica.Communication.Requests.Invite;
 using GOtica.Communication.Requests.OpticalStore;
+using GOtica.Communication.Requests.Product;
 using GOtica.Communication.Requests.User;
 using GOtica.Communication.Requests.UserOpticalStore;
 
@@ -113,6 +114,17 @@ public static class RequestNormalizationExtensions
             return request with
             {
                 Email = DataNormalizer.Email(request.Email)
+            };
+        }
+    }
+
+    extension(RequestRegisterProduct request)
+    {
+        public RequestRegisterProduct Normalize()
+        {
+            return request with
+            {
+                ProductCode = DataNormalizer.ProductCode(request.ProductCode)
             };
         }
     }
