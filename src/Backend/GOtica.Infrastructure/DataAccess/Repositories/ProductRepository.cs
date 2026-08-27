@@ -94,4 +94,18 @@ internal sealed class ProductRepository(GOticaDbContext dbContext) : IProductUpd
             product.ProductCode == productCode &&
             product.Id != exceptProductId);
     }
+
+    public async Task<bool> Reactivate(Guid productId, Guid opticalStoreId)
+    {
+        var affectedRows = await dbContext.Products
+            .Where(product =>
+                product.Id == productId &&
+                product.OpticalStoreId == opticalStoreId &&
+                !product.IsActive)
+            .ExecuteUpdateAsync(setter =>
+                setter.SetProperty(
+                    product => product.IsActive, true));
+
+        return affectedRows > 0;
+    }
 }

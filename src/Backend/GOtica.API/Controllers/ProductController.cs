@@ -2,6 +2,7 @@
 using GOtica.Application.UseCases.Product.Deactivate;
 using GOtica.Application.UseCases.Product.Get;
 using GOtica.Application.UseCases.Product.GetAll;
+using GOtica.Application.UseCases.Product.Reactivate;
 using GOtica.Application.UseCases.Product.Register;
 using GOtica.Application.UseCases.Product.Update;
 using GOtica.Communication.Requests.Product;
@@ -87,6 +88,20 @@ public class ProductController : ControllerBase
         [FromRoute] Guid opticalStoreId,
         [FromRoute] Guid productId,
         [FromServices] IDeactivateProductUseCase useCase)
+    {
+        await useCase.Execute(opticalStoreId, productId);
+
+        return NoContent();
+    }
+
+    [HttpPut("{productId:guid}/activate")]
+    [OpticalStoreMember]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Reactivate(
+        [FromRoute] Guid opticalStoreId,
+        [FromRoute] Guid productId,
+        [FromServices] IReactivateProductUseCase useCase)
     {
         await useCase.Execute(opticalStoreId, productId);
 
