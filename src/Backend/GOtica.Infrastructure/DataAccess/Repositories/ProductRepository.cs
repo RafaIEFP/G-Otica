@@ -13,6 +13,15 @@ internal sealed class ProductRepository(GOticaDbContext dbContext) : IProductUpd
         await dbContext.Products.AddAsync(product);
     }
 
+    public async Task<Product?> GetActiveInOpticalStore(Guid productId, Guid opticalStoreId)
+    {
+        return await dbContext.Products
+            .FirstOrDefaultAsync(product =>
+                product.Id == productId &&
+                product.OpticalStoreId == opticalStoreId &&
+                product.IsActive);
+    }
+
     public async Task<PagedResult<ProductDto>> GetAll(Guid opticalStoreId, int page, int pageSize, bool? isActive)
     {
         var query = dbContext.Products
@@ -62,5 +71,13 @@ internal sealed class ProductRepository(GOticaDbContext dbContext) : IProductUpd
         return await dbContext.Products.AnyAsync(
             p => p.OpticalStoreId == opticalStoreId && 
             p.ProductCode == productCode);
+    }
+
+    public async Task<bool> ProductCodeAlreadyAtOpticalStore(string productCode, Guid opticalStoreId, Guid exceptProductId)
+    {
+        return await dbContext.Products.AnyAsync(product =>
+            product.OpticalStoreId == opticalStoreId &&
+            product.ProductCode == productCode &&
+            product.Id != exceptProductId);
     }
 }

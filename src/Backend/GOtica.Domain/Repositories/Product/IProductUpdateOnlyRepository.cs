@@ -2,4 +2,5 @@
 
 public interface IProductUpdateOnlyRepository
 {
+    Task<Entities.Product?> GetActiveInOpticalStore(Guid productId,  Guid opticalStoreId);
 }

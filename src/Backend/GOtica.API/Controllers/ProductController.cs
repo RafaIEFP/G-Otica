@@ -2,6 +2,7 @@
 using GOtica.Application.UseCases.Product.Get;
 using GOtica.Application.UseCases.Product.GetAll;
 using GOtica.Application.UseCases.Product.Register;
+using GOtica.Application.UseCases.Product.Update;
 using GOtica.Communication.Requests.Product;
 using GOtica.Communication.Response;
 using GOtica.Communication.Response.Product;
@@ -55,5 +56,25 @@ public class ProductController : ControllerBase
         var response = await useCase.Execute(opticalStoreId,request);
 
         return Ok(response);
+    }
+
+    [HttpPut("{productId:guid}")]
+    [OpticalStoreMember]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status409Conflict)]
+    public async Task<IActionResult> Update(
+        [FromRoute] Guid opticalStoreId,
+        [FromRoute] Guid productId,
+        [FromBody] RequestUpdateProduct request,
+        [FromServices] IUpdateProductUseCase useCase)
+    {
+        await useCase.Execute(
+            opticalStoreId,
+            productId,
+            request);
+
+        return NoContent();
     }
 }

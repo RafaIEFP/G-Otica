@@ -4,6 +4,7 @@ using GOtica.Communication.Requests.OpticalStore;
 using GOtica.Communication.Requests.Product;
 using GOtica.Communication.Requests.User;
 using GOtica.Communication.Requests.UserOpticalStore;
+using GOtica.Communication.Response.Product;
 
 namespace GOtica.Communication.Requests;
 
@@ -124,6 +125,18 @@ public static class RequestNormalizationExtensions
         {
             return request with
             {
+                ProductCode = DataNormalizer.ProductCode(request.ProductCode)
+            };
+        }
+    }
+
+    extension(RequestUpdateProduct request)
+    {
+        public RequestUpdateProduct Normalize()
+        {
+            return request with
+            {
+                Name = DataNormalizer.Text(request.Name),
                 ProductCode = DataNormalizer.ProductCode(request.ProductCode)
             };
         }
