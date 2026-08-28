@@ -252,4 +252,7 @@
   <data name="INSUFFICIENT_STOCK" xml:space="preserve">
     <value>Insufficient stock</value>
   </data>
+  <data name="SUPPLIER_NOT_FOUND" xml:space="preserve">
+    <value>Supplier not found</value>
+  </data>
 </root>

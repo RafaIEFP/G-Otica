@@ -1,4 +1,5 @@
 ﻿using GOtica.API.Attributes;
+using GOtica.Application.UseCases.Supplier.Get;
 using GOtica.Application.UseCases.Supplier.Register;
 using GOtica.Communication.Requests.Supplier;
 using GOtica.Communication.Response;
@@ -24,5 +25,19 @@ public class SupplierController : ControllerBase
         var response = await useCase.Execute(opticalStoreId, request);
 
         return Created(string.Empty, response);
+    }
+
+    [HttpGet("{supplierId:guid}")]
+    [OpticalStoreMember]
+    [ProducesResponseType(typeof(ResponseSupplier), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Get(
+        [FromRoute] Guid opticalStoreId,
+        [FromRoute] Guid supplierId,
+        [FromServices] IGetSupplierUseCase useCase)
+    {
+        var response = await useCase.Execute(opticalStoreId, supplierId);
+
+        return Ok(response);
     }
 }

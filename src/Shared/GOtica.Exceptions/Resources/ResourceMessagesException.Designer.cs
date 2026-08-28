@@ -367,6 +367,15 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Supplier not found.
+        /// </summary>
+        public static string SUPPLIER_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("SUPPLIER_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tax number cannot be empty.
         /// </summary>
         public static string TAX_NUMBER_EMPTY {
