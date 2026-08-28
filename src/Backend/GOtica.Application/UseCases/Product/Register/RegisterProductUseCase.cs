@@ -1,7 +1,6 @@
 ﻿using GOtica.Communication.Requests;
 using GOtica.Communication.Requests.Product;
 using GOtica.Communication.Response.Product;
-using GOtica.Domain.Entities;
 using GOtica.Domain.Enums;
 using GOtica.Domain.Repositories;
 using GOtica.Domain.Repositories.Product;
@@ -57,7 +56,7 @@ public class RegisterProductUseCase : IRegisterProductUseCase
 
             if (product.StockQuantity > 0)
             {
-                var stockMovement = new StockMovement
+                var stockMovement = new Domain.Entities.StockMovement
                 {
                     QuantityChange = product.StockQuantity,
                     Type = StockMovementType.InitialStock,

@@ -6,9 +6,12 @@ using GOtica.Application.UseCases.Product.GetAll;
 using GOtica.Application.UseCases.Product.Reactivate;
 using GOtica.Application.UseCases.Product.Register;
 using GOtica.Application.UseCases.Product.Update;
+using GOtica.Application.UseCases.StockMovement.GetAll;
 using GOtica.Communication.Requests.Product;
+using GOtica.Communication.Requests.StockMovement;
 using GOtica.Communication.Response;
 using GOtica.Communication.Response.Product;
+using GOtica.Communication.Response.StockMovement;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GOtica.API.Controllers;
@@ -124,5 +127,21 @@ public class ProductController : ControllerBase
         await useCase.Execute(opticalStoreId, productId, request);
 
         return NoContent();
+    }
+
+    [HttpGet("{productId:guid}/stock-movements")]
+    [OpticalStoreMember]
+    [ProducesResponseType(typeof(ResponsePaged<ResponseStockMovement>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetStockMovements(
+        [FromRoute] Guid opticalStoreId,
+        [FromRoute] Guid productId,
+        [FromQuery] RequestGetStockMovements request,
+        [FromServices] IGetAllStockMovementsUseCase useCase)
+    {
+        var response = await useCase.Execute(opticalStoreId, productId, request);
+
+        return Ok(response);
     }
 }

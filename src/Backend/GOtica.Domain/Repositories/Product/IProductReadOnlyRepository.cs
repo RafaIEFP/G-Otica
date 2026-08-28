@@ -6,6 +6,7 @@ public interface IProductReadOnlyRepository
 {
     Task<bool> ProductAlreadyAtOpticalStore(string productCode, Guid opticalStoreId);
     Task<Entities.Product?> GetById(Guid productId, Guid opticalStoreId);
+    Task<bool> Exists(Guid productId, Guid opticalStoreId);
     Task<PagedResult<ProductDto>> GetAll(Guid opticalStoreId, int page, int pageSize, bool? isActive);
     Task<bool> ProductCodeAlreadyAtOpticalStore(string productCode, Guid opticalStoreId, Guid exceptProductId);
 }

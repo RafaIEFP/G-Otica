@@ -49,6 +49,11 @@ internal sealed class ProductRepository(GOticaDbContext dbContext) : IProductUpd
         return affectedRows > 0;
     }
 
+    public async Task<bool> Exists(Guid productId, Guid opticalStoreId)
+    {
+        return await dbContext.Products.AnyAsync(p => p.Id == productId && p.OpticalStoreId == opticalStoreId);
+    }
+
     public async Task<Product?> GetActiveInOpticalStore(Guid productId, Guid opticalStoreId)
     {
         return await dbContext.Products

@@ -1,8 +1,6 @@
 ﻿using GOtica.Communication.Enums;
 using GOtica.Communication.Requests;
 using GOtica.Communication.Requests.Product;
-using GOtica.Domain.Entities;
-using GOtica.Domain.Enums;
 using GOtica.Domain.Repositories;
 using GOtica.Domain.Repositories.Product;
 using GOtica.Domain.Repositories.StockMovement;
@@ -67,10 +65,10 @@ public class AdjustProductStockUseCase : IAdjustProductStockUseCase
             if (!adjusted)
                 throw new ConflictException(ResourceMessagesException.INSUFFICIENT_STOCK);
 
-            var stockMovement = new StockMovement
+            var stockMovement = new Domain.Entities.StockMovement
             {
                 QuantityChange = quantityChange,
-                Type = StockMovementType.ManualAdjustment,
+                Type = Domain.Enums.StockMovementType.ManualAdjustment,
                 Reason = request.Reason,
                 ProductId = productId,
                 UserId = loggedUser.Id
