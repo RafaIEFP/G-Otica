@@ -8,4 +8,5 @@ internal sealed class DatabaseVersions
     internal const long TABLE_CLIENT = 4;
     internal const long TABLE_PRODUCT = 5;
     internal const long TABLE_STOCK_MOVEMENT = 6;
+    internal const long TABLE_SUPPLIER = 7;
 }
