@@ -13,6 +13,7 @@ internal class GOticaDbContext(DbContextOptions options) : DbContext(options)
     public DbSet<Client> Clients { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<StockMovement> StockMovements { get; set; }
+    public DbSet<Supplier> Suppliers { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
