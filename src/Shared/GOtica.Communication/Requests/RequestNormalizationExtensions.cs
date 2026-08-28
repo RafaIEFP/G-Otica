@@ -2,6 +2,7 @@
 using GOtica.Communication.Requests.Invite;
 using GOtica.Communication.Requests.OpticalStore;
 using GOtica.Communication.Requests.Product;
+using GOtica.Communication.Requests.Supplier;
 using GOtica.Communication.Requests.User;
 using GOtica.Communication.Requests.UserOpticalStore;
 using GOtica.Communication.Response.Product;
@@ -142,12 +143,27 @@ public static class RequestNormalizationExtensions
         }
     }
 
-    public static RequestAdjustProductStock Normalize(
-    this RequestAdjustProductStock request)
+    extension(RequestAdjustProductStock request)
     {
-        return request with
+        public RequestAdjustProductStock Normalize()
         {
-            Reason = DataNormalizer.Text(request.Reason)
-        };
+            return request with
+            {
+                Reason = DataNormalizer.Text(request.Reason)
+            };
+        }
+    }
+
+    extension(RequestRegisterSupplier request)
+    {
+        public RequestRegisterSupplier Normalize()
+        {
+            return request with
+            {
+                Name = DataNormalizer.Text(request.Name),
+                PhoneNumber = DataNormalizer.OptionalPhoneNumber(request.PhoneNumber),
+                Email = DataNormalizer.OptionalEmail(request.Email)
+            };
+        }
     }
 }

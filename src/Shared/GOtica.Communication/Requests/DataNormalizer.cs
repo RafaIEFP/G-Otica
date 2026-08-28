@@ -39,4 +39,12 @@ internal static class DataNormalizer
     {
         return value.Trim().ToUpperInvariant();
     }
+
+    public static string? OptionalPhoneNumber(string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return null;
+
+        return PhoneNumber(value);
+    }
 }
