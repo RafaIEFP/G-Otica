@@ -25,6 +25,7 @@ using GOtica.Application.UseCases.Product.Register;
 using GOtica.Application.UseCases.Product.Update;
 using GOtica.Application.UseCases.StockMovement.GetAll;
 using GOtica.Application.UseCases.Supplier.Get;
+using GOtica.Application.UseCases.Supplier.GetAll;
 using GOtica.Application.UseCases.Supplier.Register;
 using GOtica.Application.UseCases.Token.RefreshToken;
 using GOtica.Application.UseCases.User.ChangePassword;
@@ -104,6 +105,7 @@ public static class DependencyInjectionExtension
 
         services.AddScoped<IRegisterSupplierUseCase, RegisterSupplierUseCase>();
         services.AddScoped<IGetSupplierUseCase, GetSupplierUseCase>();
+        services.AddScoped<IGetAllSuppliersUseCase, GetAllSuppliersUseCase>();
     }
 
     private static void AddMapperConfigurations() => MapConfigurations.Configure();

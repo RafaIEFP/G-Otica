@@ -1,5 +1,6 @@
 ﻿using GOtica.API.Attributes;
 using GOtica.Application.UseCases.Supplier.Get;
+using GOtica.Application.UseCases.Supplier.GetAll;
 using GOtica.Application.UseCases.Supplier.Register;
 using GOtica.Communication.Requests.Supplier;
 using GOtica.Communication.Response;
@@ -37,6 +38,19 @@ public class SupplierController : ControllerBase
         [FromServices] IGetSupplierUseCase useCase)
     {
         var response = await useCase.Execute(opticalStoreId, supplierId);
+
+        return Ok(response);
+    }
+
+    [HttpGet]
+    [OpticalStoreMember]
+    [ProducesResponseType(typeof(ResponsePaged<ResponseSupplier>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAll(
+        [FromRoute] Guid opticalStoreId,
+        [FromQuery] RequestGetAllSuppliers request,
+        [FromServices] IGetAllSuppliersUseCase useCase)
+    {
+        var response = await useCase.Execute(opticalStoreId, request);
 
         return Ok(response);
     }
