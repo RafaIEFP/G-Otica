@@ -1,4 +1,5 @@
 ﻿using GOtica.API.Attributes;
+using GOtica.Application.UseCases.Product.AdjustStock;
 using GOtica.Application.UseCases.Product.Deactivate;
 using GOtica.Application.UseCases.Product.Get;
 using GOtica.Application.UseCases.Product.GetAll;
@@ -104,6 +105,23 @@ public class ProductController : ControllerBase
         [FromServices] IReactivateProductUseCase useCase)
     {
         await useCase.Execute(opticalStoreId, productId);
+
+        return NoContent();
+    }
+
+    [HttpPost("{productId:guid}/stock-adjustments")]
+    [OpticalStoreMember]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status409Conflict)]
+    public async Task<IActionResult> AdjustStock(
+        [FromRoute] Guid opticalStoreId,
+        [FromRoute] Guid productId,
+        [FromBody] RequestAdjustProductStock request,
+        [FromServices] IAdjustProductStockUseCase useCase)
+    {
+        await useCase.Execute(opticalStoreId, productId, request);
 
         return NoContent();
     }

@@ -133,6 +133,15 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Insufficient stock.
+        /// </summary>
+        public static string INSUFFICIENT_STOCK {
+            get {
+                return ResourceManager.GetString("INSUFFICIENT_STOCK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password is invalid. It must be at least 6 characters long..
         /// </summary>
         public static string INVALID_PASSWORD {
@@ -318,6 +327,33 @@ namespace GOtica.Exceptions.Resources {
         public static string ROLE_INVALID {
             get {
                 return ResourceManager.GetString("ROLE_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The quantity must be greater than zero..
+        /// </summary>
+        public static string STOCK_ADJUSTMENT_QUANTITY_INVALID {
+            get {
+                return ResourceManager.GetString("STOCK_ADJUSTMENT_QUANTITY_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The reason of the stock adjustment cannot be empty.
+        /// </summary>
+        public static string STOCK_ADJUSTMENT_REASON_EMPTY {
+            get {
+                return ResourceManager.GetString("STOCK_ADJUSTMENT_REASON_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid stock adjustment  type.
+        /// </summary>
+        public static string STOCK_ADJUSTMENT_TYPE_INVALID {
+            get {
+                return ResourceManager.GetString("STOCK_ADJUSTMENT_TYPE_INVALID", resourceCulture);
             }
         }
         

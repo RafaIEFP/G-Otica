@@ -240,4 +240,16 @@
   <data name="PRODUCT_NOT_FOUND" xml:space="preserve">
     <value>Product not found.</value>
   </data>
+  <data name="STOCK_ADJUSTMENT_TYPE_INVALID" xml:space="preserve">
+    <value>Invalid stock adjustment  type</value>
+  </data>
+  <data name="STOCK_ADJUSTMENT_QUANTITY_INVALID" xml:space="preserve">
+    <value>The quantity must be greater than zero.</value>
+  </data>
+  <data name="STOCK_ADJUSTMENT_REASON_EMPTY" xml:space="preserve">
+    <value>The reason of the stock adjustment cannot be empty</value>
+  </data>
+  <data name="INSUFFICIENT_STOCK" xml:space="preserve">
+    <value>Insufficient stock</value>
+  </data>
 </root>

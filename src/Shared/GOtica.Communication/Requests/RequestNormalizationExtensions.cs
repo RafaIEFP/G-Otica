@@ -141,4 +141,13 @@ public static class RequestNormalizationExtensions
             };
         }
     }
+
+    public static RequestAdjustProductStock Normalize(
+    this RequestAdjustProductStock request)
+    {
+        return request with
+        {
+            Reason = DataNormalizer.Text(request.Reason)
+        };
+    }
 }

@@ -16,6 +16,7 @@ using GOtica.Application.UseCases.OpticalStores.GetAll;
 using GOtica.Application.UseCases.OpticalStores.Register;
 using GOtica.Application.UseCases.OpticalStores.TransferOwnership;
 using GOtica.Application.UseCases.OpticalStores.Update;
+using GOtica.Application.UseCases.Product.AdjustStock;
 using GOtica.Application.UseCases.Product.Deactivate;
 using GOtica.Application.UseCases.Product.Get;
 using GOtica.Application.UseCases.Product.GetAll;
@@ -35,7 +36,6 @@ using GOtica.Application.UseCases.UserOpticalStores.ChangeRole;
 using GOtica.Application.UseCases.UserOpticalStores.Deactivate;
 using GOtica.Application.UseCases.UserOpticalStores.GetAll;
 using GOtica.Application.UseCases.UserOpticalStores.Reactivate;
-using GOtica.Communication.Requests.Client;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace GOtica.Application;
@@ -95,6 +95,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IUpdateProductUseCase, UpdateProductUseCase>();
         services.AddScoped<IDeactivateProductUseCase, DeactivateProductUseCase>();
         services.AddScoped<IReactivateProductUseCase, ReactivateProductUseCase>();
+        services.AddScoped<IAdjustProductStockUseCase, AdjustProductStockUseCase>();
     }
 
     private static void AddMapperConfigurations() => MapConfigurations.Configure();

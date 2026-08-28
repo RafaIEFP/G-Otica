@@ -13,6 +13,28 @@ internal sealed class ProductRepository(GOticaDbContext dbContext) : IProductUpd
         await dbContext.Products.AddAsync(product);
     }
 
+    public async Task<bool> AdjustStock(Guid productId, Guid opticalStoreId, int quantityChange)
+    {
+        var query = dbContext.Products.Where(
+            product => product.Id == productId &&
+            product.OpticalStoreId == opticalStoreId);
+
+        if (quantityChange < 0)
+        {
+            var quantityToRemove = -quantityChange;
+
+            query = query.Where(product => product.StockQuantity >= quantityToRemove);
+        }
+
+        var affectedRows = await query.ExecuteUpdateAsync(
+            setter => setter.SetProperty(
+                product => product.StockQuantity,
+                product => product.StockQuantity + quantityChange)
+            );
+
+        return affectedRows > 0;
+    }
+
     public async Task<bool> Deactivate(Guid productId, Guid opticalStoreId)
     {
         var affectedRows = await dbContext.Products
