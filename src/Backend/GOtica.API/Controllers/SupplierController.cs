@@ -1,4 +1,5 @@
 ﻿using GOtica.API.Attributes;
+using GOtica.Application.UseCases.Supplier.Deactivate;
 using GOtica.Application.UseCases.Supplier.Get;
 using GOtica.Application.UseCases.Supplier.GetAll;
 using GOtica.Application.UseCases.Supplier.Register;
@@ -68,6 +69,20 @@ public class SupplierController : ControllerBase
         [FromServices] IUpdateSupplierUseCase useCase)
     {
         await useCase.Execute(opticalStoreId, supplierId, request);
+
+        return NoContent();
+    }
+
+    [HttpDelete("{supplierId:guid}")]
+    [OpticalStoreMember]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Deactivate(
+        [FromRoute] Guid opticalStoreId,
+        [FromRoute] Guid supplierId,
+        [FromServices] IDeactivateSupplierUseCase useCase)
+    {
+        await useCase.Execute(opticalStoreId, supplierId);
 
         return NoContent();
     }
