@@ -2,6 +2,7 @@
 using GOtica.Application.UseCases.Supplier.Deactivate;
 using GOtica.Application.UseCases.Supplier.Get;
 using GOtica.Application.UseCases.Supplier.GetAll;
+using GOtica.Application.UseCases.Supplier.Reactivate;
 using GOtica.Application.UseCases.Supplier.Register;
 using GOtica.Application.UseCases.Supplier.Update;
 using GOtica.Communication.Requests.Supplier;
@@ -14,10 +15,10 @@ namespace GOtica.API.Controllers;
 [Route("api/optical-stores/{opticalStoreId:guid}/suppliers")]
 [ApiController]
 [AuthenticatedUser]
+[OpticalStoreMember]
 public class SupplierController : ControllerBase
 {
     [HttpPost]
-    [OpticalStoreMember]
     [ProducesResponseType(typeof(ResponseRegisterSupplier), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ResponseError), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Register(
@@ -31,7 +32,6 @@ public class SupplierController : ControllerBase
     }
 
     [HttpGet("{supplierId:guid}")]
-    [OpticalStoreMember]
     [ProducesResponseType(typeof(ResponseSupplier), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Get(
@@ -45,7 +45,6 @@ public class SupplierController : ControllerBase
     }
 
     [HttpGet]
-    [OpticalStoreMember]
     [ProducesResponseType(typeof(ResponsePaged<ResponseSupplier>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll(
         [FromRoute] Guid opticalStoreId,
@@ -58,7 +57,6 @@ public class SupplierController : ControllerBase
     }
 
     [HttpPut("{supplierId:guid}")]
-    [OpticalStoreMember]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ResponseError), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
@@ -74,13 +72,25 @@ public class SupplierController : ControllerBase
     }
 
     [HttpDelete("{supplierId:guid}")]
-    [OpticalStoreMember]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Deactivate(
         [FromRoute] Guid opticalStoreId,
         [FromRoute] Guid supplierId,
         [FromServices] IDeactivateSupplierUseCase useCase)
+    {
+        await useCase.Execute(opticalStoreId, supplierId);
+
+        return NoContent();
+    }
+
+    [HttpPut("{supplierId:guid}/activate")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Reactivate(
+        [FromRoute] Guid opticalStoreId,
+        [FromRoute] Guid supplierId,
+        [FromServices] IReactivateSupplierUseCase useCase)
     {
         await useCase.Execute(opticalStoreId, supplierId);
 

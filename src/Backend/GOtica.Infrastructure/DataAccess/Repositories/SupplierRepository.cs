@@ -63,6 +63,19 @@ internal sealed class SupplierRepository(GOticaDbContext dbContext) : ISupplierW
         };
     }
 
+    public async Task<bool> Reactivate(Guid supplierId, Guid opticalStoreId)
+    {
+        var affectedRows = await dbContext.Suppliers
+        .Where(supplier =>
+            supplier.Id == supplierId &&
+            supplier.OpticalStoreId == opticalStoreId &&
+            !supplier.IsActive)
+        .ExecuteUpdateAsync(
+            setter => setter.SetProperty(supplier => supplier.IsActive, true));
+
+        return affectedRows > 0;
+    }
+
     async Task<Supplier?> ISupplierReadOnlyRepository.GetById(Guid supplierId, Guid opticalStoreId)
     {
         return await dbContext.Suppliers
