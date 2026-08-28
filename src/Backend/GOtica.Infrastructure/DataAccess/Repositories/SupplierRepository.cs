@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GOtica.Infrastructure.DataAccess.Repositories;
 
-internal sealed class SupplierRepository(GOticaDbContext dbContext) : ISupplierWriteOnlyRepository, ISupplierReadOnlyRepository
+internal sealed class SupplierRepository(GOticaDbContext dbContext) : ISupplierWriteOnlyRepository, ISupplierReadOnlyRepository, ISupplierUpdateOnlyRepository
 {
     public async Task Add(Supplier supplier)
     {
@@ -49,10 +49,19 @@ internal sealed class SupplierRepository(GOticaDbContext dbContext) : ISupplierW
         };
     }
 
-    public async Task<Supplier?> GetById(Guid supplierId, Guid opticalStoreId)
+    async Task<Supplier?> ISupplierReadOnlyRepository.GetById(Guid supplierId, Guid opticalStoreId)
     {
         return await dbContext.Suppliers
         .AsNoTracking()
         .FirstOrDefaultAsync(supplier => supplier.Id == supplierId && supplier.OpticalStoreId == opticalStoreId);
+    }
+
+    async Task<Supplier?> ISupplierUpdateOnlyRepository.GetById(Guid supplierId, Guid opticalStoreId)
+    {
+        return await dbContext.Suppliers
+        .FirstOrDefaultAsync(
+            supplier => supplier.Id == supplierId && 
+            supplier.OpticalStoreId == opticalStoreId &&
+            supplier.IsActive);
     }
 }

@@ -166,4 +166,17 @@ public static class RequestNormalizationExtensions
             };
         }
     }
+
+    extension(RequestUpdateSupplier request)
+    {
+        public RequestUpdateSupplier Normalize()
+        {
+            return request with
+            {
+                Name = DataNormalizer.Text(request.Name),
+                PhoneNumber = DataNormalizer.OptionalPhoneNumber(request.PhoneNumber),
+                Email = DataNormalizer.OptionalEmail(request.Email)
+            };
+        }
+    }
 }
