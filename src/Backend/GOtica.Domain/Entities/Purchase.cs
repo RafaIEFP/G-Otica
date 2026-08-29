@@ -14,4 +14,6 @@ public class Purchase
 
     public Guid OpticalStoreId { get; set; }
     public OpticalStore OpticalStore { get; set; } = default!;
+
+    public ICollection<PurchaseItem> Items { get; set; } = [];
 }
