@@ -23,6 +23,7 @@ using GOtica.Application.UseCases.Product.GetAll;
 using GOtica.Application.UseCases.Product.Reactivate;
 using GOtica.Application.UseCases.Product.Register;
 using GOtica.Application.UseCases.Product.Update;
+using GOtica.Application.UseCases.Purchase.Register;
 using GOtica.Application.UseCases.StockMovement.GetAll;
 using GOtica.Application.UseCases.Supplier.Deactivate;
 using GOtica.Application.UseCases.Supplier.Get;
@@ -62,40 +63,53 @@ public static class DependencyInjectionExtension
 
     private static void AddUseCases(IServiceCollection services)
     {
+        #region Auth
         services.AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
         services.AddScoped<IDoLoginUseCase, DoLoginUseCase>();
         services.AddScoped<IRefreshTokenUseCase, RefreshTokenUseCase>();
         services.AddScoped<IDoLogoutUseCase, DoLogoutUseCase>();
+        #endregion
 
+        #region User
         services.AddScoped<IChangePasswordUseCase, ChangePasswordUseCase>();
         services.AddScoped<IGetUserProfileUseCase, GetUserProfileUseCase>();
         services.AddScoped<IUpdateUserUseCase, UpdateUserUseCase>();
         services.AddScoped<IDeleteAccountUseCase, DeleteAccountUseCase>();
         services.AddScoped<IReactivateUserUseCase, ReactivateUserUseCase>();
+        #endregion
 
+        #region OpticalStore
         services.AddScoped<ITransferOpticalStoreOwnershipUseCase, TransferOpticalStoreOwnershipUseCase>();
         services.AddScoped<IRegisterOpticalStoreUseCase, RegisterOpticalStoreUseCase>();
         services.AddScoped<IDeactivateOpticalStoreUseCase, DeactivateOpticalStoreUseCase>();
         services.AddScoped<IUpdateOpticalStoreUseCase, UpdateOpticalStoreUseCase>();
         services.AddScoped<IGetOpticalStoreUseCase, GetOpticalStoreUseCase>();
         services.AddScoped<IGetAllOpticalStoresUseCase, GetAllOpticalStoresUseCase>();
+        #endregion
 
+        #region Invite
         services.AddScoped<ICreateInviteUseCase, CreateInviteUseCase>();
         services.AddScoped<IValidateInviteUseCase, ValidateInviteUseCase>();
         services.AddScoped<IAcceptInviteUseCase, AcceptInviteUseCase>();
+        #endregion
 
+        #region UserOpticalStore
         services.AddScoped<IGetAllOpticalStoreUsersUseCase, GetAllOpticalStoreUsersUseCase>();
         services.AddScoped<IChangeRoleUseCase, ChangeRoleUseCase>();
         services.AddScoped<IDeactivateUserOpticalStoreUseCase, DeactivateUserOpticalStoreUseCase>();
         services.AddScoped<IReactivateUserOpticalStoreUseCase, ReactivateUserOpticalStoreUseCase>();
+        #endregion
 
+        #region Client
         services.AddScoped<IRegisterClientUseCase, RegisterClientUseCase>();
         services.AddScoped<IGetClientUseCase, GetClientUseCase>();
         services.AddScoped<IGetAllClientsUseCase, GetAllClientsUseCase>();
         services.AddScoped<IUpdateClientUseCase, UpdateClientUseCase>();
         services.AddScoped<IDeactivateClientUseCase, DeactivateClientUseCase>();
         services.AddScoped<IReactivateClientUseCase, ReactivateClientUseCase>();
+        #endregion
 
+        #region Product
         services.AddScoped<IRegisterProductUseCase, RegisterProductUseCase>();
         services.AddScoped<IGetProductUseCase, GetProductUseCase>();
         services.AddScoped<IGetAllProductsUseCase, GetAllProductsUseCase>();
@@ -103,15 +117,24 @@ public static class DependencyInjectionExtension
         services.AddScoped<IDeactivateProductUseCase, DeactivateProductUseCase>();
         services.AddScoped<IReactivateProductUseCase, ReactivateProductUseCase>();
         services.AddScoped<IAdjustProductStockUseCase, AdjustProductStockUseCase>();
+        #endregion
 
+        #region StockMovement
         services.AddScoped<IGetAllStockMovementsUseCase, GetAllStockMovementsUseCase>();
+        #endregion
 
+        #region Supplier
         services.AddScoped<IRegisterSupplierUseCase, RegisterSupplierUseCase>();
         services.AddScoped<IGetSupplierUseCase, GetSupplierUseCase>();
         services.AddScoped<IGetAllSuppliersUseCase, GetAllSuppliersUseCase>();
         services.AddScoped<IUpdateSupplierUseCase, UpdateSupplierUseCase>();
         services.AddScoped<IDeactivateSupplierUseCase, DeactivateSupplierUseCase>();
         services.AddScoped<IReactivateSupplierUseCase, ReactivateSupplierUseCase>();
+        #endregion
+
+        #region Purchase
+        services.AddScoped<IRegisterPurchaseUseCase, RegisterPurchaseUseCase>();
+        #endregion
     }
 
     private static void AddMapperConfigurations() => MapConfigurations.Configure();

@@ -27,6 +27,14 @@ internal sealed class SupplierRepository(GOticaDbContext dbContext) : ISupplierW
         return affectedRows > 0;
     }
 
+    public async Task<bool> ExistsActiveSupplier(Guid supplierId, Guid opticalStoreId)
+    {
+        return await dbContext.Suppliers.AnyAsync(supplier =>
+            supplier.Id == supplierId &&
+            supplier.OpticalStoreId == opticalStoreId &&
+            supplier.IsActive);
+    }
+
     public async Task<PagedResult<SupplierDto>> GetAll(Guid opticalStoreId, int page, int pageSize, bool? isActive)
     {
         var query = dbContext.Suppliers

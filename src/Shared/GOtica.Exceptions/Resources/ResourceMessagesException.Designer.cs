@@ -304,6 +304,15 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The product id cannot be empty.
+        /// </summary>
+        public static string PRODUCT_ID_EMPTY {
+            get {
+                return ResourceManager.GetString("PRODUCT_ID_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Product not found..
         /// </summary>
         public static string PRODUCT_NOT_FOUND {
@@ -318,6 +327,33 @@ namespace GOtica.Exceptions.Resources {
         public static string PRODUCT_TYPE_INVALID {
             get {
                 return ResourceManager.GetString("PRODUCT_TYPE_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The following products were not found or are unavailable: {0}..
+        /// </summary>
+        public static string PRODUCTS_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("PRODUCTS_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The purchase must contain at least one item..
+        /// </summary>
+        public static string PURCHASE_ITEMS_EMPTY {
+            get {
+                return ResourceManager.GetString("PURCHASE_ITEMS_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The quantity of products must be at least 1 unit..
+        /// </summary>
+        public static string QUANTITY_INVALID {
+            get {
+                return ResourceManager.GetString("QUANTITY_INVALID", resourceCulture);
             }
         }
         
@@ -367,6 +403,15 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The supplier must be informed..
+        /// </summary>
+        public static string SUPPLIER_ID_EMPTY {
+            get {
+                return ResourceManager.GetString("SUPPLIER_ID_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Supplier not found.
         /// </summary>
         public static string SUPPLIER_NOT_FOUND {
@@ -381,6 +426,15 @@ namespace GOtica.Exceptions.Resources {
         public static string TAX_NUMBER_EMPTY {
             get {
                 return ResourceManager.GetString("TAX_NUMBER_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The unit price cannot be negative..
+        /// </summary>
+        public static string UNIT_PRICE_NEGATIVE {
+            get {
+                return ResourceManager.GetString("UNIT_PRICE_NEGATIVE", resourceCulture);
             }
         }
         

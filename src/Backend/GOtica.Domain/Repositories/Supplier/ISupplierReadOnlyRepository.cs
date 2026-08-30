@@ -10,4 +10,6 @@ public interface ISupplierReadOnlyRepository
         int page,
         int pageSize,
         bool? isActive);
+
+    Task<bool> ExistsActiveSupplier(Guid supplierId, Guid opticalStoreId);
 }

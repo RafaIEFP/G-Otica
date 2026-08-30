@@ -255,4 +255,22 @@
   <data name="SUPPLIER_NOT_FOUND" xml:space="preserve">
     <value>Supplier not found</value>
   </data>
+  <data name="PRODUCT_ID_EMPTY" xml:space="preserve">
+    <value>The product id cannot be empty</value>
+  </data>
+  <data name="QUANTITY_INVALID" xml:space="preserve">
+    <value>The quantity of products must be at least 1 unit.</value>
+  </data>
+  <data name="UNIT_PRICE_NEGATIVE" xml:space="preserve">
+    <value>The unit price cannot be negative.</value>
+  </data>
+  <data name="SUPPLIER_ID_EMPTY" xml:space="preserve">
+    <value>The supplier must be informed.</value>
+  </data>
+  <data name="PURCHASE_ITEMS_EMPTY" xml:space="preserve">
+    <value>The purchase must contain at least one item.</value>
+  </data>
+  <data name="PRODUCTS_NOT_FOUND" xml:space="preserve">
+    <value>The following products were not found or are unavailable: {0}.</value>
+  </data>
 </root>

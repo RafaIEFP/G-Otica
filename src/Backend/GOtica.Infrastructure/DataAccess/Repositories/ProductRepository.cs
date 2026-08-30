@@ -17,7 +17,8 @@ internal sealed class ProductRepository(GOticaDbContext dbContext) : IProductUpd
     {
         var query = dbContext.Products.Where(
             product => product.Id == productId &&
-            product.OpticalStoreId == opticalStoreId);
+            product.OpticalStoreId == opticalStoreId &&
+            product.IsActive);
 
         if (quantityChange < 0)
         {
@@ -33,6 +34,17 @@ internal sealed class ProductRepository(GOticaDbContext dbContext) : IProductUpd
             );
 
         return affectedRows > 0;
+    }
+
+    public async Task<IReadOnlyCollection<Guid>> GetActiveProductIds(IReadOnlyCollection<Guid> productIds, Guid opticalStoreId)
+    {
+        return await dbContext.Products
+            .Where(product =>
+                productIds.Contains(product.Id) &&
+                product.OpticalStoreId == opticalStoreId &&
+                product.IsActive)
+            .Select(product => product.Id)
+            .ToListAsync();
     }
 
     public async Task<bool> Deactivate(Guid productId, Guid opticalStoreId)
