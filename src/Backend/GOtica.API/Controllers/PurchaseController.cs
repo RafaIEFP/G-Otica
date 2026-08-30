@@ -1,5 +1,6 @@
 ﻿using GOtica.API.Attributes;
 using GOtica.Application.UseCases.Purchase.Get;
+using GOtica.Application.UseCases.Purchase.GetAll;
 using GOtica.Application.UseCases.Purchase.Register;
 using GOtica.Communication.Requests.Purchase;
 using GOtica.Communication.Response;
@@ -38,6 +39,20 @@ public class PurchaseController : ControllerBase
         [FromServices] IGetPurchaseUseCase useCase)
     {
         var response = await useCase.Execute(opticalStoreId, purchaseId);
+
+        return Ok(response);
+    }
+
+    [HttpGet]
+    [OpticalStoreMember]
+    [ProducesResponseType(typeof(ResponsePaged<ResponseGetAllPurchase>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetAll(
+        [FromRoute] Guid opticalStoreId,
+        [FromQuery] RequestGetAllPurchases request,
+        [FromServices] IGetAllPurchasesUseCase useCase)
+    {
+        var response = await useCase.Execute(opticalStoreId, request);
 
         return Ok(response);
     }

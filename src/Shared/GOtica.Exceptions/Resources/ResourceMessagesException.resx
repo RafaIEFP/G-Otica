@@ -276,4 +276,10 @@
   <data name="PURCHASE_NOT_FOUND" xml:space="preserve">
     <value>Purchase not found.</value>
   </data>
+  <data name="PAGE_INVALID" xml:space="preserve">
+    <value>The page must be greater than zero.</value>
+  </data>
+  <data name="PAGE_SIZE_INVALID" xml:space="preserve">
+    <value>The page size must be between 1 and 100.</value>
+  </data>
 </root>

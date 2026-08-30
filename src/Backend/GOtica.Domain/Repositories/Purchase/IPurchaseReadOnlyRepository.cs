@@ -5,4 +5,5 @@ namespace GOtica.Domain.Repositories.Purchase;
 public interface IPurchaseReadOnlyRepository
 {
     Task<PurchaseDto?> GetById(Guid purchaseId, Guid opticalStoreId);
+    Task<PagedResult<PurchaseListDto>> GetAll(Guid opticalStoreId, int page, int pageSize);
 }

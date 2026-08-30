@@ -241,6 +241,24 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The page must be greater than zero..
+        /// </summary>
+        public static string PAGE_INVALID {
+            get {
+                return ResourceManager.GetString("PAGE_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The page size must be between 1 and 100..
+        /// </summary>
+        public static string PAGE_SIZE_INVALID {
+            get {
+                return ResourceManager.GetString("PAGE_SIZE_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The password entered does not match the current password..
         /// </summary>
         public static string PASSWORD_DIFFERENT_CURRENT_ONE {
