@@ -88,6 +88,24 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The doctor&apos;s name is required..
+        /// </summary>
+        public static string DOCTOR_NAME_EMPTY {
+            get {
+                return ResourceManager.GetString("DOCTOR_NAME_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The doctor&apos;s registration is required..
+        /// </summary>
+        public static string DOCTOR_REGISTRATION_EMPTY {
+            get {
+                return ResourceManager.GetString("DOCTOR_REGISTRATION_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The e-mail is already registered on the platform..
         /// </summary>
         public static string EMAIL_ALREADY_REGISTERED {
@@ -120,6 +138,15 @@ namespace GOtica.Exceptions.Resources {
         public static string EMAIL_OR_PASSWORD_INVALID {
             get {
                 return ResourceManager.GetString("EMAIL_OR_PASSWORD_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The expiration date cannot be in the past..
+        /// </summary>
+        public static string EXPIRATION_DATE_INVALID {
+            get {
+                return ResourceManager.GetString("EXPIRATION_DATE_INVALID", resourceCulture);
             }
         }
         
@@ -192,6 +219,15 @@ namespace GOtica.Exceptions.Resources {
         public static string NEW_PASSWORDS_DO_NOT_MATCH {
             get {
                 return ResourceManager.GetString("NEW_PASSWORDS_DO_NOT_MATCH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The notes must not exceed 1000 characters..
+        /// </summary>
+        public static string NOTES_MAX_LENGTH {
+            get {
+                return ResourceManager.GetString("NOTES_MAX_LENGTH", resourceCulture);
             }
         }
         
@@ -300,6 +336,24 @@ namespace GOtica.Exceptions.Resources {
         public static string PHONE_NUMBER_INVALID {
             get {
                 return ResourceManager.GetString("PHONE_NUMBER_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The prescription date cannot be in the future..
+        /// </summary>
+        public static string PRESCRIPTION_DATE_INVALID {
+            get {
+                return ResourceManager.GetString("PRESCRIPTION_DATE_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prescription not found..
+        /// </summary>
+        public static string PRESCRIPTION_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("PRESCRIPTION_NOT_FOUND", resourceCulture);
             }
         }
         
@@ -552,6 +606,15 @@ namespace GOtica.Exceptions.Resources {
         public static string VALID_INVITE_NOT_FOUND {
             get {
                 return ResourceManager.GetString("VALID_INVITE_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The visual acuity must not exceed 20 characters..
+        /// </summary>
+        public static string VISUAL_ACUITY_MAX_LENGTH {
+            get {
+                return ResourceManager.GetString("VISUAL_ACUITY_MAX_LENGTH", resourceCulture);
             }
         }
     }

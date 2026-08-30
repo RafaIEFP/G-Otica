@@ -16,6 +16,8 @@ using GOtica.Application.UseCases.OpticalStores.GetAll;
 using GOtica.Application.UseCases.OpticalStores.Register;
 using GOtica.Application.UseCases.OpticalStores.TransferOwnership;
 using GOtica.Application.UseCases.OpticalStores.Update;
+using GOtica.Application.UseCases.Prescription.Get;
+using GOtica.Application.UseCases.Prescription.Register;
 using GOtica.Application.UseCases.Product.AdjustStock;
 using GOtica.Application.UseCases.Product.Deactivate;
 using GOtica.Application.UseCases.Product.Get;
@@ -138,6 +140,11 @@ public static class DependencyInjectionExtension
         services.AddScoped<IRegisterPurchaseUseCase, RegisterPurchaseUseCase>();
         services.AddScoped<IGetPurchaseUseCase, GetPurchaseUseCase>();
         services.AddScoped<IGetAllPurchasesUseCase, GetAllPurchasesUseCase>();
+        #endregion
+
+        #region Prescription
+        services.AddScoped<IRegisterPrescriptionUseCase, RegisterPrescriptionUseCase>();
+        services.AddScoped<IGetPrescriptionUseCase, GetPrescriptionUseCase>();
         #endregion
     }
 

@@ -47,4 +47,12 @@ internal static class DataNormalizer
 
         return PhoneNumber(value);
     }
+
+    public static string? OptionalText(string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return null;
+
+        return Text(value);
+    }
 }

@@ -1,6 +1,7 @@
 ﻿using GOtica.Communication.Requests.Client;
 using GOtica.Communication.Requests.Invite;
 using GOtica.Communication.Requests.OpticalStore;
+using GOtica.Communication.Requests.Prescription;
 using GOtica.Communication.Requests.Product;
 using GOtica.Communication.Requests.Supplier;
 using GOtica.Communication.Requests.User;
@@ -176,6 +177,22 @@ public static class RequestNormalizationExtensions
                 Name = DataNormalizer.Text(request.Name),
                 PhoneNumber = DataNormalizer.OptionalPhoneNumber(request.PhoneNumber),
                 Email = DataNormalizer.OptionalEmail(request.Email)
+            };
+        }
+    }
+
+    extension(RequestRegisterPrescription request)
+    {
+        public RequestRegisterPrescription Normalize()
+        {
+            return request with
+            {
+                DoctorName = DataNormalizer.Text(request.DoctorName),
+                DoctorRegistration = DataNormalizer.Text(request.DoctorRegistration),
+                RightEyeVisualAcuity = DataNormalizer.OptionalText(request.RightEyeVisualAcuity),
+                LeftEyeVisualAcuity = DataNormalizer.OptionalText(request.LeftEyeVisualAcuity),
+                NearVisualAcuity = DataNormalizer.OptionalText(request.NearVisualAcuity),
+                Notes = DataNormalizer.OptionalText(request.Notes)
             };
         }
     }

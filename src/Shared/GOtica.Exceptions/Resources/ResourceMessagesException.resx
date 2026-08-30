@@ -282,4 +282,25 @@
   <data name="PAGE_SIZE_INVALID" xml:space="preserve">
     <value>The page size must be between 1 and 100.</value>
   </data>
+  <data name="DOCTOR_NAME_EMPTY" xml:space="preserve">
+    <value>The doctor's name is required.</value>
+  </data>
+  <data name="DOCTOR_REGISTRATION_EMPTY" xml:space="preserve">
+    <value>The doctor's registration is required.</value>
+  </data>
+  <data name="EXPIRATION_DATE_INVALID" xml:space="preserve">
+    <value>The expiration date cannot be in the past.</value>
+  </data>
+  <data name="PRESCRIPTION_DATE_INVALID" xml:space="preserve">
+    <value>The prescription date cannot be in the future.</value>
+  </data>
+  <data name="VISUAL_ACUITY_MAX_LENGTH" xml:space="preserve">
+    <value>The visual acuity must not exceed 20 characters.</value>
+  </data>
+  <data name="NOTES_MAX_LENGTH" xml:space="preserve">
+    <value>The notes must not exceed 1000 characters.</value>
+  </data>
+  <data name="PRESCRIPTION_NOT_FOUND" xml:space="preserve">
+    <value>Prescription not found.</value>
+  </data>
 </root>

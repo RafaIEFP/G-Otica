@@ -12,10 +12,10 @@ namespace GOtica.API.Controllers;
 [Route("api/optical-stores/{opticalStoreId:guid}/purchases")]
 [ApiController]
 [AuthenticatedUser]
+[OpticalStoreMember]
 public class PurchaseController : ControllerBase
 {
     [HttpPost]
-    [OpticalStoreMember]
     [ProducesResponseType(typeof(ResponseRegisterPurchase), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ResponseError), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
@@ -30,7 +30,6 @@ public class PurchaseController : ControllerBase
     }
 
     [HttpGet("{purchaseId:guid}")]
-    [OpticalStoreMember]
     [ProducesResponseType(typeof(ResponseGetPurchase), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Get(
@@ -44,7 +43,6 @@ public class PurchaseController : ControllerBase
     }
 
     [HttpGet]
-    [OpticalStoreMember]
     [ProducesResponseType(typeof(ResponsePaged<ResponseGetAllPurchase>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResponseError), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetAll(
