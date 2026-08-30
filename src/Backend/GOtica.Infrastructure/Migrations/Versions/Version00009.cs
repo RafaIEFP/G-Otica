@@ -40,5 +40,10 @@ public class Version00009 : ForwardOnlyMigration
                     "FK_Prescriptions_Clients_ClientId",
                     "Clients",
                     "Id");
+
+        Create.Index("IX_Prescriptions_ClientId_PrescriptionDate")
+            .OnTable("Prescriptions")
+            .OnColumn("ClientId").Ascending()
+            .OnColumn("PrescriptionDate").Descending();
     }
 }
