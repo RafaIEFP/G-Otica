@@ -1,5 +1,6 @@
 ﻿using GOtica.API.Attributes;
 using GOtica.Application.UseCases.Prescription.Get;
+using GOtica.Application.UseCases.Prescription.GetAll;
 using GOtica.Application.UseCases.Prescription.Register;
 using GOtica.Communication.Requests.Prescription;
 using GOtica.Communication.Response;
@@ -39,6 +40,22 @@ public class PrescriptionController : ControllerBase
         [FromServices] IGetPrescriptionUseCase useCase)
     {
         var response = await useCase.Execute(opticalStoreId, clientId, prescriptionId);
+
+        return Ok(response);
+    }
+
+    [HttpGet]
+    [OpticalStoreMember]
+    [ProducesResponseType(typeof(ResponsePaged<ResponseGetAllPrescription>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetAll(
+        [FromRoute] Guid opticalStoreId,
+        [FromRoute] Guid clientId,
+        [FromQuery] RequestGetAllPrescriptions request,
+        [FromServices] IGetAllPrescriptionsUseCase useCase)
+    {
+        var response = await useCase.Execute(opticalStoreId, clientId, request);
 
         return Ok(response);
     }
