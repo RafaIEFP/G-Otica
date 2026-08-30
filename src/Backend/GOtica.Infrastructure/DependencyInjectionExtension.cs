@@ -59,6 +59,7 @@ public static class DependencyInjectionExtension
         services.AddRepositoriesFromAssembly<ProductRepository>();
         services.AddRepositoriesFromAssembly<StockMovementRepository>();
         services.AddRepositoriesFromAssembly<SupplierRepository>();
+        services.AddRepositoriesFromAssembly<PurchaseRepository>();
     }
 
     private static void AddGOticaDbContext(IServiceCollection services, IConfiguration configuration)

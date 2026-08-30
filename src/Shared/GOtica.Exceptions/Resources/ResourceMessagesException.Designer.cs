@@ -349,6 +349,15 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Purchase not found..
+        /// </summary>
+        public static string PURCHASE_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("PURCHASE_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The quantity of products must be at least 1 unit..
         /// </summary>
         public static string QUANTITY_INVALID {

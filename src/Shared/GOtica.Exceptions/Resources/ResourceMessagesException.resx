@@ -273,4 +273,7 @@
   <data name="PRODUCTS_NOT_FOUND" xml:space="preserve">
     <value>The following products were not found or are unavailable: {0}.</value>
   </data>
+  <data name="PURCHASE_NOT_FOUND" xml:space="preserve">
+    <value>Purchase not found.</value>
+  </data>
 </root>
