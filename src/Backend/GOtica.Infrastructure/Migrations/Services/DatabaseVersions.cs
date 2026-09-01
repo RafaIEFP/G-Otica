@@ -11,4 +11,5 @@ internal sealed class DatabaseVersions
     internal const long TABLE_SUPPLIER = 7;
     internal const long TABLE_PURCHASE_AND_PURCHASE_ITEMS = 8;
     internal const long TABLE_PRESCRIPTION = 9;
+    internal const long TABLE_SALE = 10;
 }
