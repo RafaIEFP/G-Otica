@@ -10,7 +10,7 @@ public class Version00010 : ForwardOnlyMigration
     {
         Create.Table("Sales")
             .WithColumn("Id").AsGuid().PrimaryKey().NotNullable()
-            .WithColumn("CreatedAt").AsDateTime().NotNullable()
+            .WithColumn("CreatedAt").AsUtcDateTime().NotNullable()
             .WithColumn("Status").AsInt32().NotNullable()
             .WithColumn("TotalAmount").AsDecimal(10, 2).NotNullable()
 
