@@ -403,6 +403,15 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The prescription has expired.
+        /// </summary>
+        public static string PRESCRIPTION_EXPIRED {
+            get {
+                return ResourceManager.GetString("PRESCRIPTION_EXPIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The prescription identifier must be valid.
         /// </summary>
         public static string PRESCRIPTION_ID_INVALID {

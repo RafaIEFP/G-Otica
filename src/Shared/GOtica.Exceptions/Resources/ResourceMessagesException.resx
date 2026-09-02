@@ -330,4 +330,7 @@
   <data name="INITIAL_PAYMENT_EMPTY" xml:space="preserve">
     <value>The initial payment is required</value>
   </data>
+  <data name="PRESCRIPTION_EXPIRED" xml:space="preserve">
+    <value>The prescription has expired</value>
+  </data>
 </root>

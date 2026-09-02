@@ -10,6 +10,7 @@ using GOtica.Domain.Repositories.Sale;
 using GOtica.Domain.Repositories.StockMovement;
 using GOtica.Domain.Services;
 using GOtica.Exceptions.ExceptionsBase;
+using GOtica.Exceptions.Resources;
 
 namespace GOtica.Application.UseCases.Purchase.Register;
 
@@ -52,6 +53,18 @@ public class RegisterSaleUseCase : IRegisterSaleUseCase
         var loggedUser = await _loggedUser.Get();
 
         Validate(request);
+
+        var clientExist = await _clientReadOnlyRepository.ExistActive(request.ClientId, opticalStoreId);
+
+        if (!clientExist)
+            throw new NotFoundException(ResourceMessagesException.CLIENT_NOT_FOUND);
+
+        await ValidatePrescription(request.PrescriptionId, request.ClientId, opticalStoreId);
+
+        return new ResponseRegisterSale
+        {
+            
+        };
     }
 
     private static void Validate(RequestRegisterSale request)
@@ -60,5 +73,18 @@ public class RegisterSaleUseCase : IRegisterSaleUseCase
 
         if (!result.IsValid)
             throw new ErrorOnValidationException(result.Errors.Select(e => e.ErrorMessage).ToList());
+    }
+
+    private async Task ValidatePrescription(Guid? prescriptionId, Guid clientId, Guid opticalStoreId)
+    {
+        if (!prescriptionId.HasValue)
+            return;
+
+        var prescription = await _prescriptionReadOnlyRepository.GetById(prescriptionId.Value, clientId, opticalStoreId)
+            ??
+            throw new NotFoundException(ResourceMessagesException.PRESCRIPTION_NOT_FOUND);
+
+        if (prescription.ExpirationDate < DateOnly.FromDateTime(DateTime.Now))
+            throw new ConflictException(ResourceMessagesException.PRESCRIPTION_EXPIRED);
     }
 }
