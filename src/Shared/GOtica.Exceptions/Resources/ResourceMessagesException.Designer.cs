@@ -70,6 +70,15 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The client identifier is required.
+        /// </summary>
+        public static string CLIENT_ID_EMPTY {
+            get {
+                return ResourceManager.GetString("CLIENT_ID_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Client not found.
         /// </summary>
         public static string CLIENT_NOT_FOUND {
@@ -84,6 +93,15 @@ namespace GOtica.Exceptions.Resources {
         public static string DATE_OF_BIRTH_IN_THE_FUTURE {
             get {
                 return ResourceManager.GetString("DATE_OF_BIRTH_IN_THE_FUTURE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The discount amount cannot be negative..
+        /// </summary>
+        public static string DISCOUNT_AMOUNT_INVALID {
+            get {
+                return ResourceManager.GetString("DISCOUNT_AMOUNT_INVALID", resourceCulture);
             }
         }
         
@@ -160,6 +178,15 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The initial payment is required.
+        /// </summary>
+        public static string INITIAL_PAYMENT_EMPTY {
+            get {
+                return ResourceManager.GetString("INITIAL_PAYMENT_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Insufficient stock.
         /// </summary>
         public static string INSUFFICIENT_STOCK {
@@ -228,6 +255,15 @@ namespace GOtica.Exceptions.Resources {
         public static string NOTES_MAX_LENGTH {
             get {
                 return ResourceManager.GetString("NOTES_MAX_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The notes cannot exceed 500 characters.
+        /// </summary>
+        public static string NOTES_SALE_MAX_LENGTH {
+            get {
+                return ResourceManager.GetString("NOTES_SALE_MAX_LENGTH", resourceCulture);
             }
         }
         
@@ -313,6 +349,24 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The payment amount must be greater than zero..
+        /// </summary>
+        public static string PAYMENT_AMOUNT_INVALID {
+            get {
+                return ResourceManager.GetString("PAYMENT_AMOUNT_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The payment method is invalid..
+        /// </summary>
+        public static string PAYMENT_METHOD_INVALID {
+            get {
+                return ResourceManager.GetString("PAYMENT_METHOD_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The user already has a pending invitation for this optical store..
         /// </summary>
         public static string PENDING_INVITE_ALREADY_EXISTS {
@@ -345,6 +399,15 @@ namespace GOtica.Exceptions.Resources {
         public static string PRESCRIPTION_DATE_INVALID {
             get {
                 return ResourceManager.GetString("PRESCRIPTION_DATE_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The prescription identifier must be valid.
+        /// </summary>
+        public static string PRESCRIPTION_ID_INVALID {
+            get {
+                return ResourceManager.GetString("PRESCRIPTION_ID_INVALID", resourceCulture);
             }
         }
         
@@ -390,6 +453,15 @@ namespace GOtica.Exceptions.Resources {
         public static string PRODUCT_NOT_FOUND {
             get {
                 return ResourceManager.GetString("PRODUCT_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The product quantity must be greater tha zero..
+        /// </summary>
+        public static string PRODUCT_QUANTITY_INVALID {
+            get {
+                return ResourceManager.GetString("PRODUCT_QUANTITY_INVALID", resourceCulture);
             }
         }
         
@@ -444,6 +516,15 @@ namespace GOtica.Exceptions.Resources {
         public static string ROLE_INVALID {
             get {
                 return ResourceManager.GetString("ROLE_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to At least one item in required to register a sale.
+        /// </summary>
+        public static string SALE_ITEMS_EMPTY {
+            get {
+                return ResourceManager.GetString("SALE_ITEMS_EMPTY", resourceCulture);
             }
         }
         

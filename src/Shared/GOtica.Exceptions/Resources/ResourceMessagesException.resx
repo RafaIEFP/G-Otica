@@ -303,4 +303,31 @@
   <data name="PRESCRIPTION_NOT_FOUND" xml:space="preserve">
     <value>Prescription not found.</value>
   </data>
+  <data name="CLIENT_ID_EMPTY" xml:space="preserve">
+    <value>The client identifier is required</value>
+  </data>
+  <data name="PRESCRIPTION_ID_INVALID" xml:space="preserve">
+    <value>The prescription identifier must be valid</value>
+  </data>
+  <data name="SALE_ITEMS_EMPTY" xml:space="preserve">
+    <value>At least one item in required to register a sale</value>
+  </data>
+  <data name="PRODUCT_QUANTITY_INVALID" xml:space="preserve">
+    <value>The product quantity must be greater tha zero.</value>
+  </data>
+  <data name="DISCOUNT_AMOUNT_INVALID" xml:space="preserve">
+    <value>The discount amount cannot be negative.</value>
+  </data>
+  <data name="NOTES_SALE_MAX_LENGTH" xml:space="preserve">
+    <value>The notes cannot exceed 500 characters</value>
+  </data>
+  <data name="PAYMENT_AMOUNT_INVALID" xml:space="preserve">
+    <value>The payment amount must be greater than zero.</value>
+  </data>
+  <data name="PAYMENT_METHOD_INVALID" xml:space="preserve">
+    <value>The payment method is invalid.</value>
+  </data>
+  <data name="INITIAL_PAYMENT_EMPTY" xml:space="preserve">
+    <value>The initial payment is required</value>
+  </data>
 </root>

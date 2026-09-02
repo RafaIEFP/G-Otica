@@ -3,6 +3,7 @@ using GOtica.Communication.Requests.Invite;
 using GOtica.Communication.Requests.OpticalStore;
 using GOtica.Communication.Requests.Prescription;
 using GOtica.Communication.Requests.Product;
+using GOtica.Communication.Requests.Sale;
 using GOtica.Communication.Requests.Supplier;
 using GOtica.Communication.Requests.User;
 using GOtica.Communication.Requests.UserOpticalStore;
