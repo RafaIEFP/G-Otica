@@ -1,5 +1,4 @@
-﻿using GOtica.Application.UseCases.Sale.Register;
-using GOtica.Communication.Requests.Sale;
+﻿using GOtica.Communication.Requests.Sale;
 using GOtica.Communication.Response.Sale;
 using GOtica.Domain.Repositories;
 using GOtica.Domain.Repositories.Client;
@@ -12,7 +11,7 @@ using GOtica.Domain.Services;
 using GOtica.Exceptions.ExceptionsBase;
 using GOtica.Exceptions.Resources;
 
-namespace GOtica.Application.UseCases.Purchase.Register;
+namespace GOtica.Application.UseCases.Sale.Register;
 
 public class RegisterSaleUseCase : IRegisterSaleUseCase
 {
@@ -74,6 +73,10 @@ public class RegisterSaleUseCase : IRegisterSaleUseCase
 
         ValidateProducts(products, productsIds, requestedQuantities);
 
+        var productsById = products.ToDictionary(p => p.Id);
+
+        var now = DateTime.UtcNow;
+
         return new ResponseRegisterSale
         {
             
@@ -116,5 +119,18 @@ public class RegisterSaleUseCase : IRegisterSaleUseCase
             if (product.StockQuantity < requestedQuantity)
                 throw new ConflictException(ResourceMessagesException.INSUFFICIENT_PRODUCT_STOCK);
         }
+    }
+
+    private static void CreateSale(
+        Guid opticalStoreId, 
+        RequestRegisterSale request, 
+        IReadOnlyDictionary<Guid, Domain.Entities.Product> productsById,
+        DateTime now)
+    {
+        var sale = new Domain.Entities.Sale
+        {
+            OpticalStoreId = opticalStoreId,
+            ClientId = request.ClientId,
+        };
     }
 }
