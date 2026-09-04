@@ -333,4 +333,7 @@
   <data name="PRESCRIPTION_EXPIRED" xml:space="preserve">
     <value>The prescription has expired</value>
   </data>
+  <data name="INSUFFICIENT_PRODUCT_STOCK" xml:space="preserve">
+    <value>There is insufficient stock for one or more products.</value>
+  </data>
 </root>

@@ -187,6 +187,15 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is insufficient stock for one or more products..
+        /// </summary>
+        public static string INSUFFICIENT_PRODUCT_STOCK {
+            get {
+                return ResourceManager.GetString("INSUFFICIENT_PRODUCT_STOCK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Insufficient stock.
         /// </summary>
         public static string INSUFFICIENT_STOCK {

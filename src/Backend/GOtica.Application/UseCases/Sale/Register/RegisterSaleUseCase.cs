@@ -61,6 +61,19 @@ public class RegisterSaleUseCase : IRegisterSaleUseCase
 
         await ValidatePrescription(request.PrescriptionId, request.ClientId, opticalStoreId);
 
+        var requestedQuantities = request.Items
+            .GroupBy(r => r.ProductId)
+            .ToDictionary(
+                g => g.Key, 
+                g => g.Sum(r => r.Quantity)
+            );
+
+        var productsIds = requestedQuantities.Keys.ToList();
+
+        var products = await _productReadOnlyRepository.GetActivesByIds(productsIds, opticalStoreId);
+
+        ValidateProducts(products, productsIds, requestedQuantities);
+
         return new ResponseRegisterSale
         {
             
@@ -86,5 +99,22 @@ public class RegisterSaleUseCase : IRegisterSaleUseCase
 
         if (prescription.ExpirationDate < DateOnly.FromDateTime(DateTime.Now))
             throw new ConflictException(ResourceMessagesException.PRESCRIPTION_EXPIRED);
+    }
+
+    private static void ValidateProducts(
+        IReadOnlyCollection<Domain.Entities.Product> products, 
+        IReadOnlyCollection<Guid> productsIds, 
+        IReadOnlyDictionary<Guid, int> requestedQuantities)
+    {
+        if (products.Count != productsIds.Count)
+            throw new NotFoundException(ResourceMessagesException.PRODUCT_NOT_FOUND);
+
+        foreach (var product in products)
+        {
+            var requestedQuantity = requestedQuantities[product.Id];
+
+            if (product.StockQuantity < requestedQuantity)
+                throw new ConflictException(ResourceMessagesException.INSUFFICIENT_PRODUCT_STOCK);
+        }
     }
 }
