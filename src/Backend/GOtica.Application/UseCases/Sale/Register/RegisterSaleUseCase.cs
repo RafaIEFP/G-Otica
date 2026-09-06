@@ -1,5 +1,8 @@
-﻿using GOtica.Communication.Requests.Sale;
+﻿using GOtica.Communication.Requests.Payment;
+using GOtica.Communication.Requests.Sale;
 using GOtica.Communication.Response.Sale;
+using GOtica.Domain.Entities;
+using GOtica.Domain.Enums;
 using GOtica.Domain.Repositories;
 using GOtica.Domain.Repositories.Client;
 using GOtica.Domain.Repositories.Payment;
@@ -10,6 +13,7 @@ using GOtica.Domain.Repositories.StockMovement;
 using GOtica.Domain.Services;
 using GOtica.Exceptions.ExceptionsBase;
 using GOtica.Exceptions.Resources;
+using Mapster;
 
 namespace GOtica.Application.UseCases.Sale.Register;
 
@@ -77,10 +81,34 @@ public class RegisterSaleUseCase : IRegisterSaleUseCase
 
         var now = DateTime.UtcNow;
 
-        return new ResponseRegisterSale
+        var sale = CreateSale(opticalStoreId, request, loggedUser.Id, productsById, now);
+
+        ValidateInitialPayment(request.InitialPayment.Amount, sale.TotalAmount);
+
+        var payments = CreatePayments(sale, request.InitialPayment, loggedUser.Id, now);
+
+        var stockMovements = CreateStockMovements(requestedQuantities, loggedUser.Id, now);
+
+        await _unitOfWork.ExecuteInTransaction(async () =>
         {
-            
-        };
+            await _saleWriteOnlyRepository.Add(sale);
+
+            await _paymentWriteOnlyRepository.AddRange(payments);
+
+            // Decrease product stock
+            foreach (var productQuantity in requestedQuantities.OrderBy(item => item.Key))
+            {
+                var stockDecreased =
+                    await _productUpdateOnlyRepository.TryDecreaseStock(productQuantity.Key, opticalStoreId, productQuantity.Value);
+
+                if (!stockDecreased)
+                    throw new ConflictException(ResourceMessagesException.INSUFFICIENT_PRODUCT_STOCK);
+            }
+
+            await _stockMovementWriteOnlyRepository.AddRange(stockMovements);
+        });
+
+        return sale.Adapt<ResponseRegisterSale>();
     }
 
     private static void Validate(RequestRegisterSale request)
@@ -121,16 +149,126 @@ public class RegisterSaleUseCase : IRegisterSaleUseCase
         }
     }
 
-    private static void CreateSale(
+    private static Domain.Entities.Sale CreateSale(
         Guid opticalStoreId, 
-        RequestRegisterSale request, 
-        IReadOnlyDictionary<Guid, Domain.Entities.Product> productsById,
+        RequestRegisterSale request,
+        Guid userId,
+        IReadOnlyDictionary<Guid, Domain.Entities.Product> products,
         DateTime now)
     {
         var sale = new Domain.Entities.Sale
         {
             OpticalStoreId = opticalStoreId,
             ClientId = request.ClientId,
+            UserId = userId,
+            PrescriptionId = request.PrescriptionId,
+            Status = SaleStatus.Confirmed,
+            CreatedAt = now
         };
+
+        foreach (var requestItem in request.Items)
+        {
+            var product = products[requestItem.ProductId];
+
+            var grossAmount = product.BasePrice * requestItem.Quantity;
+
+            ValidateDiscount(requestItem.DiscountAmount, grossAmount);
+
+            var totalAmount = grossAmount - requestItem.DiscountAmount;
+
+            sale.Items.Add(new SaleItem
+            {
+                Quantity = requestItem.Quantity,
+
+                // Historical price
+                UnitPrice = product.BasePrice,
+
+                DiscountAmount = requestItem.DiscountAmount,
+                TotalAmount = totalAmount,
+                Notes = requestItem.Notes,
+                ProductId = product.Id,
+                SaleId = sale.Id,
+                Sale = sale
+            });
+
+            sale.TotalAmount += totalAmount;
+        }
+
+        return sale;
+    }
+
+    private static void ValidateDiscount(decimal discountAmount, decimal grossAmount)
+    {
+        if (discountAmount >= grossAmount)
+            throw new ErrorOnValidationException([ResourceMessagesException.SALE_ITEM_DISCOUNT_INVALID]);
+    }
+
+    private static void ValidateInitialPayment(decimal initialPaymentAmount, decimal saleTotalAmount)
+    {
+        if (initialPaymentAmount > saleTotalAmount)
+            throw new ErrorOnValidationException([ResourceMessagesException.INITIAL_PAYMENT_GREATER_THAN_SALE_TOTAL]);
+    }
+
+    private static IReadOnlyCollection<Payment> CreatePayments(
+        Domain.Entities.Sale sale,
+        RequestRegisterSalePayment request,
+        Guid userId,
+        DateTime now)
+    {
+        var payments = new List<Payment>();
+
+        // Initial payment - always received
+        var initialPayment = new Payment
+        {
+            Amount = request.Amount,
+            PaymentMethod = (PaymentMethod)request.PaymentMethod,
+            Status = PaymentStatus.Received,
+            ReceivedAt = now,
+            SaleId = sale.Id,
+            Sale = sale,
+            ReceivedByUserId = userId
+        };
+
+        payments.Add(initialPayment);
+
+        var remainingAmount = sale.TotalAmount - request.Amount;
+
+        if (remainingAmount > 0)
+        {
+            // Remaining payment - expected
+            var remainingPayment = new Payment
+            {
+                Amount = remainingAmount,
+                PaymentMethod = null,
+                Status = PaymentStatus.Pending,
+                ReceivedAt = null,
+                SaleId = sale.Id,
+                Sale = sale,
+                ReceivedByUserId = null
+            };
+
+            payments.Add(remainingPayment);
+        }
+
+        return payments;
+    }
+
+    private static IReadOnlyCollection<Domain.Entities.StockMovement> CreateStockMovements(
+        IReadOnlyDictionary<Guid, int> requestedQuantities,
+        Guid userId,
+        DateTime now)
+    {
+        return requestedQuantities
+            .OrderBy(item => item.Key)
+            .Select(item => new Domain.Entities.StockMovement
+            {
+                ProductId = item.Key,
+                UserId = userId,
+                QuantityChange = -item.Value,
+                Type = StockMovementType.Sale,
+                Reason = null,
+                CreatedAt = now
+            })
+            .ToList();
     }
 }

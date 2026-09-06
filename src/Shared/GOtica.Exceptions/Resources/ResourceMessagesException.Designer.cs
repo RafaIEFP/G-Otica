@@ -187,6 +187,15 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The initial payment amount cannot exceed the total sale amount..
+        /// </summary>
+        public static string INITIAL_PAYMENT_GREATER_THAN_SALE_TOTAL {
+            get {
+                return ResourceManager.GetString("INITIAL_PAYMENT_GREATER_THAN_SALE_TOTAL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There is insufficient stock for one or more products..
         /// </summary>
         public static string INSUFFICIENT_PRODUCT_STOCK {
@@ -534,6 +543,15 @@ namespace GOtica.Exceptions.Resources {
         public static string ROLE_INVALID {
             get {
                 return ResourceManager.GetString("ROLE_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string SALE_ITEM_DISCOUNT_INVALID {
+            get {
+                return ResourceManager.GetString("SALE_ITEM_DISCOUNT_INVALID", resourceCulture);
             }
         }
         

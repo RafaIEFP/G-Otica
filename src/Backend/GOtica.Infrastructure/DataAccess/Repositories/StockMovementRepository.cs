@@ -13,6 +13,11 @@ internal sealed class StockMovementRepository(GOticaDbContext dbContext) : IStoc
         await dbContext.StockMovements.AddAsync(stockMovement);
     }
 
+    public async Task AddRange(IReadOnlyCollection<StockMovement> stockMovements)
+    {
+        await dbContext.StockMovements.AddRangeAsync(stockMovements);
+    }
+
     public async Task<PagedResult<StockMovementDto>> GetAll(Guid productId, int page, int pageSize)
     {
         var query = dbContext.StockMovements.AsNoTracking().Where(m => m.ProductId == productId);
