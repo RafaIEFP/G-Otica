@@ -547,7 +547,7 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to The discount amount must be lower than the item&apos;s gross amount..
         /// </summary>
         public static string SALE_ITEM_DISCOUNT_INVALID {
             get {

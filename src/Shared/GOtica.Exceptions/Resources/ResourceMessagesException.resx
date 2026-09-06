@@ -337,7 +337,7 @@
     <value>There is insufficient stock for one or more products.</value>
   </data>
   <data name="SALE_ITEM_DISCOUNT_INVALID" xml:space="preserve">
-    <value />
+    <value>The discount amount must be lower than the item's gross amount.</value>
   </data>
   <data name="INITIAL_PAYMENT_GREATER_THAN_SALE_TOTAL" xml:space="preserve">
     <value>The initial payment amount cannot exceed the total sale amount.</value>
