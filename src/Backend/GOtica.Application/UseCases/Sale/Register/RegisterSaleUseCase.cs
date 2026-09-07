@@ -26,7 +26,6 @@ public class RegisterSaleUseCase : IRegisterSaleUseCase
     private readonly IProductReadOnlyRepository _productReadOnlyRepository;
     private readonly IProductUpdateOnlyRepository _productUpdateOnlyRepository;
     private readonly ISaleWriteOnlyRepository _saleWriteOnlyRepository;
-    private readonly IPaymentWriteOnlyRepository _paymentWriteOnlyRepository;
     private readonly IStockMovementWriteOnlyRepository _stockMovementWriteOnlyRepository;
 
     public RegisterSaleUseCase(
@@ -37,7 +36,6 @@ public class RegisterSaleUseCase : IRegisterSaleUseCase
         IProductReadOnlyRepository productReadOnlyRepository,
         IProductUpdateOnlyRepository productUpdateOnlyRepository,
         ISaleWriteOnlyRepository saleWriteOnlyRepository,
-        IPaymentWriteOnlyRepository paymentWriteOnlyRepository,
         IStockMovementWriteOnlyRepository stockMovementWriteOnlyRepository)
     {
         _loggedUser = loggedUser;
@@ -47,7 +45,6 @@ public class RegisterSaleUseCase : IRegisterSaleUseCase
         _productReadOnlyRepository = productReadOnlyRepository;
         _productUpdateOnlyRepository = productUpdateOnlyRepository;
         _saleWriteOnlyRepository = saleWriteOnlyRepository;
-        _paymentWriteOnlyRepository = paymentWriteOnlyRepository;
         _stockMovementWriteOnlyRepository = stockMovementWriteOnlyRepository;
     }
 
@@ -85,15 +82,13 @@ public class RegisterSaleUseCase : IRegisterSaleUseCase
 
         ValidateInitialPayment(request.InitialPayment.Amount, sale.TotalAmount);
 
-        var payments = CreatePayments(sale, request.InitialPayment, loggedUser.Id, now);
+        AddPayments(sale, request.InitialPayment, loggedUser.Id, now);
 
         var stockMovements = CreateStockMovements(requestedQuantities, loggedUser.Id, now);
 
         await _unitOfWork.ExecuteInTransaction(async () =>
         {
             await _saleWriteOnlyRepository.Add(sale);
-
-            await _paymentWriteOnlyRepository.AddRange(payments);
 
             // Decrease product stock
             foreach (var productQuantity in requestedQuantities.OrderBy(item => item.Key))
@@ -204,14 +199,12 @@ public class RegisterSaleUseCase : IRegisterSaleUseCase
             throw new ErrorOnValidationException([ResourceMessagesException.INITIAL_PAYMENT_GREATER_THAN_SALE_TOTAL]);
     }
 
-    private static IReadOnlyCollection<Payment> CreatePayments(
+    private static void AddPayments(
         Domain.Entities.Sale sale,
         RequestRegisterSalePayment request,
         Guid userId,
         DateTime now)
     {
-        var payments = new List<Payment>();
-
         // Initial payment - always received
         var initialPayment = new Payment
         {
@@ -224,28 +217,24 @@ public class RegisterSaleUseCase : IRegisterSaleUseCase
             ReceivedByUserId = userId
         };
 
-        payments.Add(initialPayment);
-
         var remainingAmount = sale.TotalAmount - request.Amount;
 
-        if (remainingAmount > 0)
+        if (remainingAmount <= 0)
+            return;
+
+        // Remaining payment - pending
+        sale.Payments.Add(new Payment
         {
-            // Remaining payment - expected
-            var remainingPayment = new Payment
-            {
-                Amount = remainingAmount,
-                PaymentMethod = null,
-                Status = PaymentStatus.Pending,
-                ReceivedAt = null,
-                SaleId = sale.Id,
-                Sale = sale,
-                ReceivedByUserId = null
-            };
+            Amount = remainingAmount,
+            PaymentMethod = null,
+            Status = PaymentStatus.Pending,
+            ReceivedAt = null,
 
-            payments.Add(remainingPayment);
-        }
+            SaleId = sale.Id,
+            Sale = sale,
 
-        return payments;
+            ReceivedByUserId = null
+        });
     }
 
     private static IReadOnlyCollection<Domain.Entities.StockMovement> CreateStockMovements(

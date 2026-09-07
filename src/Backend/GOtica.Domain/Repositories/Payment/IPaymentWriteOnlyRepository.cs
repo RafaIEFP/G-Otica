@@ -2,5 +2,4 @@
 
 public interface IPaymentWriteOnlyRepository
 {
-    Task AddRange(IReadOnlyCollection<Entities.Payment> payments);
 }
