@@ -22,6 +22,5 @@ public class Sale
     public Prescription? Prescription { get; set; }
 
     public ICollection<SaleItem> Items { get; set; } = [];
-
-    // public ICollection<Payment> Payments { get; set; } = [];
+    public ICollection<Payment> Payments { get; set; } = [];
 }
