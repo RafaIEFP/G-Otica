@@ -547,6 +547,15 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The sale cannot start production from its current status..
+        /// </summary>
+        public static string SALE_CANNOT_START_PRODUCTION {
+            get {
+                return ResourceManager.GetString("SALE_CANNOT_START_PRODUCTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The discount amount must be lower than the item&apos;s gross amount..
         /// </summary>
         public static string SALE_ITEM_DISCOUNT_INVALID {

@@ -7,11 +7,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GOtica.Infrastructure.DataAccess.Repositories;
 
-internal sealed class SaleRepository(GOticaDbContext dbContext) : ISaleWriteOnlyRepository, ISaleReadOnlyRepository
+internal sealed class SaleRepository(GOticaDbContext dbContext) : ISaleWriteOnlyRepository, ISaleReadOnlyRepository, ISaleUpdateOnlyRepository
 {
     public async Task Add(Sale sale)
     {
         await dbContext.Sales.AddAsync(sale);
+    }
+
+    public async Task<bool> Exist(Guid saleId, Guid opticalStoreId)
+    {
+        return await dbContext.Sales
+            .AsNoTracking()
+            .AnyAsync(sale =>
+                sale.Id == saleId &&
+                sale.OpticalStoreId == opticalStoreId);
     }
 
     public async Task<PagedResult<SaleListDto>> GetAll(Guid opticalStoreId, int page, int pageSize, SaleStatus? status)
@@ -104,5 +113,20 @@ internal sealed class SaleRepository(GOticaDbContext dbContext) : ISaleWriteOnly
                     .ToList()
             })
             .FirstOrDefaultAsync();
+    }
+
+    public async Task<bool> TryUpdateStatus(Guid saleId, Guid opticalStoreId, SaleStatus expectedStatus, SaleStatus newStatus)
+    {
+        var affectedRows = await dbContext.Sales
+            .Where(sale =>
+                sale.Id == saleId &&
+                sale.OpticalStoreId == opticalStoreId &&
+                sale.Status == expectedStatus)
+            .ExecuteUpdateAsync(setters => setters
+                .SetProperty(
+                    sale => sale.Status,
+                    newStatus));
+
+        return affectedRows > 0;
     }
 }

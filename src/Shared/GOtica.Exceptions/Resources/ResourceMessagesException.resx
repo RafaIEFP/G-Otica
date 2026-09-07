@@ -348,4 +348,7 @@
   <data name="SALE_STATUS_INVALID" xml:space="preserve">
     <value>The sale status is invalid.</value>
   </data>
+  <data name="SALE_CANNOT_START_PRODUCTION" xml:space="preserve">
+    <value>The sale cannot start production from its current status.</value>
+  </data>
 </root>

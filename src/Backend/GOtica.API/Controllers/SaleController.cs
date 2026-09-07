@@ -2,6 +2,7 @@
 using GOtica.Application.UseCases.Sale.Get;
 using GOtica.Application.UseCases.Sale.GetAll;
 using GOtica.Application.UseCases.Sale.Register;
+using GOtica.Application.UseCases.Sale.StartProduction;
 using GOtica.Communication.Requests.Sale;
 using GOtica.Communication.Response;
 using GOtica.Communication.Response.Sale;
@@ -55,5 +56,19 @@ public class SaleController : ControllerBase
         var response = await useCase.Execute(opticalStoreId, request);
 
         return Ok(response);
+    }
+
+    [HttpPut("{saleId:guid}/start-production")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status409Conflict)]
+    public async Task<IActionResult> StartProduction(
+        [FromRoute] Guid opticalStoreId,
+        [FromRoute] Guid saleId,
+        [FromServices] IStartSaleProductionUseCase useCase)
+    {
+        await useCase.Execute(opticalStoreId, saleId);
+
+        return NoContent();
     }
 }
