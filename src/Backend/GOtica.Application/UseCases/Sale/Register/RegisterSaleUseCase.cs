@@ -172,7 +172,8 @@ public class RegisterSaleUseCase : IRegisterSaleUseCase
 
             var grossAmount = product.BasePrice * requestItem.Quantity;
 
-            ValidateDiscount(requestItem.DiscountAmount, grossAmount);
+            if (requestItem.DiscountAmount >= grossAmount)
+                throw new ErrorOnValidationException([ResourceMessagesException.SALE_ITEM_DISCOUNT_INVALID]);
 
             var totalAmount = grossAmount - requestItem.DiscountAmount;
 
@@ -195,12 +196,6 @@ public class RegisterSaleUseCase : IRegisterSaleUseCase
         }
 
         return sale;
-    }
-
-    private static void ValidateDiscount(decimal discountAmount, decimal grossAmount)
-    {
-        if (discountAmount >= grossAmount)
-            throw new ErrorOnValidationException([ResourceMessagesException.SALE_ITEM_DISCOUNT_INVALID]);
     }
 
     private static void ValidateInitialPayment(decimal initialPaymentAmount, decimal saleTotalAmount)
