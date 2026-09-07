@@ -342,4 +342,7 @@
   <data name="INITIAL_PAYMENT_GREATER_THAN_SALE_TOTAL" xml:space="preserve">
     <value>The initial payment amount cannot exceed the total sale amount.</value>
   </data>
+  <data name="SALE_NOT_FOUND" xml:space="preserve">
+    <value>Sale not found</value>
+  </data>
 </root>

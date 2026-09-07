@@ -1,4 +1,5 @@
 ﻿using GOtica.API.Attributes;
+using GOtica.Application.UseCases.Sale.Get;
 using GOtica.Application.UseCases.Sale.Register;
 using GOtica.Communication.Requests.Sale;
 using GOtica.Communication.Response;
@@ -26,5 +27,18 @@ public class SaleController : ControllerBase
         var response = await useCase.Execute(opticalStoreId, request);
 
         return Created(string.Empty, response);
+    }
+
+    [HttpGet("{saleId:guid}")]
+    [ProducesResponseType(typeof(ResponseGetSale), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Get(
+        [FromRoute] Guid opticalStoreId,
+        [FromRoute] Guid saleId,
+        [FromServices] IGetSaleUseCase useCase)
+    {
+        var response = await useCase.Execute(saleId, opticalStoreId);
+
+        return Ok(response);
     }
 }

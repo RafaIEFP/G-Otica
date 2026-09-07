@@ -565,6 +565,15 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sale not found.
+        /// </summary>
+        public static string SALE_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("SALE_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The quantity must be greater than zero..
         /// </summary>
         public static string STOCK_ADJUSTMENT_QUANTITY_INVALID {
