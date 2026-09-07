@@ -574,6 +574,15 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The sale status is invalid..
+        /// </summary>
+        public static string SALE_STATUS_INVALID {
+            get {
+                return ResourceManager.GetString("SALE_STATUS_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The quantity must be greater than zero..
         /// </summary>
         public static string STOCK_ADJUSTMENT_QUANTITY_INVALID {

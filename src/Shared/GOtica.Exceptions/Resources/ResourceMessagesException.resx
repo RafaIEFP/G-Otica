@@ -345,4 +345,7 @@
   <data name="SALE_NOT_FOUND" xml:space="preserve">
     <value>Sale not found</value>
   </data>
+  <data name="SALE_STATUS_INVALID" xml:space="preserve">
+    <value>The sale status is invalid.</value>
+  </data>
 </root>

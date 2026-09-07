@@ -30,6 +30,7 @@ using GOtica.Application.UseCases.Purchase.Get;
 using GOtica.Application.UseCases.Purchase.GetAll;
 using GOtica.Application.UseCases.Purchase.Register;
 using GOtica.Application.UseCases.Sale.Get;
+using GOtica.Application.UseCases.Sale.GetAll;
 using GOtica.Application.UseCases.Sale.Register;
 using GOtica.Application.UseCases.StockMovement.GetAll;
 using GOtica.Application.UseCases.Supplier.Deactivate;
@@ -154,6 +155,7 @@ public static class DependencyInjectionExtension
         #region Sale
         services.AddScoped<IRegisterSaleUseCase, RegisterSaleUseCase>();
         services.AddScoped<IGetSaleUseCase, GetSaleUseCase>();
+        services.AddScoped<IGetAllSalesUseCase, GetAllSalesUseCase>();
         #endregion
     }
 

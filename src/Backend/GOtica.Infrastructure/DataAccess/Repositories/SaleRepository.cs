@@ -1,5 +1,7 @@
 ﻿using GOtica.Domain.Dtos;
 using GOtica.Domain.Entities;
+using GOtica.Domain.Enums;
+using GOtica.Domain.Repositories;
 using GOtica.Domain.Repositories.Sale;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +12,44 @@ internal sealed class SaleRepository(GOticaDbContext dbContext) : ISaleWriteOnly
     public async Task Add(Sale sale)
     {
         await dbContext.Sales.AddAsync(sale);
+    }
+
+    public async Task<PagedResult<SaleListDto>> GetAll(Guid opticalStoreId, int page, int pageSize, SaleStatus? status)
+    {
+        var query = dbContext.Sales.AsNoTracking().Where(sale => sale.OpticalStoreId == opticalStoreId);
+
+        if (status.HasValue)
+            query = query.Where(sale => sale.Status == status.Value);
+
+        var totalCount = await query.CountAsync();
+
+        var sales = await query
+            .OrderByDescending(sale => sale.CreatedAt)
+            .ThenByDescending(sale => sale.Id)
+            .Paged(page, pageSize)
+            .Select(sale => new SaleListDto
+            {
+                Id = sale.Id,
+                CreatedAt = sale.CreatedAt,
+                Status = sale.Status,
+                TotalAmount = sale.TotalAmount,
+
+                ReceivedAmount = sale.Payments
+                    .Where(payment => payment.Status == PaymentStatus.Received)
+                    .Sum(payment => payment.Amount),
+
+                ClientId = sale.ClientId,
+                ClientName = sale.Client.Name
+            })
+            .ToListAsync();
+
+        return new PagedResult<SaleListDto>
+        {
+            Items = sales,
+            Page = page,
+            PageSize = pageSize,
+            TotalCount = totalCount
+        };
     }
 
     public async Task<SaleDto?> GetById(Guid saleId, Guid opticalStoreId)
