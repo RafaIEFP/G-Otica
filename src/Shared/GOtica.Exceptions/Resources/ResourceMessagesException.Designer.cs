@@ -547,6 +547,15 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The sale cannot be marked as ready..
+        /// </summary>
+        public static string SALE_CANNOT_BE_MARKED_AS_READY {
+            get {
+                return ResourceManager.GetString("SALE_CANNOT_BE_MARKED_AS_READY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The sale cannot start production from its current status..
         /// </summary>
         public static string SALE_CANNOT_START_PRODUCTION {

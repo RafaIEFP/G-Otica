@@ -1,6 +1,7 @@
 ﻿using GOtica.API.Attributes;
 using GOtica.Application.UseCases.Sale.Get;
 using GOtica.Application.UseCases.Sale.GetAll;
+using GOtica.Application.UseCases.Sale.MarkAsReady;
 using GOtica.Application.UseCases.Sale.Register;
 using GOtica.Application.UseCases.Sale.StartProduction;
 using GOtica.Communication.Requests.Sale;
@@ -66,6 +67,20 @@ public class SaleController : ControllerBase
         [FromRoute] Guid opticalStoreId,
         [FromRoute] Guid saleId,
         [FromServices] IStartSaleProductionUseCase useCase)
+    {
+        await useCase.Execute(opticalStoreId, saleId);
+
+        return NoContent();
+    }
+
+    [HttpPut("{saleId:guid}/mark-as-ready")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status409Conflict)]
+    public async Task<IActionResult> MarkAsReady(
+        [FromRoute] Guid opticalStoreId,
+        [FromRoute] Guid saleId,
+        [FromServices] IMarkSaleAsReadyUseCase useCase)
     {
         await useCase.Execute(opticalStoreId, saleId);
 
