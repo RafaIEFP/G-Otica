@@ -352,6 +352,6 @@
     <value>The sale cannot start production from its current status.</value>
   </data>
   <data name="SALE_CANNOT_BE_MARKED_AS_READY" xml:space="preserve">
-    <value>The sale cannot be marked as ready.</value>
+    <value>The sale cannot be marked as ready from its current status.</value>
   </data>
 </root>
