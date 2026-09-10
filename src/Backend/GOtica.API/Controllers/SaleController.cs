@@ -1,4 +1,5 @@
 ﻿using GOtica.API.Attributes;
+using GOtica.Application.UseCases.Sale.Deliver;
 using GOtica.Application.UseCases.Sale.Get;
 using GOtica.Application.UseCases.Sale.GetAll;
 using GOtica.Application.UseCases.Sale.MarkAsReady;
@@ -81,6 +82,20 @@ public class SaleController : ControllerBase
         [FromRoute] Guid opticalStoreId,
         [FromRoute] Guid saleId,
         [FromServices] IMarkSaleAsReadyUseCase useCase)
+    {
+        await useCase.Execute(opticalStoreId, saleId);
+
+        return NoContent();
+    }
+
+    [HttpPut("{saleId:guid}/deliver")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status409Conflict)]
+    public async Task<IActionResult> Deliver(
+        [FromRoute] Guid opticalStoreId,
+        [FromRoute] Guid saleId,
+        [FromServices] IDeliverSaleUseCase useCase)
     {
         await useCase.Execute(opticalStoreId, saleId);
 

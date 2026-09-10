@@ -547,6 +547,15 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The sale cannot be delivery from its current status..
+        /// </summary>
+        public static string SALE_CANNOT_BE_DELIVERED {
+            get {
+                return ResourceManager.GetString("SALE_CANNOT_BE_DELIVERED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The sale cannot be marked as ready from its current status..
         /// </summary>
         public static string SALE_CANNOT_BE_MARKED_AS_READY {
@@ -561,6 +570,15 @@ namespace GOtica.Exceptions.Resources {
         public static string SALE_CANNOT_START_PRODUCTION {
             get {
                 return ResourceManager.GetString("SALE_CANNOT_START_PRODUCTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The sale cannot be delivery while there is an outstanding balance..
+        /// </summary>
+        public static string SALE_HAS_OUTSTANDING_BALANCE {
+            get {
+                return ResourceManager.GetString("SALE_HAS_OUTSTANDING_BALANCE", resourceCulture);
             }
         }
         

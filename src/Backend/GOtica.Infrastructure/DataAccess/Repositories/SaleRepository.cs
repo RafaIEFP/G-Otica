@@ -115,6 +115,24 @@ internal sealed class SaleRepository(GOticaDbContext dbContext) : ISaleWriteOnly
             .FirstOrDefaultAsync();
     }
 
+    public async Task<SaleDeliveryDto?> GetDeliveryData(Guid saleId, Guid opticalStoreId)
+    {
+        return await dbContext.Sales
+            .AsNoTracking()
+            .Where(sale =>
+                sale.Id == saleId &&
+                sale.OpticalStoreId == opticalStoreId)
+            .Select(sale => new SaleDeliveryDto
+            {
+                Status = sale.Status,
+                TotalAmount = sale.TotalAmount,
+                ReceivedAmount = sale.Payments
+                    .Where(payment => payment.Status == PaymentStatus.Received)
+                    .Sum(payment => payment.Amount)
+            })
+            .FirstOrDefaultAsync();
+    }
+
     public async Task<bool> TryUpdateStatus(Guid saleId, Guid opticalStoreId, SaleStatus expectedStatus, SaleStatus newStatus)
     {
         var affectedRows = await dbContext.Sales

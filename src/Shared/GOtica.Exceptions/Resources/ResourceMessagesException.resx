@@ -354,4 +354,10 @@
   <data name="SALE_CANNOT_BE_MARKED_AS_READY" xml:space="preserve">
     <value>The sale cannot be marked as ready from its current status.</value>
   </data>
+  <data name="SALE_CANNOT_BE_DELIVERED" xml:space="preserve">
+    <value>The sale cannot be delivery from its current status.</value>
+  </data>
+  <data name="SALE_HAS_OUTSTANDING_BALANCE" xml:space="preserve">
+    <value>The sale cannot be delivery while there is an outstanding balance.</value>
+  </data>
 </root>
