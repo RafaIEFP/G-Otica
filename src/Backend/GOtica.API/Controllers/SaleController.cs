@@ -108,6 +108,7 @@ public class SaleController : ControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ResponseError), StatusCodes.Status409Conflict)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> ReceivePayment(
         [FromRoute] Guid opticalStoreId,
         [FromRoute] Guid saleId,
