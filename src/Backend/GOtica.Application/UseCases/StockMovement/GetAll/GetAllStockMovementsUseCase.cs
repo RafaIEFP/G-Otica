@@ -39,7 +39,8 @@ public class GetAllStockMovementsUseCase : IGetAllStockMovementsUseCase
 
             Page = movements.Page,
             PageSize = movements.PageSize,
-            TotalCount = movements.TotalCount
+            TotalCount = movements.TotalCount,
+            TotalPages = movements.TotalPages
         };
     }
 

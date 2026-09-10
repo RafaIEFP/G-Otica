@@ -217,6 +217,8 @@ public class RegisterSaleUseCase : IRegisterSaleUseCase
             ReceivedByUserId = userId
         };
 
+        sale.Payments.Add(initialPayment);
+
         var remainingAmount = sale.TotalAmount - request.Amount;
 
         if (remainingAmount <= 0)
