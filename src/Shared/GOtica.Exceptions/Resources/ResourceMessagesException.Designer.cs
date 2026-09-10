@@ -376,11 +376,29 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The payment cannot be received in its current status..
+        /// </summary>
+        public static string PAYMENT_CANNOT_BE_RECEIVED {
+            get {
+                return ResourceManager.GetString("PAYMENT_CANNOT_BE_RECEIVED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The payment method is invalid..
         /// </summary>
         public static string PAYMENT_METHOD_INVALID {
             get {
                 return ResourceManager.GetString("PAYMENT_METHOD_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Payment not found..
+        /// </summary>
+        public static string PAYMENT_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("PAYMENT_NOT_FOUND", resourceCulture);
             }
         }
         

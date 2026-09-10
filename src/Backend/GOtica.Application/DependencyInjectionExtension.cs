@@ -33,6 +33,7 @@ using GOtica.Application.UseCases.Sale.Deliver;
 using GOtica.Application.UseCases.Sale.Get;
 using GOtica.Application.UseCases.Sale.GetAll;
 using GOtica.Application.UseCases.Sale.MarkAsReady;
+using GOtica.Application.UseCases.Sale.ReceivePayment;
 using GOtica.Application.UseCases.Sale.Register;
 using GOtica.Application.UseCases.Sale.StartProduction;
 using GOtica.Application.UseCases.StockMovement.GetAll;
@@ -162,6 +163,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IStartSaleProductionUseCase, StartSaleProductionUseCase>();
         services.AddScoped<IMarkSaleAsReadyUseCase, MarkSaleAsReadyUseCase>();
         services.AddScoped<IDeliverSaleUseCase, DeliverSaleUseCase>();
+        services.AddScoped<IReceivePaymentUseCase, ReceivePaymentUseCase>();
         #endregion
     }
 

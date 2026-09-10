@@ -3,8 +3,10 @@ using GOtica.Application.UseCases.Sale.Deliver;
 using GOtica.Application.UseCases.Sale.Get;
 using GOtica.Application.UseCases.Sale.GetAll;
 using GOtica.Application.UseCases.Sale.MarkAsReady;
+using GOtica.Application.UseCases.Sale.ReceivePayment;
 using GOtica.Application.UseCases.Sale.Register;
 using GOtica.Application.UseCases.Sale.StartProduction;
+using GOtica.Communication.Requests.Payment;
 using GOtica.Communication.Requests.Sale;
 using GOtica.Communication.Response;
 using GOtica.Communication.Response.Sale;
@@ -98,6 +100,22 @@ public class SaleController : ControllerBase
         [FromServices] IDeliverSaleUseCase useCase)
     {
         await useCase.Execute(opticalStoreId, saleId);
+
+        return NoContent();
+    }
+
+    [HttpPut("{saleId:guid}/payments/{paymentId:guid}/receive")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status409Conflict)]
+    public async Task<IActionResult> ReceivePayment(
+        [FromRoute] Guid opticalStoreId,
+        [FromRoute] Guid saleId,
+        [FromRoute] Guid paymentId,
+        [FromServices] IReceivePaymentUseCase useCase,
+        [FromBody] RequestReceivePayment request)
+    {
+        await useCase.Execute(opticalStoreId, saleId, paymentId, request);
 
         return NoContent();
     }

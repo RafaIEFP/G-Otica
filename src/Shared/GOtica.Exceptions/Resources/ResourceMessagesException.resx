@@ -360,4 +360,10 @@
   <data name="SALE_HAS_OUTSTANDING_BALANCE" xml:space="preserve">
     <value>The sale cannot be delivery while there is an outstanding balance.</value>
   </data>
+  <data name="PAYMENT_NOT_FOUND" xml:space="preserve">
+    <value>Payment not found.</value>
+  </data>
+  <data name="PAYMENT_CANNOT_BE_RECEIVED" xml:space="preserve">
+    <value>The payment cannot be received in its current status.</value>
+  </data>
 </root>
