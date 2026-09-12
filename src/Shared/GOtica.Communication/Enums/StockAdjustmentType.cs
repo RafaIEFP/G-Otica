@@ -2,6 +2,6 @@
 
 public enum StockAdjustmentType
 {
-    Increase,
-    Decrease
+    Increase = 0,
+    Decrease = 1
 }

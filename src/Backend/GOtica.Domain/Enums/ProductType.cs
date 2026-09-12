@@ -2,9 +2,9 @@
 
 public enum ProductType
 {
-    Lens,
-    Frame,
-    Case,
-    CleaningCloth,
-    Accessory
+    Lens = 0,
+    Frame = 1,
+    Case = 2,
+    CleaningCloth = 3,
+    Accessory = 4
 }

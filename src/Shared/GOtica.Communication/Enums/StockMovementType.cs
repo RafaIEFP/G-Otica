@@ -2,8 +2,9 @@
 
 public enum StockMovementType
 {
-    InitialStock,
-    Purchase,
-    Sale,
-    ManualAdjustment
+    InitialStock = 0,
+    Purchase = 1,
+    Sale = 2,
+    ManualAdjustment = 3,
+    SaleCancellation = 4
 }

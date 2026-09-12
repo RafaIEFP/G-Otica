@@ -2,9 +2,9 @@
 
 public enum SaleStatus
 {
-    Confirmed,
-    InProduction,
-    Ready,
-    Delivered,
-    Cancelled
+    Confirmed = 0,
+    InProduction = 1,
+    Ready = 2,
+    Delivered = 3,
+    Cancelled = 4
 }
