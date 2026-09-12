@@ -7,4 +7,5 @@ public interface IProductUpdateOnlyRepository
     Task<bool> Reactivate(Guid productId, Guid opticalStoreId);
     Task<bool> AdjustStock(Guid productId, Guid opticalStoreId, int quantityChange);
     Task<bool> TryDecreaseStock(Guid productId, Guid opticalStoreId, int quantity);
+    Task<bool> RestoreStock(Guid productId, Guid opticalStoreId, int quantity);
 }

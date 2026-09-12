@@ -1,4 +1,5 @@
 ﻿using GOtica.API.Attributes;
+using GOtica.Application.UseCases.Sale.Cancel;
 using GOtica.Application.UseCases.Sale.Deliver;
 using GOtica.Application.UseCases.Sale.Get;
 using GOtica.Application.UseCases.Sale.GetAll;
@@ -117,6 +118,20 @@ public class SaleController : ControllerBase
         [FromBody] RequestReceivePayment request)
     {
         await useCase.Execute(opticalStoreId, saleId, paymentId, request);
+
+        return NoContent();
+    }
+
+    [HttpPut("{saleId:guid}/cancel")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status409Conflict)]
+    public async Task<IActionResult> Cancel(
+        [FromRoute] Guid opticalStoreId,
+        [FromRoute] Guid saleId,
+        [FromServices] ICancelSaleUseCase useCase)
+    {
+        await useCase.Execute(opticalStoreId, saleId);
 
         return NoContent();
     }

@@ -11,4 +11,6 @@ public interface IPaymentUpdateOnlyRepository
         PaymentMethod paymentMethod,
         Guid receivedByUserId,
         DateTime receivedAt);
+
+    Task CancelBySale(Guid saleId, Guid opticalStoreId);
 }

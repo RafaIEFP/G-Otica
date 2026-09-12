@@ -9,4 +9,5 @@ public interface ISaleReadOnlyRepository
     Task<PagedResult<SaleListDto>> GetAll(Guid opticalStoreId, int page, int pageSize, SaleStatus? status);
     Task<bool> Exist(Guid saleId, Guid opticalStoreId);
     Task<SaleDeliveryDto?> GetDeliveryData(Guid saleId, Guid opticalStoreId);
+    Task<SaleCancellationDto?> GetCancellationData(Guid saleId, Guid opticalStoreId);
 }

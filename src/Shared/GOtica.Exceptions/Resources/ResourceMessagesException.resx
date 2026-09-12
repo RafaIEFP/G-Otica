@@ -366,4 +366,7 @@
   <data name="PAYMENT_CANNOT_BE_RECEIVED" xml:space="preserve">
     <value>The payment cannot be received in its current status.</value>
   </data>
+  <data name="SALE_CANNOT_BE_CANCELLED" xml:space="preserve">
+    <value>The sale cannot be cancelled from its current status.</value>
+  </data>
 </root>

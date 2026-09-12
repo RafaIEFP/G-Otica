@@ -6,6 +6,18 @@ namespace GOtica.Infrastructure.DataAccess.Repositories;
 
 internal sealed class PaymentRepository(GOticaDbContext dbContext) : IPaymentReadOnlyRepository, IPaymentUpdateOnlyRepository
 {
+    public async Task CancelBySale(Guid saleId, Guid opticalStoreId)
+    {
+        await dbContext.Payments
+        .Where(payment =>
+            payment.SaleId == saleId &&
+            payment.Sale.OpticalStoreId == opticalStoreId &&
+            payment.Status != PaymentStatus.Cancelled)
+        .ExecuteUpdateAsync(setters => 
+            setters.SetProperty(
+                payment => payment.Status, PaymentStatus.Cancelled));
+    }
+
     public async Task<bool> Exist(Guid paymentId, Guid saleId, Guid opticalStoreId)
     {
         return await dbContext.Payments

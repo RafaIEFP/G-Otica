@@ -174,4 +174,18 @@ internal sealed class ProductRepository(GOticaDbContext dbContext) : IProductUpd
                 p.IsActive)
             .ToListAsync();
     }
+
+    public async Task<bool> RestoreStock(Guid productId, Guid opticalStoreId, int quantity)
+    {
+        var affectedRows = await dbContext.Products
+            .Where(product =>
+                product.Id == productId &&
+                product.OpticalStoreId == opticalStoreId)
+            .ExecuteUpdateAsync(setters => setters
+                .SetProperty(
+                    product => product.StockQuantity,
+                    product => product.StockQuantity + quantity));
+
+        return affectedRows == 1;
+    }
 }

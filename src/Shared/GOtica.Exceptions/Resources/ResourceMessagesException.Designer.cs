@@ -565,6 +565,15 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The sale cannot be cancelled from its current status..
+        /// </summary>
+        public static string SALE_CANNOT_BE_CANCELLED {
+            get {
+                return ResourceManager.GetString("SALE_CANNOT_BE_CANCELLED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The sale cannot be delivery from its current status..
         /// </summary>
         public static string SALE_CANNOT_BE_DELIVERED {
