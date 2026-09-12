@@ -22,7 +22,10 @@ public class GetSaleUseCase : IGetSaleUseCase
             .Where(p => p.Status == Domain.Enums.PaymentStatus.Received)
             .Sum(p => p.Amount);
 
-        var remainingAmount = sale.TotalAmount - receivedAmount;
+        var remainingAmount =
+            sale.Status == Domain.Enums.SaleStatus.Cancelled
+                ? 0 
+                : sale.TotalAmount - receivedAmount;
 
         return sale.Adapt<ResponseGetSale>() with
         {

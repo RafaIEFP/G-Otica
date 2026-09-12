@@ -31,7 +31,10 @@ public class GetAllSalesUseCase : IGetAllSalesUseCase
         var items = sales.Items
             .Select(sale => sale.Adapt<ResponseGetAllSales>() with
             {
-                RemainingAmount = sale.TotalAmount - sale.ReceivedAmount
+                RemainingAmount =
+                    sale.Status == Domain.Enums.SaleStatus.Cancelled
+                        ? 0
+                        : sale.TotalAmount - sale.ReceivedAmount
             })
             .ToList();
 
