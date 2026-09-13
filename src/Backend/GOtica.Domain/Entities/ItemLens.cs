@@ -12,7 +12,7 @@ public class ItemLens
     public decimal RefractiveIndex { get; set; }
     public LensMaterial Material { get; set; }
     public string? Color { get; set; }
-    public decimal? Diameter { get; set; }
+    public decimal Diameter { get; set; }
 
     public Guid SaleItemId { get; set; }
     public SaleItem SaleItem { get; set; } = default!;
