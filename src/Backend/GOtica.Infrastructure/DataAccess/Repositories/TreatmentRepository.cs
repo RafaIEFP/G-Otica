@@ -6,11 +6,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GOtica.Infrastructure.DataAccess.Repositories;
 
-internal sealed class TreatmentRepository(GOticaDbContext dbContext) : ITreatmentReadOnlyRepository, ITreatmentWriteOnlyRepository
+internal sealed class TreatmentRepository(GOticaDbContext dbContext) : ITreatmentReadOnlyRepository, ITreatmentWriteOnlyRepository, ITreatmentUpdateOnlyRepository
 {
     public async Task Add(Treatment treatment)
     {
         await dbContext.Treatments.AddAsync(treatment);
+    }
+
+    public async Task<Treatment?> GetActiveInOpticalStore(Guid treatmentId, Guid opticalStoreId)
+    {
+        return await dbContext.Treatments
+            .FirstOrDefaultAsync(treatment =>
+                treatment.Id == treatmentId &&
+                treatment.OpticalStoreId == opticalStoreId &&
+                treatment.IsActive);
     }
 
     public async Task<PagedResult<TreatmentDto>> GetAll(Guid opticalStoreId, int page, int pageSize, bool? isActive)
@@ -53,7 +62,7 @@ internal sealed class TreatmentRepository(GOticaDbContext dbContext) : ITreatmen
                 treatment.OpticalStoreId == opticalStoreId);
     }
 
-    public async Task<bool> TreatmentAlreadyAtOpticalStore(string name, Guid opticalStoreId)
+    public async Task<bool> TreatmentAlreadyAtOpticalStore(string name, Guid opticalStoreId, Guid? exceptTreatmentId = null)
     {
         var normalizedName = name.ToUpperInvariant();
 
@@ -61,6 +70,7 @@ internal sealed class TreatmentRepository(GOticaDbContext dbContext) : ITreatmen
             .AsNoTracking()
             .AnyAsync(treatment =>
                 treatment.OpticalStoreId == opticalStoreId &&
+                treatment.Id != exceptTreatmentId &&
                 treatment.Name.ToUpper() == normalizedName);
     }
 }

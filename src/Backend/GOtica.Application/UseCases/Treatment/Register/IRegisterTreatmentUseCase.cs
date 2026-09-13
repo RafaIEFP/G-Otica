@@ -5,5 +5,5 @@ namespace GOtica.Application.UseCases.Treatment.Register;
 
 public interface IRegisterTreatmentUseCase
 {
-    Task<ResponseRegisterTreatment> Execute(Guid opticalStoreId, RequestRegisterTreatment request);
+    Task<ResponseRegisterTreatment> Execute(Guid opticalStoreId, RequestTreatment request);
 }

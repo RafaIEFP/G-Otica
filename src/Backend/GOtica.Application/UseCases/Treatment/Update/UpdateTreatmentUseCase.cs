@@ -1,49 +1,47 @@
 ﻿using GOtica.Communication.Requests;
 using GOtica.Communication.Requests.Treatment;
-using GOtica.Communication.Response.Treatment;
 using GOtica.Domain.Repositories;
 using GOtica.Domain.Repositories.Treatment;
 using GOtica.Exceptions.ExceptionsBase;
 using GOtica.Exceptions.Resources;
 using Mapster;
 
-namespace GOtica.Application.UseCases.Treatment.Register;
+namespace GOtica.Application.UseCases.Treatment.Update;
 
-public class RegisterTreatmentUseCase : IRegisterTreatmentUseCase
+public class UpdateTreatmentUseCase : IUpdateTreatmentUseCase
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly ITreatmentReadOnlyRepository _treatmentReadOnlyRepository;
-    private readonly ITreatmentWriteOnlyRepository _treatmentWriteOnlyRepository;
-    public RegisterTreatmentUseCase(
+    private readonly ITreatmentUpdateOnlyRepository _treatmentUpdateOnlyRepository;
+    public UpdateTreatmentUseCase(
         IUnitOfWork unitOfWork,
         ITreatmentReadOnlyRepository treatmentReadOnlyRepository,
-        ITreatmentWriteOnlyRepository treatmentWriteOnlyRepository)
+        ITreatmentUpdateOnlyRepository treatmentUpdateOnlyRepository)
     {
         _unitOfWork = unitOfWork;
         _treatmentReadOnlyRepository = treatmentReadOnlyRepository;
-        _treatmentWriteOnlyRepository = treatmentWriteOnlyRepository;
+        _treatmentUpdateOnlyRepository = treatmentUpdateOnlyRepository;
     }
 
-    public async Task<ResponseRegisterTreatment> Execute(Guid opticalStoreId, RequestTreatment request)
+    public async Task Execute(Guid opticalStoreId, Guid treatmentId, RequestTreatment request)
     {
         request = request.Normalize();
 
         Validate(request);
 
-        var treatmentAlreadyRegistered = await _treatmentReadOnlyRepository.TreatmentAlreadyAtOpticalStore(request.Name, opticalStoreId);
+        var treatment = await _treatmentUpdateOnlyRepository.GetActiveInOpticalStore(treatmentId, opticalStoreId)
+            ??
+            throw new NotFoundException(ResourceMessagesException.TREATMENT_NOT_FOUND);
+
+        var treatmentAlreadyRegistered =
+            await _treatmentReadOnlyRepository.TreatmentAlreadyAtOpticalStore(request.Name, opticalStoreId, treatmentId);
 
         if (treatmentAlreadyRegistered)
             throw new ConflictException(ResourceMessagesException.TREATMENT_ALREADY_REGISTERED);
 
-        var treatment = request.Adapt<Domain.Entities.Treatment>();
-
-        treatment.OpticalStoreId = opticalStoreId;
-
-        await _treatmentWriteOnlyRepository.Add(treatment);
+        request.Adapt(treatment);
 
         await _unitOfWork.Commit();
-
-        return treatment.Adapt<ResponseRegisterTreatment>();
     }
 
     private static void Validate(RequestTreatment request)

@@ -2,6 +2,7 @@
 using GOtica.Application.UseCases.Treatment.Get;
 using GOtica.Application.UseCases.Treatment.GetAll;
 using GOtica.Application.UseCases.Treatment.Register;
+using GOtica.Application.UseCases.Treatment.Update;
 using GOtica.Communication.Requests.Treatment;
 using GOtica.Communication.Response;
 using GOtica.Communication.Response.Treatment;
@@ -21,7 +22,7 @@ public class TreatmentController : ControllerBase
     [ProducesResponseType(typeof(ResponseError), StatusCodes.Status409Conflict)]
     public async Task<IActionResult> Register(
         [FromRoute] Guid opticalStoreId,
-        [FromBody] RequestRegisterTreatment request,
+        [FromBody] RequestTreatment request,
         [FromServices] IRegisterTreatmentUseCase useCase)
     {
         var response = await useCase.Execute(opticalStoreId, request);
@@ -53,5 +54,21 @@ public class TreatmentController : ControllerBase
         var response = await useCase.Execute(opticalStoreId, request);
 
         return Ok(response);
+    }
+
+    [HttpPut("{treatmentId:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status409Conflict)]
+    public async Task<IActionResult> Update(
+        [FromRoute] Guid opticalStoreId,
+        [FromRoute] Guid treatmentId,
+        [FromBody] RequestTreatment request,
+        [FromServices] IUpdateTreatmentUseCase useCase)
+    {
+        await useCase.Execute(opticalStoreId, treatmentId, request);
+
+        return NoContent();
     }
 }

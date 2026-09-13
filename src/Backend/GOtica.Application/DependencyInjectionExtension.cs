@@ -48,6 +48,7 @@ using GOtica.Application.UseCases.Token.RefreshToken;
 using GOtica.Application.UseCases.Treatment.Get;
 using GOtica.Application.UseCases.Treatment.GetAll;
 using GOtica.Application.UseCases.Treatment.Register;
+using GOtica.Application.UseCases.Treatment.Update;
 using GOtica.Application.UseCases.User.ChangePassword;
 using GOtica.Application.UseCases.User.DeleteAccount;
 using GOtica.Application.UseCases.User.Profile;
@@ -175,6 +176,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IRegisterTreatmentUseCase, RegisterTreatmentUseCase>();
         services.AddScoped<IGetTreatmentUseCase, GetTreatmentUseCase>();
         services.AddScoped<IGetAllTreatmentsUseCase, GetAllTreatmentsUseCase>();
+        services.AddScoped<IUpdateTreatmentUseCase, UpdateTreatmentUseCase>();
         #endregion
     }
 

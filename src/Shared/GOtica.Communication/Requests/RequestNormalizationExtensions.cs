@@ -198,9 +198,9 @@ public static class RequestNormalizationExtensions
         }
     }
 
-    extension(RequestRegisterTreatment request)
+    extension(RequestTreatment request)
     {
-        public RequestRegisterTreatment Normalize()
+        public RequestTreatment Normalize()
         {
             return request with
             {

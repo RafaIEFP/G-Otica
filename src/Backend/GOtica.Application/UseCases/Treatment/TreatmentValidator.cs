@@ -2,11 +2,11 @@
 using GOtica.Communication.Requests.Treatment;
 using GOtica.Exceptions.Resources;
 
-namespace GOtica.Application.UseCases.Treatment.Register;
+namespace GOtica.Application.UseCases.Treatment;
 
-internal class RegisterTreatmentValidator : AbstractValidator<RequestRegisterTreatment>
+internal class TreatmentValidator : AbstractValidator<RequestTreatment>
 {
-    public RegisterTreatmentValidator()
+    public TreatmentValidator()
     {
         RuleFor(request => request.Name)
             .NotEmpty()

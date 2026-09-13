@@ -4,7 +4,7 @@ namespace GOtica.Domain.Repositories.Treatment;
 
 public interface ITreatmentReadOnlyRepository
 {
-    Task<bool> TreatmentAlreadyAtOpticalStore(string name, Guid opticalStoreId);
+    Task<bool> TreatmentAlreadyAtOpticalStore(string name, Guid opticalStoreId, Guid? exceptTreatmentId = null);
     Task<Entities.Treatment?> GetById(Guid treatmentId, Guid opticalStoreId);
     Task<PagedResult<TreatmentDto>> GetAll(
         Guid opticalStoreId,
