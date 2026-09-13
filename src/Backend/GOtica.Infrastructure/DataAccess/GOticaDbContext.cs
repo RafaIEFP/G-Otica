@@ -20,6 +20,8 @@ internal class GOticaDbContext(DbContextOptions options) : DbContext(options)
     public DbSet<Sale> Sales { get; set; }
     public DbSet<SaleItem> SaleItems { get; set; }
     public DbSet<Payment> Payments { get; set; }
+    public DbSet<Treatment> Treatments { get; set; }
+    public DbSet<ItemLens> ItemLens { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
