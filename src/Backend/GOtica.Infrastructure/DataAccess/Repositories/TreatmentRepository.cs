@@ -13,6 +13,21 @@ internal sealed class TreatmentRepository(GOticaDbContext dbContext) : ITreatmen
         await dbContext.Treatments.AddAsync(treatment);
     }
 
+    public async Task<bool> Deactivate(Guid treatmentId, Guid opticalStoreId)
+    {
+        var affectedRows = await dbContext.Treatments
+            .Where(treatment =>
+                treatment.Id == treatmentId &&
+                treatment.OpticalStoreId == opticalStoreId &&
+                treatment.IsActive)
+            .ExecuteUpdateAsync(
+                setter => setter.SetProperty(
+                    treatment => treatment.IsActive,
+                    false));
+
+        return affectedRows > 0;
+    }
+
     public async Task<Treatment?> GetActiveInOpticalStore(Guid treatmentId, Guid opticalStoreId)
     {
         return await dbContext.Treatments

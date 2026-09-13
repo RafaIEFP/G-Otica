@@ -1,4 +1,5 @@
 ﻿using GOtica.API.Attributes;
+using GOtica.Application.UseCases.Treatment.Deactivate;
 using GOtica.Application.UseCases.Treatment.Get;
 using GOtica.Application.UseCases.Treatment.GetAll;
 using GOtica.Application.UseCases.Treatment.Register;
@@ -68,6 +69,19 @@ public class TreatmentController : ControllerBase
         [FromServices] IUpdateTreatmentUseCase useCase)
     {
         await useCase.Execute(opticalStoreId, treatmentId, request);
+
+        return NoContent();
+    }
+
+    [HttpDelete("{treatmentId:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Deactivate(
+        [FromRoute] Guid opticalStoreId,
+        [FromRoute] Guid treatmentId,
+        [FromServices] IDeactivateTreatmentUseCase useCase)
+    {
+        await useCase.Execute(opticalStoreId, treatmentId);
 
         return NoContent();
     }
