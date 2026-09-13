@@ -55,4 +55,13 @@ internal static class DataNormalizer
 
         return Text(value);
     }
+
+    public static string TreatmentName(string value)
+    {
+        var parts = value.Split(
+            (char[]?)null,
+            StringSplitOptions.RemoveEmptyEntries);
+
+        return string.Join(' ', parts);
+    }
 }

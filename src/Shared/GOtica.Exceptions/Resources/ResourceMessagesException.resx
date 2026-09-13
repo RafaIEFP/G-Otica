@@ -369,4 +369,10 @@
   <data name="SALE_CANNOT_BE_CANCELLED" xml:space="preserve">
     <value>The sale cannot be cancelled from its current status.</value>
   </data>
+  <data name="TREATMENT_BASE_PRICE_INVALID" xml:space="preserve">
+    <value>The treatment base price cannot be less than zero.</value>
+  </data>
+  <data name="TREATMENT_ALREADY_REGISTERED" xml:space="preserve">
+    <value>This treatment is already registered at this optical store.</value>
+  </data>
 </root>

@@ -709,6 +709,24 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This treatment is already registered at this optical store..
+        /// </summary>
+        public static string TREATMENT_ALREADY_REGISTERED {
+            get {
+                return ResourceManager.GetString("TREATMENT_ALREADY_REGISTERED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The treatment base price cannot be less than zero..
+        /// </summary>
+        public static string TREATMENT_BASE_PRICE_INVALID {
+            get {
+                return ResourceManager.GetString("TREATMENT_BASE_PRICE_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The unit price cannot be negative..
         /// </summary>
         public static string UNIT_PRICE_NEGATIVE {

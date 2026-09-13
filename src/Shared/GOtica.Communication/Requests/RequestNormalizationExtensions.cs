@@ -4,6 +4,7 @@ using GOtica.Communication.Requests.OpticalStore;
 using GOtica.Communication.Requests.Prescription;
 using GOtica.Communication.Requests.Product;
 using GOtica.Communication.Requests.Supplier;
+using GOtica.Communication.Requests.Treatment;
 using GOtica.Communication.Requests.User;
 using GOtica.Communication.Requests.UserOpticalStore;
 using GOtica.Communication.Response.Product;
@@ -193,6 +194,17 @@ public static class RequestNormalizationExtensions
                 LeftEyeVisualAcuity = DataNormalizer.OptionalText(request.LeftEyeVisualAcuity),
                 NearVisualAcuity = DataNormalizer.OptionalText(request.NearVisualAcuity),
                 Notes = DataNormalizer.OptionalText(request.Notes)
+            };
+        }
+    }
+
+    extension(RequestRegisterTreatment request)
+    {
+        public RequestRegisterTreatment Normalize()
+        {
+            return request with
+            {
+                Name = DataNormalizer.TreatmentName(request.Name)
             };
         }
     }
