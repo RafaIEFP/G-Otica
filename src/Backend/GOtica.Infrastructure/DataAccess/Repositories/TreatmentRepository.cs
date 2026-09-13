@@ -77,6 +77,21 @@ internal sealed class TreatmentRepository(GOticaDbContext dbContext) : ITreatmen
                 treatment.OpticalStoreId == opticalStoreId);
     }
 
+    public async Task<bool> Reactivate(Guid treatmentId, Guid opticalStoreId)
+    {
+        var affectedRows = await dbContext.Treatments
+            .Where(treatment =>
+                treatment.Id == treatmentId &&
+                treatment.OpticalStoreId == opticalStoreId &&
+                !treatment.IsActive)
+            .ExecuteUpdateAsync(
+                setter => setter.SetProperty(
+                    treatment => treatment.IsActive,
+                    true));
+
+        return affectedRows > 0;
+    }
+
     public async Task<bool> TreatmentAlreadyAtOpticalStore(string name, Guid opticalStoreId, Guid? exceptTreatmentId = null)
     {
         var normalizedName = name.ToUpperInvariant();

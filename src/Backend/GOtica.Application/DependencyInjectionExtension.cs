@@ -45,8 +45,10 @@ using GOtica.Application.UseCases.Supplier.Reactivate;
 using GOtica.Application.UseCases.Supplier.Register;
 using GOtica.Application.UseCases.Supplier.Update;
 using GOtica.Application.UseCases.Token.RefreshToken;
+using GOtica.Application.UseCases.Treatment.Deactivate;
 using GOtica.Application.UseCases.Treatment.Get;
 using GOtica.Application.UseCases.Treatment.GetAll;
+using GOtica.Application.UseCases.Treatment.Reactivate;
 using GOtica.Application.UseCases.Treatment.Register;
 using GOtica.Application.UseCases.Treatment.Update;
 using GOtica.Application.UseCases.User.ChangePassword;
@@ -177,6 +179,8 @@ public static class DependencyInjectionExtension
         services.AddScoped<IGetTreatmentUseCase, GetTreatmentUseCase>();
         services.AddScoped<IGetAllTreatmentsUseCase, GetAllTreatmentsUseCase>();
         services.AddScoped<IUpdateTreatmentUseCase, UpdateTreatmentUseCase>();
+        services.AddScoped<IDeactivateTreatmentUseCase, DeactivateTreatmentUseCase>();
+        services.AddScoped<IReactivateTreatmentUseCase, ReactivateTreatmentUseCase>();
         #endregion
     }
 
