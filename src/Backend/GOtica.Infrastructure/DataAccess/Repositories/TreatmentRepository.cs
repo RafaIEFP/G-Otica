@@ -1,4 +1,6 @@
-﻿using GOtica.Domain.Entities;
+﻿using GOtica.Domain.Dtos;
+using GOtica.Domain.Entities;
+using GOtica.Domain.Repositories;
 using GOtica.Domain.Repositories.Treatment;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +11,37 @@ internal sealed class TreatmentRepository(GOticaDbContext dbContext) : ITreatmen
     public async Task Add(Treatment treatment)
     {
         await dbContext.Treatments.AddAsync(treatment);
+    }
+
+    public async Task<PagedResult<TreatmentDto>> GetAll(Guid opticalStoreId, int page, int pageSize, bool? isActive)
+    {
+        var query = dbContext.Treatments.AsNoTracking().Where(treatment => treatment.OpticalStoreId == opticalStoreId);
+
+        if (isActive.HasValue)
+            query = query.Where(treatment => treatment.IsActive == isActive.Value);
+
+        var totalCount = await query.CountAsync();
+
+        var treatments = await query
+            .OrderBy(treatment => treatment.Name)
+            .ThenBy(treatment => treatment.Id)
+            .Paged(page, pageSize)
+            .Select(treatment => new TreatmentDto
+            {
+                Id = treatment.Id,
+                Name = treatment.Name,
+                BasePrice = treatment.BasePrice,
+                IsActive = treatment.IsActive
+            })
+            .ToListAsync();
+
+        return new PagedResult<TreatmentDto>
+        {
+            Items = treatments,
+            Page = page,
+            PageSize = pageSize,
+            TotalCount = totalCount
+        };
     }
 
     public async Task<Treatment?> GetById(Guid treatmentId, Guid opticalStoreId)
