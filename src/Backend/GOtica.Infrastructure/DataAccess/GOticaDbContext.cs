@@ -27,11 +27,22 @@ internal class GOticaDbContext(DbContextOptions options) : DbContext(options)
     {
         base.OnModelCreating(modelBuilder);
 
-        // Configura a chave composta de UserOpticalStore
+        // CK == Composite Key
+        ConfigureUserOpticalStoreCK(modelBuilder);
+        ConfigureItemLensTreatmentCK(modelBuilder);
+
+        // 1:1 relationship between ItemLens and SaleItem
+        modelBuilder.Entity<ItemLens>()
+            .HasOne(itemLens => itemLens.SaleItem)
+            .WithOne()
+            .HasForeignKey<ItemLens>(itemLens => itemLens.SaleItemId);
+    }
+
+    private static void ConfigureUserOpticalStoreCK(ModelBuilder modelBuilder)
+    {
         modelBuilder.Entity<UserOpticalStore>()
             .HasKey(uos => new { uos.UserId, uos.OpticalStoreId });
 
-        // Configura os relacionamentos
         modelBuilder.Entity<UserOpticalStore>()
             .HasOne(uos => uos.User)
             .WithMany()
@@ -41,5 +52,25 @@ internal class GOticaDbContext(DbContextOptions options) : DbContext(options)
             .HasOne(uos => uos.OpticalStore)
             .WithMany()
             .HasForeignKey(uos => uos.OpticalStoreId);
+    }
+
+    private static void ConfigureItemLensTreatmentCK(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<ItemLensTreatment>()
+            .HasKey(itemLensTreatment => new
+            {
+                itemLensTreatment.ItemLensId,
+                itemLensTreatment.TreatmentId
+            });
+
+        modelBuilder.Entity<ItemLensTreatment>()
+            .HasOne(itemLensTreatment => itemLensTreatment.ItemLens)
+            .WithMany(itemLens => itemLens.Treatments)
+            .HasForeignKey(itemLensTreatment => itemLensTreatment.ItemLensId);
+
+        modelBuilder.Entity<ItemLensTreatment>()
+            .HasOne(itemLensTreatment => itemLensTreatment.Treatment)
+            .WithMany(treatment => treatment.ItemLensTreatments)
+            .HasForeignKey(itemLensTreatment => itemLensTreatment.TreatmentId);
     }
 }
