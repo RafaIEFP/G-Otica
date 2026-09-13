@@ -727,6 +727,15 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Treatment not found..
+        /// </summary>
+        public static string TREATMENT_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("TREATMENT_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The unit price cannot be negative..
         /// </summary>
         public static string UNIT_PRICE_NEGATIVE {

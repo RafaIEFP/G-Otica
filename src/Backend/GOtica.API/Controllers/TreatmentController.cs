@@ -1,4 +1,5 @@
 ﻿using GOtica.API.Attributes;
+using GOtica.Application.UseCases.Treatment.Get;
 using GOtica.Application.UseCases.Treatment.Register;
 using GOtica.Communication.Requests.Treatment;
 using GOtica.Communication.Response;
@@ -25,5 +26,18 @@ public class TreatmentController : ControllerBase
         var response = await useCase.Execute(opticalStoreId, request);
 
         return Created(string.Empty, response);
+    }
+
+    [HttpGet("{treatmentId:guid}")]
+    [ProducesResponseType(typeof(ResponseTreatment), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Get(
+        [FromRoute] Guid opticalStoreId,
+        [FromRoute] Guid treatmentId,
+        [FromServices] IGetTreatmentUseCase useCase)
+    {
+        var response = await useCase.Execute(opticalStoreId, treatmentId);
+
+        return Ok(response);
     }
 }

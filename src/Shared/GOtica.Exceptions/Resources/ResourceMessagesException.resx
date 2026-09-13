@@ -375,4 +375,7 @@
   <data name="TREATMENT_ALREADY_REGISTERED" xml:space="preserve">
     <value>This treatment is already registered at this optical store.</value>
   </data>
+  <data name="TREATMENT_NOT_FOUND" xml:space="preserve">
+    <value>Treatment not found.</value>
+  </data>
 </root>
