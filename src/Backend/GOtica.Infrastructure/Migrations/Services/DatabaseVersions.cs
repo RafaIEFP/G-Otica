@@ -14,4 +14,7 @@ internal sealed class DatabaseVersions
     internal const long TABLE_SALE = 10;
     internal const long TABLE_SALE_ITEM = 11;
     internal const long TABLE_PAYMENT = 12;
+    internal const long TABLE_TREATMENT = 13;
+    internal const long TABLE_ITEM_LENS = 14;
+    internal const long TABLE_ITEM_LENS_TREATMENT = 15;
 }
