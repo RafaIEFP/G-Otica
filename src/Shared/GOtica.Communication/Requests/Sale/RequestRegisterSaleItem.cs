@@ -6,4 +6,5 @@ public record RequestRegisterSaleItem
     public int Quantity { get; init; }
     public decimal DiscountAmount { get; init; }
     public string? Notes { get; init; }
+    public RequestRegisterSaleItemLens? ItemLens { get; init; }
 }

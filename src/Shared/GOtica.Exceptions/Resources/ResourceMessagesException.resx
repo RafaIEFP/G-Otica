@@ -378,4 +378,52 @@
   <data name="TREATMENT_NOT_FOUND" xml:space="preserve">
     <value>Treatment not found.</value>
   </data>
+  <data name="PRESCRIPTION_REQUIRED_FOR_LENS_SALE" xml:space="preserve">
+    <value>A prescription is required when the sale contains a prescription lens.</value>
+  </data>
+  <data name="LENS_ITEM_QUANTITY_MUST_BE_ONE" xml:space="preserve">
+    <value>A prescription lens sale item must have a quantity of exactly one.</value>
+  </data>
+  <data name="EYE_SIDE_REQUIRED" xml:space="preserve">
+    <value>The eye side is required.</value>
+  </data>
+  <data name="EYE_SIDE_INVALID" xml:space="preserve">
+    <value>The eye side is invalid.</value>
+  </data>
+  <data name="LENS_TYPE_REQUIRED" xml:space="preserve">
+    <value>The lens type is required.</value>
+  </data>
+  <data name="LENS_TYPE_INVALID" xml:space="preserve">
+    <value>The lens type is invalid.</value>
+  </data>
+  <data name="LENS_MATERIAL_REQUIRED" xml:space="preserve">
+    <value>The lens material is required.</value>
+  </data>
+  <data name="LENS_MATERIAL_INVALID" xml:space="preserve">
+    <value>The lens material is invalid.</value>
+  </data>
+  <data name="REFRACTIVE_INDEX_INVALID" xml:space="preserve">
+    <value>The refractive index must be greater than zero.</value>
+  </data>
+  <data name="LENS_DIAMETER_INVALID" xml:space="preserve">
+    <value>The lens diameter must be greater than zero.</value>
+  </data>
+  <data name="PUPILLARY_DISTANCE_INVALID" xml:space="preserve">
+    <value>The pupillary distance must be greater than zero.</value>
+  </data>
+  <data name="NASO_PUPILLARY_DISTANCE_INVALID" xml:space="preserve">
+    <value>The naso-pupillary distance must be greater than zero.</value>
+  </data>
+  <data name="LENS_COLOR_MAX_LENGTH" xml:space="preserve">
+    <value>The lens color cannot exceed 100 characters.</value>
+  </data>
+  <data name="LENS_TREATMENTS_INVALID" xml:space="preserve">
+    <value>The lens treatment collection cannot be null.</value>
+  </data>
+  <data name="TREATMENT_ID_INVALID" xml:space="preserve">
+    <value>The treatment identifier must be valid.</value>
+  </data>
+  <data name="LENS_TREATMENTS_DUPLICATED" xml:space="preserve">
+    <value>The same treatment cannot be added more than once to a lens.</value>
+  </data>
 </root>

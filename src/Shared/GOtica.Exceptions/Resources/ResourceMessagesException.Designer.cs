@@ -178,6 +178,24 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The eye side is invalid..
+        /// </summary>
+        public static string EYE_SIDE_INVALID {
+            get {
+                return ResourceManager.GetString("EYE_SIDE_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The eye side is required..
+        /// </summary>
+        public static string EYE_SIDE_REQUIRED {
+            get {
+                return ResourceManager.GetString("EYE_SIDE_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The initial payment is required.
         /// </summary>
         public static string INITIAL_PAYMENT_EMPTY {
@@ -241,11 +259,101 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The lens color cannot exceed 100 characters..
+        /// </summary>
+        public static string LENS_COLOR_MAX_LENGTH {
+            get {
+                return ResourceManager.GetString("LENS_COLOR_MAX_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The lens diameter must be greater than zero..
+        /// </summary>
+        public static string LENS_DIAMETER_INVALID {
+            get {
+                return ResourceManager.GetString("LENS_DIAMETER_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A prescription lens sale item must have a quantity of exactly one..
+        /// </summary>
+        public static string LENS_ITEM_QUANTITY_MUST_BE_ONE {
+            get {
+                return ResourceManager.GetString("LENS_ITEM_QUANTITY_MUST_BE_ONE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The lens material is invalid..
+        /// </summary>
+        public static string LENS_MATERIAL_INVALID {
+            get {
+                return ResourceManager.GetString("LENS_MATERIAL_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The lens material is required..
+        /// </summary>
+        public static string LENS_MATERIAL_REQUIRED {
+            get {
+                return ResourceManager.GetString("LENS_MATERIAL_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The same treatment cannot be added more than once to a lens..
+        /// </summary>
+        public static string LENS_TREATMENTS_DUPLICATED {
+            get {
+                return ResourceManager.GetString("LENS_TREATMENTS_DUPLICATED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The lens treatment collection cannot be null..
+        /// </summary>
+        public static string LENS_TREATMENTS_INVALID {
+            get {
+                return ResourceManager.GetString("LENS_TREATMENTS_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The lens type is invalid..
+        /// </summary>
+        public static string LENS_TYPE_INVALID {
+            get {
+                return ResourceManager.GetString("LENS_TYPE_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The lens type is required..
+        /// </summary>
+        public static string LENS_TYPE_REQUIRED {
+            get {
+                return ResourceManager.GetString("LENS_TYPE_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The name cannot be empty..
         /// </summary>
         public static string NAME_EMPTY {
             get {
                 return ResourceManager.GetString("NAME_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The naso-pupillary distance must be greater than zero..
+        /// </summary>
+        public static string NASO_PUPILLARY_DISTANCE_INVALID {
+            get {
+                return ResourceManager.GetString("NASO_PUPILLARY_DISTANCE_INVALID", resourceCulture);
             }
         }
         
@@ -466,6 +574,15 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A prescription is required when the sale contains a prescription lens..
+        /// </summary>
+        public static string PRESCRIPTION_REQUIRED_FOR_LENS_SALE {
+            get {
+                return ResourceManager.GetString("PRESCRIPTION_REQUIRED_FOR_LENS_SALE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This product is already registered at this optical shop.
         /// </summary>
         public static string PRODUCT_ALREADY_REGISTERED {
@@ -529,6 +646,15 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The pupillary distance must be greater than zero..
+        /// </summary>
+        public static string PUPILLARY_DISTANCE_INVALID {
+            get {
+                return ResourceManager.GetString("PUPILLARY_DISTANCE_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The purchase must contain at least one item..
         /// </summary>
         public static string PURCHASE_ITEMS_EMPTY {
@@ -552,6 +678,15 @@ namespace GOtica.Exceptions.Resources {
         public static string QUANTITY_INVALID {
             get {
                 return ResourceManager.GetString("QUANTITY_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The refractive index must be greater than zero..
+        /// </summary>
+        public static string REFRACTIVE_INDEX_INVALID {
+            get {
+                return ResourceManager.GetString("REFRACTIVE_INDEX_INVALID", resourceCulture);
             }
         }
         
@@ -723,6 +858,15 @@ namespace GOtica.Exceptions.Resources {
         public static string TREATMENT_BASE_PRICE_INVALID {
             get {
                 return ResourceManager.GetString("TREATMENT_BASE_PRICE_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The treatment identifier must be valid..
+        /// </summary>
+        public static string TREATMENT_ID_INVALID {
+            get {
+                return ResourceManager.GetString("TREATMENT_ID_INVALID", resourceCulture);
             }
         }
         
