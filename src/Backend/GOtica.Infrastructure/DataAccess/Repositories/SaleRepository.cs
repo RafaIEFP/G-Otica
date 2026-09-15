@@ -174,9 +174,27 @@ internal sealed class SaleRepository(GOticaDbContext dbContext) : ISaleWriteOnly
                 TotalAmount = sale.TotalAmount,
                 ReceivedAmount = sale.Payments
                     .Where(payment => payment.Status == PaymentStatus.Received)
-                    .Sum(payment => payment.Amount)
+                    .Sum(payment => payment.Amount),
+
+                HasLens = sale.Items.Any(item => item.ItemLens != null)
             })
             .FirstOrDefaultAsync();
+    }
+
+    public async Task<bool> TryStartProduction(Guid saleId, Guid opticalStoreId)
+    {
+        var affectedRows = await dbContext.Sales
+            .Where(sale =>
+                sale.Id == saleId &&
+                sale.OpticalStoreId == opticalStoreId &&
+                sale.Status == SaleStatus.Confirmed &&
+                sale.Items.Any(item => item.ItemLens != null))
+            .ExecuteUpdateAsync(setters => setters
+                .SetProperty(
+                    sale => sale.Status,
+                    SaleStatus.InProduction));
+
+        return affectedRows > 0;
     }
 
     public async Task<bool> TryUpdateStatus(Guid saleId, Guid opticalStoreId, SaleStatus expectedStatus, SaleStatus newStatus)

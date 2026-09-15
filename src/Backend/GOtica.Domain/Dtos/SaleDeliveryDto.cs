@@ -7,4 +7,5 @@ public class SaleDeliveryDto
     public SaleStatus Status { get; init; }
     public decimal TotalAmount { get; init; }
     public decimal ReceivedAmount { get; init; }
+    public bool HasLens { get; init; }
 }

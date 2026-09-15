@@ -9,4 +9,6 @@ public interface ISaleUpdateOnlyRepository
         Guid opticalStoreId,
         SaleStatus expectedStatus,
         SaleStatus newStatus);
+
+    Task<bool> TryStartProduction(Guid saleId, Guid opticalStoreId);
 }

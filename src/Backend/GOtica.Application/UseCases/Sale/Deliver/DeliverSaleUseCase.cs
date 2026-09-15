@@ -22,10 +22,10 @@ public class DeliverSaleUseCase : IDeliverSaleUseCase
             ??
             throw new NotFoundException(ResourceMessagesException.SALE_NOT_FOUND);
 
-        if (sale.Status is not Domain.Enums.SaleStatus.Confirmed and not Domain.Enums.SaleStatus.Ready)
-        {
+        var expectedStatus = sale.HasLens ? Domain.Enums.SaleStatus.Ready : Domain.Enums.SaleStatus.Confirmed;
+
+        if (sale.Status != expectedStatus)
             throw new ConflictException(ResourceMessagesException.SALE_CANNOT_BE_DELIVERED);
-        }
 
         if (sale.ReceivedAmount < sale.TotalAmount)
             throw new ConflictException(ResourceMessagesException.SALE_HAS_OUTSTANDING_BALANCE);

@@ -18,13 +18,9 @@ public class StartSaleProductionUseCase : IStartSaleProductionUseCase
 
     public async Task Execute(Guid opticalStoreId, Guid saleId)
     {
-        var statusUpdated = await _saleUpdateOnlyRepository.TryUpdateStatus(
-            saleId,
-            opticalStoreId,
-            Domain.Enums.SaleStatus.Confirmed,
-            Domain.Enums.SaleStatus.InProduction);
+        var productionStarted = await _saleUpdateOnlyRepository.TryStartProduction(saleId, opticalStoreId);
 
-        if (statusUpdated)
+        if (productionStarted)
             return;
 
         var saleExists = await _saleReadOnlyRepository.Exist(saleId, opticalStoreId);
