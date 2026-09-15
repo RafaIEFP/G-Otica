@@ -154,7 +154,8 @@ internal sealed class SaleRepository(GOticaDbContext dbContext) : ISaleWriteOnly
                     .Select(item => new SaleCancellationItemDto
                     {
                         ProductId = item.ProductId,
-                        Quantity = item.Quantity
+                        Quantity = item.Quantity,
+                        HasItemLens = item.ItemLens != null
                     })
                     .ToList()
             })
