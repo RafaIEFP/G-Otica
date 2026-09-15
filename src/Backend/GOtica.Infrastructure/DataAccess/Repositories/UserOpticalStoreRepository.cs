@@ -168,4 +168,22 @@ internal sealed class UserOpticalStoreRepository(GOticaDbContext dbContext) : IU
             .Where(uos => uos.UserId == userId && uos.OpticalStoreId == opticalStoreId && !uos.IsActive)
             .ExecuteUpdateAsync(setter => setter.SetProperty(uos => uos.IsActive, true));
     }
+
+    public async Task<bool> UserOpticalStoreExists(Guid userId, Guid opticalStoreId)
+    {
+        return await dbContext.UserOpticalStores
+            .AsNoTracking()
+            .AnyAsync(uos =>
+                uos.UserId == userId &&
+                uos.OpticalStoreId == opticalStoreId);
+    }
+
+    public async Task<bool> UserOpticalStoreExistsByEmail(string email, Guid opticalStoreId)
+    {
+        return await dbContext.UserOpticalStores
+            .AsNoTracking()
+            .AnyAsync(uos =>
+                uos.User.Email == email &&
+                uos.OpticalStoreId == opticalStoreId);
+    }
 }

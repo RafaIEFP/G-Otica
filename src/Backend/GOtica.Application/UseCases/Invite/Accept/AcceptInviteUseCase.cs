@@ -60,11 +60,11 @@ public class AcceptInviteUseCase : IAcceptInviteUseCase
             throw new ForbiddenException(ResourceMessagesException.INVITE_DOES_NOT_BELONGS_USER);
         }
 
-        var userBelongsToOptical = await _userOpticalStoreReadOnlyRepository
-                                            .UserBelongsToOptical(loggedUser.Id, invite.OpticalStoreId);
+        var userOpticalStoreExists = await _userOpticalStoreReadOnlyRepository
+                                            .UserOpticalStoreExists(loggedUser.Id, invite.OpticalStoreId);
 
-        if (userBelongsToOptical)
-            throw new ConflictException(ResourceMessagesException.USER_ALREADY_MEMBER_OF_OS);
+        if (userOpticalStoreExists)
+            throw new ConflictException(ResourceMessagesException.USER_ALREADY_ASSOCIATED_WITH_OPTICAL_STORE);
 
         var userOpticalStore = new Domain.Entities.UserOpticalStore
         {

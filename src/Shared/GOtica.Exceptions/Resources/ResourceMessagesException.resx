@@ -432,4 +432,7 @@
   <data name="ITEM_LENS_NOT_ALLOWED" xml:space="preserve">
     <value>Lens information can only be provided for lens products.</value>
   </data>
+  <data name="USER_ALREADY_ASSOCIATED_WITH_OPTICAL_STORE" xml:space="preserve">
+    <value>The user already has an association with this optical store.</value>
+  </data>
 </root>

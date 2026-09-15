@@ -52,11 +52,11 @@ public class CreateInviteUseCase : ICreateInviteUseCase
 
         Validate(request);
 
-        var userBelongsToOptical = await _userOpticalStoreReadOnlyRepository
-                                            .UserBelongsToOpticalByEmail(request.GuestEmail, opticalStoreId);
+        var userOpticalStoreExists =
+            await _userOpticalStoreReadOnlyRepository.UserOpticalStoreExistsByEmail(request.GuestEmail, opticalStoreId);
 
-        if (userBelongsToOptical)
-            throw new ConflictException(ResourceMessagesException.USER_ALREADY_MEMBER_OF_OS);
+        if (userOpticalStoreExists)
+            throw new ConflictException(ResourceMessagesException.USER_ALREADY_ASSOCIATED_WITH_OPTICAL_STORE);
 
         var pendingInvitationExists = await _inviteReadOnlyRepository.ExistsPendingInvite(request.GuestEmail, opticalStoreId);
 

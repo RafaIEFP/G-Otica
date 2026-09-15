@@ -934,6 +934,15 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The user already has an association with this optical store..
+        /// </summary>
+        public static string USER_ALREADY_ASSOCIATED_WITH_OPTICAL_STORE {
+            get {
+                return ResourceManager.GetString("USER_ALREADY_ASSOCIATED_WITH_OPTICAL_STORE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This user is already a member of the optical store..
         /// </summary>
         public static string USER_ALREADY_MEMBER_OF_OS {

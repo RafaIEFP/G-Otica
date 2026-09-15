@@ -14,4 +14,6 @@ public interface IUserOpticalStoreReadOnlyRepository
     Task<Entities.UserOpticalStore?> GetInactiveUserOpticalStore(Guid userId, Guid opticalId);
     Task<OpticalStoreWithRoleDTO?> GetOpticalStoreWithRole(Guid userId, Guid opticalId);
     Task<IReadOnlyCollection<AllOpticalStoresWithRole>> GetAllOpticalStoresWithRole(Guid userId);
+    Task<bool> UserOpticalStoreExists(Guid userId, Guid opticalStoreId);
+    Task<bool> UserOpticalStoreExistsByEmail(string email, Guid opticalStoreId);
 }
