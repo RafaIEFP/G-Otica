@@ -10,4 +10,5 @@ public class SaleItemDto
     public decimal DiscountAmount { get; init; }
     public decimal TotalAmount { get; init; }
     public string? Notes { get; init; }
+    public ItemLensDto? ItemLens { get; init; }
 }

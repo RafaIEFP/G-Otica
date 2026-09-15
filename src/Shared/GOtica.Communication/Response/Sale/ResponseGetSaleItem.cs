@@ -10,4 +10,5 @@ public record ResponseGetSaleItem
     public decimal DiscountAmount { get; init; }
     public decimal TotalAmount { get; init; }
     public string? Notes { get; init; }
+    public ResponseGetSaleItemLens? ItemLens { get; init; }
 }

@@ -91,7 +91,32 @@ internal sealed class SaleRepository(GOticaDbContext dbContext) : ISaleWriteOnly
                         UnitPrice = item.UnitPrice,
                         DiscountAmount = item.DiscountAmount,
                         TotalAmount = item.TotalAmount,
-                        Notes = item.Notes
+                        Notes = item.Notes,
+
+                        ItemLens = item.ItemLens == null
+                            ? null
+                            : new ItemLensDto
+                            {
+                                Id = item.ItemLens.Id,
+                                EyeSide = item.ItemLens.EyeSide,
+                                PupillaryDistance = item.ItemLens.PupillaryDistance,
+                                NasoPupillaryDistance = item.ItemLens.NasoPupillaryDistance,
+                                LensType = item.ItemLens.LensType,
+                                RefractiveIndex = item.ItemLens.RefractiveIndex,
+                                Material = item.ItemLens.Material,
+                                Color = item.ItemLens.Color,
+                                Diameter = item.ItemLens.Diameter,
+
+                                Treatments = item.ItemLens.Treatments
+                                    .OrderBy(itemLensTreatment => itemLensTreatment.TreatmentId)
+                                    .Select(itemLensTreatment => new ItemLensTreatmentDto
+                                    {
+                                        TreatmentId = itemLensTreatment.TreatmentId,
+                                        TreatmentName = itemLensTreatment.Treatment.Name,
+                                        UnitPrice = itemLensTreatment.UnitPrice
+                                    })
+                                    .ToList()
+                            }
                     })
                     .ToList(),
 

@@ -1,5 +1,4 @@
-﻿using GOtica.Domain.Entities;
-using GOtica.Domain.Enums;
+﻿using GOtica.Domain.Enums;
 
 namespace GOtica.Domain.Dtos;
 
