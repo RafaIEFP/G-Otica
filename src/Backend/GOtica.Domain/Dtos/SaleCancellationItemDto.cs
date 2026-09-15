@@ -4,4 +4,5 @@ public class SaleCancellationItemDto
 {
     public Guid ProductId { get; init; }
     public int Quantity { get; init; }
+    public bool HasItemLens { get; init; }
 }

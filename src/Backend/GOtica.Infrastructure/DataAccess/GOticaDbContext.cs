@@ -35,11 +35,6 @@ internal class GOticaDbContext(DbContextOptions options) : DbContext(options)
         // 1:1 relationship between ItemLens and SaleItem
         modelBuilder.Entity<ItemLens>()
             .HasOne(itemLens => itemLens.SaleItem)
-            .WithOne()
-            .HasForeignKey<ItemLens>(itemLens => itemLens.SaleItemId);
-
-        modelBuilder.Entity<ItemLens>()
-            .HasOne(itemLens => itemLens.SaleItem)
             .WithOne(saleItem => saleItem.ItemLens)
             .HasForeignKey<ItemLens>(itemLens => itemLens.SaleItemId);
     }

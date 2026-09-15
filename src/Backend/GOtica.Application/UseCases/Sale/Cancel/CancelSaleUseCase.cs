@@ -55,8 +55,12 @@ public class CancelSaleUseCase : ICancelSaleUseCase
         if (!canBeCancelled)
             throw new ConflictException(ResourceMessagesException.SALE_CANNOT_BE_CANCELLED);
 
+        var itemsToRestore = sale.Status == SaleStatus.Confirmed
+            ? sale.Items
+            : sale.Items.Where(item => !item.HasItemLens);
+
         // Stock impact grouped by product
-        var quantitiesToRestore = sale.Items
+        var quantitiesToRestore = itemsToRestore
             .GroupBy(item => item.ProductId)
             .ToDictionary(
                 group => group.Key,
@@ -100,8 +104,8 @@ public class CancelSaleUseCase : ICancelSaleUseCase
                     throw new ConflictException(ResourceMessagesException.SALE_CANNOT_BE_CANCELLED);
             }
 
-
-            await _stockMovementWriteOnlyRepository.AddRange(stockMovements);
+            if (stockMovements.Count > 0)
+                await _stockMovementWriteOnlyRepository.AddRange(stockMovements);
         });
     }
 }
