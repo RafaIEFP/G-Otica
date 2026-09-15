@@ -21,7 +21,8 @@ internal class GOticaDbContext(DbContextOptions options) : DbContext(options)
     public DbSet<SaleItem> SaleItems { get; set; }
     public DbSet<Payment> Payments { get; set; }
     public DbSet<Treatment> Treatments { get; set; }
-    public DbSet<ItemLens> ItemLens { get; set; }
+    public DbSet<ItemLens> ItemLenses { get; set; }
+    public DbSet<ItemLensTreatment> ItemLensTreatments { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -35,6 +36,11 @@ internal class GOticaDbContext(DbContextOptions options) : DbContext(options)
         modelBuilder.Entity<ItemLens>()
             .HasOne(itemLens => itemLens.SaleItem)
             .WithOne()
+            .HasForeignKey<ItemLens>(itemLens => itemLens.SaleItemId);
+
+        modelBuilder.Entity<ItemLens>()
+            .HasOne(itemLens => itemLens.SaleItem)
+            .WithOne(saleItem => saleItem.ItemLens)
             .HasForeignKey<ItemLens>(itemLens => itemLens.SaleItemId);
     }
 
