@@ -37,6 +37,17 @@ internal sealed class TreatmentRepository(GOticaDbContext dbContext) : ITreatmen
                 treatment.IsActive);
     }
 
+    public async Task<IReadOnlyCollection<Treatment>> GetActivesByIds(IReadOnlyCollection<Guid> treatmentIds, Guid opticalStoreId)
+    {
+        return await dbContext.Treatments
+            .AsNoTracking()
+            .Where(treatment =>
+                treatmentIds.Contains(treatment.Id) &&
+                treatment.OpticalStoreId == opticalStoreId &&
+                treatment.IsActive)
+            .ToListAsync();
+    }
+
     public async Task<PagedResult<TreatmentDto>> GetAll(Guid opticalStoreId, int page, int pageSize, bool? isActive)
     {
         var query = dbContext.Treatments.AsNoTracking().Where(treatment => treatment.OpticalStoreId == opticalStoreId);

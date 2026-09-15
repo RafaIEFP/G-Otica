@@ -5,11 +5,11 @@ using GOtica.Domain.Entities;
 using GOtica.Domain.Enums;
 using GOtica.Domain.Repositories;
 using GOtica.Domain.Repositories.Client;
-using GOtica.Domain.Repositories.Payment;
 using GOtica.Domain.Repositories.Prescription;
 using GOtica.Domain.Repositories.Product;
 using GOtica.Domain.Repositories.Sale;
 using GOtica.Domain.Repositories.StockMovement;
+using GOtica.Domain.Repositories.Treatment;
 using GOtica.Domain.Services;
 using GOtica.Exceptions.ExceptionsBase;
 using GOtica.Exceptions.Resources;
@@ -27,6 +27,7 @@ public class RegisterSaleUseCase : IRegisterSaleUseCase
     private readonly IProductUpdateOnlyRepository _productUpdateOnlyRepository;
     private readonly ISaleWriteOnlyRepository _saleWriteOnlyRepository;
     private readonly IStockMovementWriteOnlyRepository _stockMovementWriteOnlyRepository;
+    private readonly ITreatmentReadOnlyRepository _treatmentReadOnlyRepository;
 
     public RegisterSaleUseCase(
         ILoggedUser loggedUser,
@@ -36,7 +37,8 @@ public class RegisterSaleUseCase : IRegisterSaleUseCase
         IProductReadOnlyRepository productReadOnlyRepository,
         IProductUpdateOnlyRepository productUpdateOnlyRepository,
         ISaleWriteOnlyRepository saleWriteOnlyRepository,
-        IStockMovementWriteOnlyRepository stockMovementWriteOnlyRepository)
+        IStockMovementWriteOnlyRepository stockMovementWriteOnlyRepository,
+        ITreatmentReadOnlyRepository treatmentReadOnlyRepository)
     {
         _loggedUser = loggedUser;
         _unitOfWork = unitOfWork;
@@ -46,6 +48,7 @@ public class RegisterSaleUseCase : IRegisterSaleUseCase
         _productUpdateOnlyRepository = productUpdateOnlyRepository;
         _saleWriteOnlyRepository = saleWriteOnlyRepository;
         _stockMovementWriteOnlyRepository = stockMovementWriteOnlyRepository;
+        _treatmentReadOnlyRepository = treatmentReadOnlyRepository;
     }
 
     public async Task<ResponseRegisterSale> Execute(Guid opticalStoreId, RequestRegisterSale request)
@@ -58,8 +61,6 @@ public class RegisterSaleUseCase : IRegisterSaleUseCase
 
         if (!clientExist)
             throw new NotFoundException(ResourceMessagesException.CLIENT_NOT_FOUND);
-
-        await ValidatePrescription(request.PrescriptionId, request.ClientId, opticalStoreId);
 
         var requestedQuantities = request.Items
             .GroupBy(r => r.ProductId)
@@ -76,9 +77,26 @@ public class RegisterSaleUseCase : IRegisterSaleUseCase
 
         var productsById = products.ToDictionary(p => p.Id);
 
+        ValidateLensItems(request.Items, productsById, request.PrescriptionId);
+
+        await ValidatePrescription(request.PrescriptionId, request.ClientId, opticalStoreId);
+
         var now = DateTime.UtcNow;
 
-        var sale = CreateSale(opticalStoreId, request, loggedUser.Id, productsById, now);
+        var treatmentIds = request.Items
+            .Where(item => item.ItemLens is not null)
+            .SelectMany(item => item.ItemLens!.TreatmentIds)
+            .Distinct()
+            .ToList();
+
+        var treatments = await _treatmentReadOnlyRepository.GetActivesByIds(treatmentIds, opticalStoreId);
+
+        if (treatments.Count != treatmentIds.Count)
+            throw new NotFoundException(ResourceMessagesException.TREATMENT_NOT_FOUND);
+
+        var treatmentsById = treatments.ToDictionary(treatment => treatment.Id);
+
+        var sale = CreateSale(opticalStoreId, request, loggedUser.Id, productsById, treatmentsById, now);
 
         ValidateInitialPayment(request.InitialPayment.Amount, sale.TotalAmount);
 
@@ -144,11 +162,56 @@ public class RegisterSaleUseCase : IRegisterSaleUseCase
         }
     }
 
+    private static void ValidateLensItems(
+        IReadOnlyCollection<RequestRegisterSaleItem> requestItems,
+        IReadOnlyDictionary<Guid, Domain.Entities.Product> products,
+        Guid? prescriptionId)
+    {
+        var containsLens = false;
+
+        foreach (var requestItem in requestItems)
+        {
+            var product = products[requestItem.ProductId];
+
+            if (product.ProductType != ProductType.Lens)
+            {
+                if (requestItem.ItemLens is not null)
+                {
+                    throw new ErrorOnValidationException(
+                        [ResourceMessagesException.ITEM_LENS_NOT_ALLOWED]);
+                }
+
+                continue;
+            }
+
+            containsLens = true;
+
+            if (requestItem.ItemLens is null)
+            {
+                throw new ErrorOnValidationException(
+                    [ResourceMessagesException.ITEM_LENS_REQUIRED]);
+            }
+
+            if (requestItem.Quantity != 1)
+            {
+                throw new ErrorOnValidationException(
+                    [ResourceMessagesException.LENS_ITEM_QUANTITY_MUST_BE_ONE]);
+            }
+        }
+
+        if (containsLens && !prescriptionId.HasValue)
+        {
+            throw new ErrorOnValidationException(
+                [ResourceMessagesException.PRESCRIPTION_REQUIRED_FOR_LENS_SALE]);
+        }
+    }
+
     private static Domain.Entities.Sale CreateSale(
         Guid opticalStoreId, 
         RequestRegisterSale request,
         Guid userId,
         IReadOnlyDictionary<Guid, Domain.Entities.Product> products,
+        IReadOnlyDictionary<Guid, Domain.Entities.Treatment> treatments,
         DateTime now)
     {
         var sale = new Domain.Entities.Sale
@@ -172,7 +235,7 @@ public class RegisterSaleUseCase : IRegisterSaleUseCase
 
             var totalAmount = grossAmount - requestItem.DiscountAmount;
 
-            sale.Items.Add(new SaleItem
+            var saleItem = new SaleItem
             {
                 Quantity = requestItem.Quantity,
 
@@ -180,17 +243,66 @@ public class RegisterSaleUseCase : IRegisterSaleUseCase
                 UnitPrice = product.BasePrice,
 
                 DiscountAmount = requestItem.DiscountAmount,
-                TotalAmount = totalAmount,
                 Notes = requestItem.Notes,
+
                 ProductId = product.Id,
-                SaleId = sale.Id,
-                Sale = sale
-            });
+
+                SaleId = sale.Id
+            };
+
+            if (requestItem.ItemLens is not null)
+            {
+                var itemLens = CreateItemLens(
+                    requestItem.ItemLens,
+                    saleItem,
+                    treatments);
+
+                saleItem.ItemLens = itemLens;
+
+                totalAmount += itemLens.Treatments.Sum(treatment => treatment.UnitPrice);
+            }
+
+            saleItem.TotalAmount = totalAmount;
+
+            sale.Items.Add(saleItem);
 
             sale.TotalAmount += totalAmount;
         }
 
         return sale;
+    }
+
+    private static ItemLens CreateItemLens(
+        RequestRegisterSaleItemLens request,
+        SaleItem saleItem,
+        IReadOnlyDictionary<Guid, Domain.Entities.Treatment> treatments)
+    {
+        var itemLens = new ItemLens
+        {
+            EyeSide = (EyeSide)request.EyeSide!.Value,
+            PupillaryDistance = request.PupillaryDistance,
+            NasoPupillaryDistance = request.NasoPupillaryDistance,
+            LensType = (LensType)request.LensType!.Value,
+            RefractiveIndex = request.RefractiveIndex,
+            Material = (LensMaterial)request.Material!.Value,
+            Color = request.Color,
+            Diameter = request.Diameter,
+            SaleItemId = saleItem.Id
+        };
+
+        foreach (var treatmentId in request.TreatmentIds)
+        {
+            var treatment = treatments[treatmentId];
+
+            itemLens.Treatments.Add(new ItemLensTreatment
+            {
+                ItemLensId = itemLens.Id,
+                TreatmentId = treatment.Id,
+                UnitPrice = treatment.BasePrice
+            });
+        }
+
+        return itemLens;
     }
 
     private static void ValidateInitialPayment(decimal initialPaymentAmount, decimal saleTotalAmount)
@@ -213,7 +325,6 @@ public class RegisterSaleUseCase : IRegisterSaleUseCase
             Status = PaymentStatus.Received,
             ReceivedAt = now,
             SaleId = sale.Id,
-            Sale = sale,
             ReceivedByUserId = userId
         };
 

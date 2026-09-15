@@ -426,4 +426,10 @@
   <data name="LENS_TREATMENTS_DUPLICATED" xml:space="preserve">
     <value>The same treatment cannot be added more than once to a lens.</value>
   </data>
+  <data name="ITEM_LENS_REQUIRED" xml:space="preserve">
+    <value>Lens information is required for lens products.</value>
+  </data>
+  <data name="ITEM_LENS_NOT_ALLOWED" xml:space="preserve">
+    <value>Lens information can only be provided for lens products.</value>
+  </data>
 </root>

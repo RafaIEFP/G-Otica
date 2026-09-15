@@ -14,12 +14,6 @@ internal class RegisterSaleValidator : AbstractValidator<RequestRegisterSale>
             .Must(p => p is null || p != Guid.Empty)
             .WithMessage(ResourceMessagesException.PRESCRIPTION_ID_INVALID);
 
-        RuleFor(r => r.PrescriptionId)
-            .NotNull()
-            .When(request =>
-                request.Items.Any(item => item.ItemLens is not null))
-            .WithMessage(ResourceMessagesException.PRESCRIPTION_REQUIRED_FOR_LENS_SALE);
-
         RuleFor(r => r.Items)
             .NotEmpty()
             .WithMessage(ResourceMessagesException.SALE_ITEMS_EMPTY);

@@ -259,6 +259,24 @@ namespace GOtica.Exceptions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lens information can only be provided for lens products..
+        /// </summary>
+        public static string ITEM_LENS_NOT_ALLOWED {
+            get {
+                return ResourceManager.GetString("ITEM_LENS_NOT_ALLOWED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lens information is required for lens products..
+        /// </summary>
+        public static string ITEM_LENS_REQUIRED {
+            get {
+                return ResourceManager.GetString("ITEM_LENS_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The lens color cannot exceed 100 characters..
         /// </summary>
         public static string LENS_COLOR_MAX_LENGTH {

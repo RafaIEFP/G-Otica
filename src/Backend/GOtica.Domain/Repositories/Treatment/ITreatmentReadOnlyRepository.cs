@@ -11,4 +11,8 @@ public interface ITreatmentReadOnlyRepository
         int page,
         int pageSize,
         bool? isActive);
+
+    Task<IReadOnlyCollection<Entities.Treatment>> GetActivesByIds(
+        IReadOnlyCollection<Guid> treatmentIds,
+        Guid opticalStoreId);
 }
