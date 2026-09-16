@@ -1,137 +1,399 @@
 # Documentação do Domínio
 
-Esta pasta reúne a documentação do domínio da aplicação.
+Esta pasta reúne a documentação do domínio da aplicação G-Otica.
 
-O objetivo é registrar o conhecimento adquirido durante a modelagem do sistema, transformando as regras de negócio validadas com o especialista da ótica em documentação permanente.
+O objetivo é preservar o conhecimento adquirido durante a análise e modelagem do sistema, transformando as regras de negócio, decisões de domínio e comportamentos consolidados durante o desenvolvimento em documentação permanente.
 
-Além de descrever as entidades do sistema, esta documentação explica as decisões tomadas durante sua modelagem, permitindo compreender **não apenas o que foi modelado, mas também por que cada decisão foi tomada**.
+Além de descrever as entidades existentes, esta documentação procura explicar **não apenas o que foi modelado, mas também por que determinadas decisões foram tomadas**.
+
+Dessa forma, os documentos servem como referência para compreender o funcionamento atual do sistema e apoiar futuras evoluções do projeto.
 
 ---
 
-# Organização da documentação
+# Organização da Documentação
 
-A documentação está dividida em dois grupos.
+A documentação das entidades está dividida em dois grupos:
+
+- Entidades de Domínio;
+    
+- Entidades Especializadas.
+    
+
+---
 
 ## Entidades de Domínio
 
-Representam os principais conceitos do negócio.
+Representam os principais conceitos e estruturas utilizadas pelo domínio da aplicação.
 
-São entidades que possuem identidade própria dentro do domínio e podem ser compreendidas de forma independente.
+Essas entidades possuem identidade e responsabilidade próprias dentro do sistema e participam diretamente dos diferentes processos de negócio.
 
-Exemplos:
+Atualmente são documentadas:
 
-- Ótica
+- Ótica (`OpticalStore`);
     
-- Utilizador
+- Utilizador (`User`);
     
-- Cliente
+- UtilizadorÓtica (`UserOpticalStore`);
     
-- Receita
+- Convite (`Invite`);
     
-- Produto
+- Refresh Token (`RefreshToken`);
     
-- Venda
+- Cliente (`Client`);
     
-- Compra
+- Receita (`Prescription`);
     
-- Pagamento
+- Produto (`Product`);
     
-- Fornecedor
+- Tratamento (`Treatment`);
     
-- Tratamento
+- Fornecedor (`Supplier`);
+    
+- Compra (`Purchase`);
+    
+- Movimentação de Estoque (`StockMovement`);
+    
+- Venda (`Sale`);
+    
+- Pagamento (`Payment`).
     
 
-Esses documentos descrevem as regras de negócio, as decisões de modelagem e as possíveis evoluções da entidade.
+Algumas dessas entidades representam conceitos diretamente relacionados ao funcionamento da ótica, enquanto outras, como `RefreshToken`, oferecem suporte técnico aos processos necessários para a utilização segura da aplicação.
+
+Os respetivos documentos descrevem, conforme aplicável:
+
+- contexto;
+    
+- responsabilidade;
+    
+- regras de domínio;
+    
+- decisões de modelagem;
+    
+- relacionamentos;
+    
+- fluxos relevantes;
+    
+- benefícios;
+    
+- possíveis evoluções;
+    
+- conclusão.
+    
 
 ---
 
 ## Entidades Especializadas
 
-Representam especializações ou complementos de outras entidades do domínio.
+Representam informações que existem no contexto de uma entidade ou processo principal.
 
-Essas entidades não existem de forma independente, estando sempre associadas a uma entidade principal.
+Atualmente são documentadas:
+
+- Item de Compra (`PurchaseItem`);
+    
+- Item de Venda (`SaleItem`);
+    
+- Item Lente (`ItemLens`);
+    
+- Item Lente Tratamento (`ItemLensTreatment`).
+    
+
+Essas entidades possuem responsabilidades específicas e dependem de estruturas principais do domínio.
+
+Por exemplo:
+
+```text
+Purchase
+   ↓
+PurchaseItem
+```
+
+```text
+Sale
+   ↓
+SaleItem
+   ↓
+ItemLens
+   ↓
+ItemLensTreatment
+```
+
+A utilização dessas entidades permite manter os modelos principais mais simples e separar informações que só existem em determinados contextos.
+
+A sua documentação procura concentrar-se nas responsabilidades e regras específicas, evitando repetir informações já explicadas nas entidades principais.
+
+---
+
+# Visão Geral das Entidades
+
+De forma simplificada, o domínio atual pode ser organizado nos seguintes contextos:
+
+## Gestão da Ótica e da Equipa
+
+```text
+OpticalStore
+User
+UserOpticalStore
+Invite
+```
+
+Essas entidades representam as óticas, os utilizadores, a participação dos utilizadores em cada unidade e o processo de entrada de novos membros.
+
+---
+
+## Autenticação
+
+```text
+User
+RefreshToken
+```
+
+`RefreshToken` oferece suporte à manutenção e renovação das sessões autenticadas da aplicação.
+
+---
+
+## Clientes e Receitas
+
+```text
+Client
+Prescription
+```
+
+Essas entidades representam os clientes da ótica e o histórico das suas prescrições.
+
+---
+
+## Produtos e Tratamentos
+
+```text
+Product
+Treatment
+```
+
+Representam elementos do catálogo disponibilizado pela ótica.
+
+---
+
+## Compras e Estoque
+
+```text
+Supplier
+Purchase
+PurchaseItem
+Product
+StockMovement
+```
+
+Representam a aquisição de produtos junto aos fornecedores e o controlo das alterações realizadas no stock.
+
+---
+
+## Vendas
+
+```text
+Sale
+SaleItem
+ItemLens
+ItemLensTreatment
+Payment
+```
+
+Representam o processo comercial, incluindo produtos vendidos, lentes personalizadas, tratamentos e pagamentos.
+
+---
+
+# Estrutura dos Documentos
+
+Os documentos seguem uma estrutura semelhante, adaptada conforme a responsabilidade e complexidade de cada entidade.
+
+Nem todas as entidades necessitam das mesmas secções.
+
+---
+
+## Contexto
+
+Apresenta o papel da entidade dentro do domínio e explica por que ela existe.
+
+---
+
+## Responsabilidade
+
+Quando necessário, define de forma mais direta quais informações ou comportamentos pertencem à entidade.
+
+Essa secção é especialmente útil para entidades especializadas.
+
+---
+
+## Regras de Domínio
+
+Documenta as regras que determinam o comportamento da entidade dentro dos processos da aplicação.
 
 Exemplos:
 
-- ItemVenda
+- condições para utilização da entidade;
     
-- ItemCompra
+- restrições;
     
-- ItemLente
+- estados permitidos;
     
-- ItemLenteTratamento
+- relações obrigatórias;
+    
+- comportamentos resultantes de determinadas operações.
     
 
-Por esse motivo, sua documentação é mais objetiva, concentrando-se apenas em sua responsabilidade específica e nas decisões particulares da modelagem, 
-evitando repetir informações já descritas nos documentos das entidades principais.
+As regras devem representar o funcionamento atual do domínio e permanecer independentes, sempre que possível, de detalhes específicos da infraestrutura utilizada.
 
 ---
 
-# Estrutura dos documentos
+## Decisões de Modelagem
 
-Os documentos seguem uma estrutura comum, adaptada conforme a responsabilidade de cada entidade.
+Explica como os conceitos e regras foram representados no sistema.
 
-## 1. Contexto
+Podem ser documentadas decisões como:
 
-Apresenta o papel da entidade dentro do domínio e sua responsabilidade no sistema.
+- criação ou separação de entidades;
+    
+- escolha de relacionamentos;
+    
+- utilização de entidades intermediárias;
+    
+- preservação de dados históricos;
+    
+- utilização de estados;
+    
+- separação de responsabilidades.
+    
+
+Essa secção é importante para preservar o raciocínio utilizado durante a modelagem.
 
 ---
 
-## 2. Regras de Domínio _(quando aplicável)_
+## Fluxos
 
-Registra exclusivamente regras do negócio validadas com o especialista.
+Quando a entidade participa de um comportamento relevante, o documento pode apresentar de forma simplificada como esse processo ocorre.
 
-Essas regras representam o funcionamento real da ótica e independem da tecnologia utilizada.
+Essa secção não é obrigatória para todas as entidades.
 
-Entidades especializadas podem não possuir esta seção quando todas as regras já estiverem documentadas na entidade principal.
-
----
-
-## 3. Decisões de Modelagem
-
-Descreve como as regras de domínio foram representadas no sistema.
-
-Aqui são documentadas decisões relacionadas à modelagem das entidades, relacionamentos e demais escolhas arquiteturais.
+Os processos completos da aplicação permanecem documentados separadamente na área de **Processos**.
 
 ---
 
-## 4. Benefícios
+## Benefícios
 
-Apresenta as vantagens obtidas com a modelagem escolhida.
-
----
-
-## 5. Possíveis Evoluções _(quando aplicável)_
-
-Registra funcionalidades e ideias discutidas durante a modelagem que não fazem parte da primeira versão, mas que poderão ser incorporadas futuramente.
-
-Essa seção evita a perda de conhecimento e reduz a necessidade de revisitar decisões já analisadas.
+Apresenta as principais vantagens obtidas através da modelagem escolhida.
 
 ---
 
-## 6. Conclusão
+## Possíveis Evoluções
 
-Resume a responsabilidade da entidade e os principais motivos que justificam sua modelagem.
+Regista funcionalidades, informações ou comportamentos que foram considerados, mas que não fazem parte do modelo atual.
+
+Essa secção ajuda a preservar decisões e ideias que poderão ser revisitadas futuramente sem confundi-las com funcionalidades já implementadas.
 
 ---
 
-# Princípios adotados
+## Conclusão
 
-Durante a elaboração desta documentação foram seguidos os seguintes princípios.
+Resume a responsabilidade da entidade e os principais pontos da modelagem adotada.
 
-- Separar regras de domínio de decisões de modelagem.
+---
+
+# Relação com os Processos
+
+A documentação das entidades descreve individualmente os conceitos do domínio.
+
+Os documentos de processos descrevem como essas entidades colaboram para executar operações completas do sistema.
+
+Atualmente, os principais processos documentados são:
+
+- Gestão da Ótica;
     
-- Modelar conceitos do negócio, e não apenas estruturas de banco de dados.
+- Gestão da Equipa e Convites;
     
-- Manter cada entidade responsável por um único conceito do domínio.
+- Gestão de Clientes;
     
-- Especializar entidades apenas quando necessário.
+- Gestão de Receitas;
     
-- Evitar redundância entre os documentos.
+- Gestão de Stock;
     
-- Modelar apenas necessidades reais da primeira versão.
+- Compra;
     
-- Registrar decisões importantes para facilitar futuras evoluções.
+- Venda;
+    
+- Gestão de Pagamentos.
     
 
-Esses princípios orientam toda a documentação do domínio e servem como referência para a criação de novos documentos e para a evolução do sistema.
+Por exemplo, o processo de Venda envolve simultaneamente:
+
+```text
+Client
+Prescription
+Product
+Sale
+SaleItem
+ItemLens
+ItemLensTreatment
+Treatment
+Payment
+StockMovement
+```
+
+A documentação de cada entidade explica a sua responsabilidade individual, enquanto o processo explica como elas interagem durante a operação.
+
+---
+
+# Princípios Adotados
+
+Durante a elaboração da documentação foram seguidos os seguintes princípios:
+
+- separar regras de domínio de decisões de modelagem;
+    
+- documentar o comportamento atual do sistema;
+    
+- modelar conceitos do negócio, e não apenas estruturas da base de dados;
+    
+- manter responsabilidades bem definidas entre as entidades;
+    
+- especializar entidades apenas quando necessário;
+    
+- preservar dados históricos quando relevantes;
+    
+- evitar redundância entre documentos;
+    
+- separar informações clínicas, comerciais, financeiras e de fabricação;
+    
+- respeitar o isolamento dos dados entre óticas;
+    
+- modelar apenas necessidades justificadas para a versão atual;
+    
+- distinguir funcionalidades atuais de possíveis evoluções;
+    
+- manter a documentação alinhada com a implementação;
+    
+- registar decisões importantes para facilitar futuras alterações.
+    
+
+---
+
+# Evolução da Documentação
+
+A documentação do domínio deve acompanhar a evolução da aplicação.
+
+Sempre que uma alteração modificar:
+
+- uma entidade;
+    
+- uma regra de negócio;
+    
+- um relacionamento;
+    
+- um estado;
+    
+- um processo relevante;
+    
+- uma decisão de modelagem;
+    
+
+o respetivo documento deverá ser revisto.
+
+A documentação deve representar o **comportamento atual do G-Otica**, enquanto funcionalidades ainda não implementadas devem permanecer claramente identificadas como possíveis evoluções.

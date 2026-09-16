@@ -1,31 +1,41 @@
 ## 1. Contexto
-A Ótica representa a unidade de negócio do sistema.
 
-É dentro de uma ótica que todas as operações comerciais acontecem, como cadastro de clientes, realização de vendas, emissão de pedidos de lentes, controlo de produtos e compras junto aos fornecedores.
+A `Ótica` representa uma unidade de negócio dentro do sistema.
 
-Embora o sistema seja utilizado por proprietários e funcionários, todas as informações de negócio pertencem à ótica e não aos utilizadores que as registaram.
+É dentro do contexto de uma ótica que acontecem as operações comerciais, como cadastro de clientes, gestão de produtos, vendas, compras junto aos fornecedores, tratamentos e demais operações relacionadas ao funcionamento da unidade.
+
+Embora o sistema seja utilizado por proprietários e funcionários, as informações de negócio pertencem à ótica e não aos utilizadores que as registaram.
 
 Por esse motivo, a ótica é considerada uma das entidades centrais do domínio.
 
 ---
 
 ## 2. Regras de Domínio
+
 Durante o levantamento de requisitos foram identificadas as seguintes regras do negócio.
 
-#### Uma empresa pode possuir várias óticas
-O sistema deve permitir que um mesmo proprietário administre diversas unidades.
+#### Um utilizador pode ser proprietário de várias óticas
+
+O sistema permite que um mesmo utilizador seja proprietário de diferentes unidades.
 
 Exemplo:
-- Ótica Centro
-- Ótica Shopping
-- Ótica Norte
 
-Cada uma representa uma unidade independente.
+- Ótica Centro;
+    
+- Ótica Shopping;
+    
+- Ótica Norte.
+    
+
+Cada uma representa uma unidade independente dentro do sistema.
+
+A propriedade de uma ótica não é armazenada diretamente na entidade `Ótica`, sendo representada através da associação `UtilizadorOtica` com a função de proprietário (`owner`).
 
 ---
 
 #### Cada ótica possui os seus próprios dados
-Clientes, produtos, vendas, compras e demais registos pertencem à unidade onde foram cadastrados.
+
+Clientes, produtos, fornecedores, tratamentos, vendas, compras e demais registos pertencem ao contexto da unidade onde foram cadastrados.
 
 Não existe partilha automática de dados entre diferentes óticas.
 
@@ -33,72 +43,211 @@ Por exemplo, um cliente cadastrado na Ótica Centro não pertence automaticament
 
 ---
 
-#### Funcionários trabalham em uma ou mais óticas
-Uma ótica pode possuir diversos colaboradores.
+#### Funcionários podem trabalhar em uma ou mais óticas
 
-Da mesma forma, um colaborador pode trabalhar em mais de uma unidade.
+Uma ótica pode possuir diversos utilizadores associados.
 
-Essa regra será representada através da entidade `UtilizadorOtica`.
+Da mesma forma, um utilizador pode estar associado a mais de uma ótica.
+
+Essa relação é representada através da entidade `UtilizadorOtica`, que também armazena informações como:
+
+- função do utilizador na ótica;
+    
+- data de entrada;
+    
+- estado da associação.
+    
 
 ---
 
-#### A ótica é responsável pelas operações do negócio
-Toda operação realizada pelo sistema acontece dentro do contexto de uma ótica.
+#### A criação de uma ótica define o proprietário inicial
+
+Quando uma nova ótica é registada, o utilizador responsável pelo registo é automaticamente associado à unidade através de `UtilizadorOtica` com a função `owner`.
+
+Dessa forma, toda ótica possui inicialmente um utilizador responsável pela sua administração.
+
+---
+
+#### A propriedade da ótica pode ser transferida
+
+O proprietário pode transferir a propriedade da ótica para outro utilizador.
+
+Para receber a propriedade, o novo proprietário deve:
+
+- existir e estar ativo;
+    
+- já estar associado à ótica;
+    
+- ser diferente do proprietário atual.
+    
+
+Após a transferência:
+
+- o novo utilizador assume a função `owner`;
+    
+- o antigo proprietário passa a possuir a função `manager`.
+    
+
+A transferência de propriedade é uma operação própria e não ocorre automaticamente durante outras ações do sistema.
+
+---
+
+#### O número fiscal da ótica deve ser único
+
+Cada ótica possui um número fiscal (`TaxNumber`) que identifica a unidade no sistema.
+
+Não é permitido registar duas óticas com o mesmo número fiscal.
+
+A mesma regra é aplicada quando os dados de uma ótica são atualizados.
+
+---
+
+#### A ótica pode ser desativada
+
+A entidade possui um estado (`IsActive`) que permite desativar uma ótica sem eliminar os seus dados da base de dados.
+
+Quando uma ótica é desativada, as associações ativas entre utilizadores e essa ótica também são desativadas.
+
+Os dados históricos da unidade permanecem armazenados.
+
+---
+
+#### A ótica é responsável pelo contexto das operações do negócio
+
+As operações realizadas pelo sistema acontecem dentro do contexto de uma ótica.
 
 Entre elas:
+
 - cadastro de clientes;
-- cadastro de produtos;
-- vendas;
+    
+- gestão de produtos;
+    
+- gestão de fornecedores;
+    
 - compras;
-- pagamentos;
-- pedidos de lentes.
+    
+- vendas;
+    
+- tratamentos;
+    
+- gestão dos utilizadores associados à unidade.
+    
 
 ---
 
 ## 3. Decisões de Modelagem
 
-#### A Ótica será uma entidade própria
-Foi criada uma entidade específica para representar cada unidade da empresa.
+#### A Ótica é uma entidade própria
 
-Ela não será apenas um atributo em outra tabela.
+Foi criada uma entidade específica para representar cada unidade.
 
-Isso permite que cada unidade possua sua própria identidade e seus próprios dados.
+Ela não é apenas um atributo pertencente a outra entidade.
+
+Atualmente, a entidade armazena:
+
+- Nome;
+    
+- Email;
+    
+- Telefone;
+    
+- Número fiscal;
+    
+- Estado do cadastro.
+    
+
+Essa estrutura permite que cada unidade possua identidade e dados próprios.
 
 ---
 
-#### As entidades de negócio referenciam a Ótica
-As principais entidades do sistema armazenam uma referência para a ótica à qual pertencem.
+#### Não existe uma entidade Empresa na modelagem atual
+
+Embora um mesmo proprietário possa administrar várias óticas, o modelo atual não possui uma entidade específica para representar uma empresa ou grupo empresarial.
+
+Cada ótica é uma unidade independente e a relação de propriedade é determinada através de `UtilizadorOtica`.
+
+Caso futuramente seja necessário representar formalmente grupos empresariais compostos por várias unidades, essa estrutura poderá evoluir.
+
+---
+
+#### As entidades de negócio pertencem ao contexto da Ótica
+
+Algumas entidades possuem uma referência direta para a ótica à qual pertencem.
+
+Entre elas:
+
+- `Cliente`;
+    
+- `Produto`;
+    
+- `Fornecedor`;
+    
+- `Compra`;
+    
+- `Venda`;
+    
+- `Tratamento`;
+    
+- `Convite`;
+    
+- `UtilizadorOtica`.
+    
+
+Outras entidades pertencem ao contexto da ótica de forma indireta, através das suas relações.
 
 Exemplos:
 
-- Cliente
-- Produto
-- Venda
-- Compra
-- Pagamento
-- Utilizador (através de `UtilizadorOtica`)
+- `Pagamento` pertence a uma `Venda`, que pertence a uma ótica;
+    
+- `Receita` pertence a um `Cliente`, que pertence a uma ótica;
+    
+- `Movimentação de Estoque` pertence a um `Produto`, que pertence a uma ótica;
+    
+- itens de venda e de compra pertencem às respetivas operações.
+    
 
-Essa abordagem garante que todas as informações permaneçam organizadas por unidade.
+Essa abordagem mantém o contexto da unidade sem necessidade de repetir `OpticalStoreId` em todas as entidades do domínio.
 
 ---
 
-#### A relação entre Utilizador e Ótica será N:N
-Não foi adicionada uma chave estrangeira `OticaId` diretamente em `Utilizador`.
+#### A relação entre Utilizador e Ótica é N:N
 
-Em vez disso, foi criada uma entidade intermediária chamada `UtilizadorOtica`.
+Não foi adicionada uma chave estrangeira `OpticalStoreId` diretamente em `Utilizador`.
 
-Essa decisão permite representar corretamente cenários em que um mesmo utilizador atua em diferentes unidades.
+Em vez disso, foi criada a entidade intermediária `UtilizadorOtica`.
+
+Essa decisão permite representar corretamente cenários em que:
+
+- uma ótica possui vários utilizadores;
+    
+- um utilizador trabalha em diferentes óticas;
+    
+- o mesmo utilizador possui funções diferentes em unidades distintas.
+    
 
 A modelagem dessa relação é detalhada no documento [[UtilizadorOtica]].
 
 ---
 
-#### A Ótica será o limite de pertencimento dos dados
-Foi definido que os registos do sistema pertencem à ótica e não ao utilizador.
+#### O proprietário é definido através de UtilizadorOtica
 
-O utilizador representa apenas quem executou determinada operação.
+A entidade `Ótica` não possui uma propriedade como `OwnerId`.
 
-Já a ótica representa quem é proprietária daquela informação.
+A propriedade da unidade é determinada pela função `owner` existente na associação entre `Utilizador` e `Ótica`.
+
+Essa decisão mantém as responsabilidades relacionadas aos utilizadores e às suas funções centralizadas na entidade `UtilizadorOtica`.
+
+---
+
+#### A Ótica é o limite de pertencimento dos dados
+
+Foi definido que os registos comerciais pertencem à ótica e não ao utilizador que realizou determinada operação.
+
+O utilizador representa quem executou ou registou uma ação quando essa informação é necessária.
+
+Já a ótica representa a unidade à qual aquela informação pertence.
+
+Essa separação é especialmente importante para impedir a mistura de informações entre diferentes unidades.
 
 ---
 
@@ -106,35 +255,64 @@ Já a ótica representa quem é proprietária daquela informação.
 
 A modelagem adotada oferece diversas vantagens.
 
-- Permite que um mesmo sistema seja utilizado por empresas com uma ou várias unidades.
-- Mantém os dados organizados por ótica.
+- Permite que um mesmo utilizador administre uma ou várias óticas.
+    
+- Mantém os dados organizados por unidade.
+    
+- Evita a mistura de informações entre diferentes óticas.
+    
 - Facilita o controlo de permissões entre utilizadores e unidades.
-- Evita duplicação de cadastros.
-- Aproxima a modelagem da estrutura organizacional encontrada em empresas do ramo óptico.
+    
+- Permite atribuir funções diferentes ao mesmo utilizador em óticas distintas.
+    
+- Mantém o histórico da unidade mesmo após a sua desativação.
+    
 - Facilita futuras implementações de relatórios por unidade.
+    
+- Permite evoluir futuramente para estruturas empresariais mais complexas sem alterar o conceito central de ótica.
+    
 
 ---
 
 ## 5. Possíveis Evoluções
-Embora a V1 mantenha um cadastro simples de óticas, a entidade poderá evoluir futuramente.
+
+Embora a versão atual mantenha um cadastro simples de óticas, a entidade poderá evoluir futuramente.
 
 Exemplos:
-- Endereço completo.
-- Horário de funcionamento.
-- Logotipo.
-- Configurações específicas da unidade.
-- Dados fiscais adicionais.
-- Informações de contacto secundárias.
-- Configurações de emissão de documentos.
-- Preferências de notificações.
 
-Essas funcionalidades foram consideradas fora do escopo da primeira versão.
+- Endereço completo;
+    
+- Horário de funcionamento;
+    
+- Logotipo;
+    
+- Configurações específicas da unidade;
+    
+- Dados fiscais adicionais;
+    
+- Informações de contacto secundárias;
+    
+- Configurações de emissão de documentos;
+    
+- Preferências de notificações;
+    
+- Agrupamento de várias óticas numa entidade empresarial;
+    
+- Funcionalidade específica de reativação de óticas.
+    
+
+Essas funcionalidades não fazem parte do modelo atual.
 
 ---
 
 ## 6. Conclusão
-A Ótica representa a unidade organizacional do sistema e constitui um dos principais conceitos do domínio.
 
-Todas as operações comerciais acontecem dentro do contexto de uma ótica, tornando essa entidade a responsável pelo pertencimento dos dados de negócio.
+A `Ótica` representa a unidade organizacional e comercial do sistema e constitui um dos principais conceitos do domínio.
 
-A adoção de uma entidade própria facilita o controlo de acesso e prepara a aplicação para empresas que administram uma ou diversas óticas, mantendo a simplicidade necessária para a primeira versão do projeto.
+As informações de negócio são mantidas dentro do contexto da respetiva ótica, de forma direta ou através das relações entre as entidades.
+
+Os utilizadores relacionam-se com as óticas através de `UtilizadorOtica`, permitindo representar funções, múltiplas unidades e a propriedade da ótica sem acoplar essas responsabilidades diretamente à entidade.
+
+A ótica também possui um estado ativo ou inativo, permitindo a sua desativação sem eliminação dos dados históricos.
+
+Essa modelagem mantém os dados isolados por unidade, facilita o controlo de acesso e permite que o sistema suporte utilizadores responsáveis por uma ou várias óticas.
