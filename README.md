@@ -6,7 +6,7 @@ O **G-Otica** é uma **API de gestão para óticas**, desenvolvida utilizando **
 
 A aplicação utiliza uma **arquitetura em camadas**, procurando manter as regras de negócio separadas dos detalhes técnicos da aplicação. O backend é disponibilizado através de uma **API REST**, permitindo que diferentes interfaces possam consumir os seus recursos através de HTTP.
 
-Os dados são armazenados numa base de dados **PostgreSQL**, com **Entity Framework Core** utilizado no acesso aos dados e **FluentMigrator** no controlo da estrutura da base de dados. O **FluentValidation** é utilizado para validação das requisições e o **Mapster** auxilia no mapeamento entre os modelos da aplicação. A autenticação é realizada através de **JWT e Refresh Tokens**, com as passwords protegidas utilizando **BCrypt**.
+Os dados são armazenados numa base de dados **PostgreSQL**, utilizando **Entity Framework Core** para acesso aos dados e **FluentMigrator** para gestão das migrations. O **FluentValidation** é utilizado para validação das requisições e o **Mapster** auxilia no mapeamento entre os modelos da aplicação. A autenticação é realizada através de **JWT e Refresh Tokens**, com as passwords protegidas utilizando **BCrypt**.
 
 A API também disponibiliza documentação interativa através do **Scalar/OpenAPI**, facilitando a visualização e o teste dos endpoints durante o desenvolvimento.
 
@@ -45,7 +45,7 @@ Para obter uma cópia local do projeto, siga os passos abaixo.
 
 ### Requisitos
 
-- Visual Studio 2022+, JetBrains Rider ou Visual Studio Code
+- Visual Studio, JetBrains Rider ou Visual Studio Code com suporte ao .NET 10
 - [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0)
 - PostgreSQL ou acesso a uma base de dados PostgreSQL
 - Git
@@ -96,7 +96,6 @@ dotnet user-secrets set "ConnectionStrings:DefaultConnection" "<CONNECTION_STRIN
 
 > Nunca adicione passwords, connection strings, Signing Keys ou outras credenciais diretamente ao repositório.
 
-
 ### Instalação
 
 1. Clone o repositório:
@@ -117,15 +116,13 @@ dotnet user-secrets set "ConnectionStrings:DefaultConnection" "<CONNECTION_STRIN
     dotnet restore
     ```
 
-4. Configure as informações necessárias da aplicação, como a conexão com a base de dados e as credenciais utilizadas pelos serviços externos.
-
-5. Execute a API:
+4. Execute a API:
 
     ```sh
     dotnet run --project src/Backend/GOtica.API
     ```
 
-6. Aceda à documentação interativa da API através do **Scalar**.
+5. Aceda à documentação interativa da API através do **Scalar**.
 
 ---
 
