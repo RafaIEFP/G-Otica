@@ -1,0 +1,33 @@
+# Git
+.git/
+.gitignore
+
+# IDE
+.vs/
+.vscode/
+.idea/
+
+# .NET
+**/bin/
+**/obj/
+
+# Environment variables and secrets
+.env
+.env.*
+!*.env.example
+**/secrets.json
+
+# Frontend dependencies
+**/node_modules/
+
+# Python environments
+**/.venv/
+**/venv/
+
+# Temporary files
+*.log
+*.tmp
+*.bak
+
+# Documentation
+docs/

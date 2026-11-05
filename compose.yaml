@@ -1,0 +1,15 @@
+services:
+  api:
+    image: g-otica-api:latest
+    container_name: g-otica-api
+
+    ports:
+      - "127.0.0.1:8080:8080"
+
+    env_file:
+      - path: .env
+        format: raw
+
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: "8080"

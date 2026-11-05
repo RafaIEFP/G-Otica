@@ -17,6 +17,16 @@ using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+const string angularDevPolicy = "AngularDevelopment";
+
+builder.Services.AddCors(op => 
+{
+    op.AddPolicy(name: angularDevPolicy, policy => 
+    {
+        policy.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
+    });
+});
+
 builder.Services.AddControllers(op => op.Filters.Add<ExceptionFilter>());
 
 builder.Services.AddOpenApi(options =>
@@ -62,6 +72,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseRouting();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseCors(angularDevPolicy);
+}
 
 app.UseAuthentication();
 app.UseAuthorization();
